@@ -1,0 +1,11 @@
+.navLinks {
+  display: flex;
+  gap: 100px;
+}
+@media (max-width: 768px) {
+  .navLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}

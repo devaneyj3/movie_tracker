@@ -1,0 +1,163 @@
+// Sign-in page styles
+.signInContainer {
+  width: 100%;
+  max-width: 28rem; // max-w-md
+  margin: 0 auto;
+}
+
+.signInCard {
+  background: rgba(17, 24, 39, 0.95); // gray-900/95
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(55, 65, 81, 0.5); // gray-700/50
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(248, 113, 113, 0.1) 0%, 
+      rgba(192, 132, 252, 0.1) 50%, 
+      rgba(96, 165, 250, 0.1) 100%
+    );
+    z-index: 1;
+  }
+}
+
+.cardHeader {
+  position: relative;
+  z-index: 10;
+  padding: 2rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.logoLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.logoIcon {
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: #f87171; // red-400
+    transform: scale(1.1);
+  }
+}
+
+.cardTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #f87171 0%, #c084fc 50%, #60a5fa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.cardDescription {
+  text-align: center;
+  color: #d1d5db; // gray-300
+  font-size: 1rem;
+  margin: 0;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 10;
+  padding: 1rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.signInForm {
+  width: 100%;
+}
+
+.googleButton {
+  width: 100%;
+  background: linear-gradient(90deg, #f87171 0%, #c084fc 50%, #60a5fa 100%);
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.buttonText {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.googleIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+// Responsive design
+@media (max-width: 640px) {
+  .signInContainer {
+    max-width: 90%;
+    margin: 1rem auto;
+  }
+  
+  .cardHeader {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .cardContent {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.75rem;
+  }
+}

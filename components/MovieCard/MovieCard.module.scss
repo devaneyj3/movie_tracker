@@ -1,0 +1,23 @@
+
+.imageContainer {
+  img {
+    border-radius: 3%;
+  }
+}
+
+.badge {
+  background-color: blue;
+  margin-bottom: 10px;
+}
+.info {
+  text-align: center;
+  margin-top: 20px;
+  .title {
+    font-weight: bold;
+    max-width: 200px;
+    color: white;
+  }
+  .date {
+    color: gray;
+  }
+}

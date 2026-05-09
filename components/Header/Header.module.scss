@@ -1,0 +1,36 @@
+.header {
+  background-color: #042541;
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  @media (min-width: 768px) {
+    padding: 2.5rem 1.25rem;
+  }
+}
+.headerContainer {  
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logoContainer {
+  width: 4%;
+}
+
+.menu {
+  width: 48% ;
+}
+.signIn {
+  width: 25% ;
+  display: flex;
+  justify-content: flex-end;
+}
+.logoIcon {
+  color: white;
+  transition: color 0.2s ease-in-out;
+  &:hover {
+    color: #f87171; 
+  }
+}
