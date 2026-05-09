@@ -1,0 +1,25 @@
+.heroSection {
+  background: url('../../public/images/hero.jpg') center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+}
+.heroTextContainer {
+  width: 100%;
+  padding-left: 15%;
+
+}
+.heroTitle {
+  font-size: 2.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.heroSubtitle {
+  font-size: 1.75rem;
+  color: #e7e9ee;
+  line-height: 1.6;
+}

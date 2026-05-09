@@ -24,8 +24,7 @@ const UserButton = () => {
 		return (
 			<Button asChild variant="ghost" className={styles.signInButton}>
 				<Link href="/sign-in">
-					<UserIcon />
-					Sign In
+					Login
 				</Link>
 			</Button>
 		);

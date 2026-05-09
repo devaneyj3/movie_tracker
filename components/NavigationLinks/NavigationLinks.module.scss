@@ -1,6 +1,13 @@
+.logoContainer {
+  width: 4%;
+}
 .navLinks {
+  width: 100%;
+  border: 1px solid white;
   display: flex;
-  gap: 100px;
+  align-items: center;
+  justify-content: space-around;
+
 }
 @media (max-width: 768px) {
   .navLinks {
