@@ -1,0 +1,47 @@
+.heroSearchContainer {
+  position: relative;
+  width: 100%;
+  padding-left: 12%;
+  .heroSearch {
+    padding-left: 3%;
+    height: 50px;
+    display: inline-block;
+    align-items: center;
+    font-size: large;
+    width: 85%;
+    margin-top: 3%;
+    caret-color: lightgray;
+    border: 1px solid lightgray;
+    border-radius: 40px;
+    line-height: 2;
+    &:focus {
+      border: none;
+      outline: none;
+    }
+    &:active {
+      border: none;
+      outline: none;
+    }
+    &::placeholder {
+      color: lightgray;
+      font-size: 1.25rem;
+      
+    }
+  } 
+  .searchBtn {
+    position: absolute;;
+    bottom: 1px;
+    right: 13.26%;
+    height: 48px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(to right,  #0bc3c9 0%,#17ccb9 100%);
+    width: 5%;
+    min-width: 100px;
+    &:hover {
+      color: black;
+    }
+  }
+}

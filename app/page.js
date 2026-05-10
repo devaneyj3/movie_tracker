@@ -24,15 +24,12 @@ export default function Home() {
 		};
 		getMoviesPlaying();
 	}, []);
-	const { dates, results } = moviesPlaying;
-	const minDate = dates ? dateFormatter(dates.minimum) : "";
-	const maxDate = dates ? dateFormatter(dates.maximum) : "";
 	return (
 		<div className={styles.pageContainer}>
-			<Trending />
-			<LatestTrailers />
-			<Popular />
-			<FreeToWatch/>
+			<Trending trendingMovies={moviesPlaying} />
+			<LatestTrailers LatestTrailers={moviesPlaying} />
+			<Popular popularMovies={moviesPlaying} />
+			<FreeToWatch freeToWatchMovies={moviesPlaying} />
 		</div>
 	);
 }

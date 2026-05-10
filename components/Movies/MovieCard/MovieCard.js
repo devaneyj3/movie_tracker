@@ -5,7 +5,7 @@ import styles from "./MovieCard.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export default function MovieCard({ movie }) {
 	const { id, title, release_date, poster_path, vote_average } = movie;

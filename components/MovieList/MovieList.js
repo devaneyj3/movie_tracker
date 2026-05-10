@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCard from "../Movies/MovieCard/MovieCard";
 import { Card, CardContent } from "@/components/ui/card";
 import {
 	Carousel,

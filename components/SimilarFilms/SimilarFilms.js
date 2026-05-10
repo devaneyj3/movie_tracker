@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SimularFilms.module.scss";
 import Image from "next/image";
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCard from "../Movies/MovieCard/MovieCard";
 
 export default function SimilarFilms({ recommendations }) {
 	const { results } = recommendations;
