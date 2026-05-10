@@ -1,0 +1,13 @@
+.list {
+  h1 {
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 40px;
+  gap: 1rem;
+}

@@ -1,10 +1,7 @@
 import React from 'react';
-import styles from './Popular.module.scss'
+import MovieList from '../MovieList/MovieList';
+
 
 export default function Popular() {
-  return (
-    <div>
-      <h1>What&apos;s Popular</h1>
-    </div>
-  )
+  return <MovieList heading='What&apos;s Popular'/>
 }

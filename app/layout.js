@@ -1,9 +1,7 @@
 import Header from "@/components/Header";
 import "./reset.css";
 import AppProviders from "./AppProviders";
-import Searchbar from "@/components/Header/Searchbar/Searchbar";
-import styles from './layout.module.scss'
-import Hero from "@/components/Hero/Hero";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
 	title: "Movie Tracker",
@@ -16,9 +14,8 @@ export default function RootLayout({ children }) {
 			<body>
 				<AppProviders>
 					<Header />
-					<Searchbar />
-					<Hero />
-					<main className={styles.main}>{children}</main>
+					<main>{children}</main>
+					<Footer/>
 				</AppProviders>
 			</body>
 		</html>

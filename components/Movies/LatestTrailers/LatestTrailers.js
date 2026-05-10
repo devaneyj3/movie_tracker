@@ -1,10 +1,6 @@
 import React from 'react';
-import styles from './LatestTrailers.module.scss'
+import MovieList from '../MovieList/MovieList';
 
 export default function LatestTrailers() {
-  return (
-    <div>
-      <h1>Latest Trailers</h1>
-    </div>
-  )
+  return <MovieList heading='Latest Trailers' />
 }

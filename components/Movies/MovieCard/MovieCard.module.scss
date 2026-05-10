@@ -1,21 +1,53 @@
 
 .imageContainer {
+  position: relative;
   img {
     border-radius: 3%;
   }
-}
-
-.badge {
-  background-color: blue;
-  margin-bottom: 10px;
+  .posterBtn {
+    position: absolute;
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    right: 3%;
+    top: 3%;
+    border-radius: 50%;
+    width: 15%;
+    background-color: rgb(101, 153, 159);
+    z-index: 1;
+    &:hover {
+      background-color: #00b7e9;
+      cursor: pointer;
+    }
+  }
+  .movieDropdownOptions {
+    position: absolute;
+    width: 75%;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid white;
+    right: -20%;
+    top: 20%;
+    border-radius: 5%;
+    li {
+      text-align: center;
+      padding: 7%;
+      margin-top: 5%;
+      font-size: .75rem;
+      list-style: none;
+      border-bottom: 1px solid lightgray;
+      &:hover {
+        background-color: #042541;
+        color: white;
+      }
+    }
+  }
 }
 .info {
-  text-align: center;
   margin-top: 20px;
   .title {
     font-weight: bold;
     max-width: 200px;
-    color: white;
   }
   .date {
     color: gray;

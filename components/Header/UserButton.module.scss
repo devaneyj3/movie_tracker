@@ -3,67 +3,51 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  position: relative;
 }
-
-.signInButton {
-  // Ghost button styling will be handled by the Button component
-  // This class can be used for additional customizations if needed
-}
-
 .userAvatar {
   position: relative;
-  height: 2rem; // h-8
-  width: 2rem; // w-8
+  height: 2rem;
+  width: 2rem;
   border-radius: 50%;
-  margin-left: 0.5rem; // ml-2
+  margin-left: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(90deg, #f87171 0%, #c084fc 50%, #60a5fa 100%);
   color: white;
   font-weight: 600;
+  cursor: pointer;
   transition: opacity 0.2s ease-in-out;
-  
   &:hover {
     opacity: 0.8;
   }
 }
-
-.dropdownContent {
-  width: 14rem; // w-56
-}
-
-.dropdownLabel {
-  font-weight: normal;
-  padding: 0.5rem;
-}
-
-.userInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.userName {
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.userEmail {
-  font-size: 0.875rem;
-  color: #9ca3af; // text-muted-foreground
-  line-height: 1;
-}
-
-.dropdownItem {
-  padding: 0;
-  margin-bottom: 0.25rem;
-}
-
-.dropdownButton {
-  width: 100%;
-  padding: 1rem 0.5rem;
-  height: 0.5rem; // h-2 (this seems like a typo in original, should be auto)
-  justify-content: flex-start;
-}
+  .userSettingsDropdownOptions {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid lightgray;
+    right: 70%;
+    top: 100%;
+    width: 150px;
+    margin-top: 35%;
+    border-radius: 5%;
+    a {
+      text-align: center;
+      padding: 15%;
+      color: black;
+      font-size: .75rem;
+      list-style: none;
+      cursor: pointer;
+      border-bottom: 1px solid lightgray;
+      &:hover {
+        background-color: #042541;
+        color: white;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }

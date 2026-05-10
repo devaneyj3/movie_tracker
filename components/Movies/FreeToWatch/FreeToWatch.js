@@ -1,10 +1,6 @@
 import React from 'react';
-import styles from './FreeToWatch.module.scss'
+import MovieList from '../MovieList/MovieList';
 
 export default function FreeToWatch() {
-  return (
-    <div>
-      <h1>Free To Watch</h1>
-    </div>
-  )
+  return <MovieList heading='Free To Watch'/>
 }

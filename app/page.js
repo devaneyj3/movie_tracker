@@ -1,35 +1,23 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { apiClient } from "@/utils/apiClient";
-import { dateFormatter } from "@/utils/dateFormater";
 import styles from "./home.module.scss";
 import Trending from "@/components/Movies/Trending/Trending";
 import LatestTrailers from "@/components/Movies/LatestTrailers/LatestTrailers";
 import Popular from "@/components/Movies/Popular/Popular";
 import FreeToWatch from "@/components/Movies/FreeToWatch/FreeToWatch";
+import Searchbar from "@/components/Header/Searchbar/Searchbar";
+import Hero from "@/components/Hero/Hero";
 
 export default function Home() {
-	const [moviesPlaying, setMoviesPlaying] = useState({});
-	useEffect(() => {
-		const getMoviesPlaying = async () => {
-			try {
-				const response = await apiClient.get("movie/now_playing", {
-					params: { language: "en-US", page: 1 },
-				});
-				setMoviesPlaying(response.data);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		getMoviesPlaying();
-	}, []);
 	return (
 		<div className={styles.pageContainer}>
-			<Trending trendingMovies={moviesPlaying} />
-			<LatestTrailers LatestTrailers={moviesPlaying} />
-			<Popular popularMovies={moviesPlaying} />
-			<FreeToWatch freeToWatchMovies={moviesPlaying} />
+			<Searchbar />
+			<Hero />
+			<div className={styles.page}>
+				<Trending />
+				<LatestTrailers />
+				<Popular />
+				<FreeToWatch />
+			</div>
 		</div>
 	);
 }
