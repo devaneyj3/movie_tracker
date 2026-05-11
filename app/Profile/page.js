@@ -5,8 +5,8 @@ import { User } from "lucide-react";
 import MovieStats from "@/components/MovieStats/MovieStats";
 import styles from "./Profile.module.scss";
 import { useAuth } from "@/context/authContext";
-import MovieCard from "@/components/Movies/MovieCard/MovieCard";
 import { useMovies } from "@/context/moviesContest";
+import FavList from "@/components/Movies/FavList/FavList";
 
 export default function Profile() {
 	const { signedInUser } = useAuth();
@@ -54,7 +54,7 @@ export default function Profile() {
 					<h1>Watch List</h1>
 					{watchlist && watchlist.map((result) => {
 						return (
-							<MovieCard key={result.id} movie={result} />
+							<FavList key={result.id} movieDetails={result} />
 						)
 					})}
 				</section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { apiClient } from "@/utils/apiClient";
+import { useAuth } from "@/context/authContext";
 import {
 	createContext,
 	useContext,
@@ -13,10 +14,12 @@ import {
 export const MoviesContext = createContext({});
 
 export const MoviesProvider = ({ children }) => {
+	const { signedInUser } = useAuth();
 	const [movies, setMovies] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [actionMsg, setActionMsg] = useState("");
 	const [selectedMovie, setSelectedMovie] = useState({});
 	useEffect(() => {
 		const getMovies = async () => {
@@ -37,6 +40,28 @@ export const MoviesProvider = ({ children }) => {
 		};
 		getMovies();
 	}, []);
+	useEffect(() => {
+		if (!signedInUser?.id) {
+			setWatchlist([]);
+			return;
+		}
+
+		const getUserWatchList = async () => {
+			setError(null);
+			try {
+				const response = await fetch("/api/watchlist");
+				if (!response.ok) {
+					throw new Error("Failed to fetch watchlist");
+				}
+				const { data } = await response.json();
+				setWatchlist(data ?? []);
+			} catch (error) {
+				console.error(error);
+				setError(error.message);
+			}
+		};
+		getUserWatchList();
+	}, [signedInUser?.id]);
 
 	const createMovie = useCallback(async (data) => {
 		const res = await fetch("/api/job", {
@@ -53,6 +78,10 @@ export const MoviesProvider = ({ children }) => {
 	}, []);
 
 	const addToWatchlist = useCallback(() => {
+		setActionMsg(`You added ${selectedMovie.title} to your watchlist`);
+		setTimeout(() => {
+			setActionMsg("");
+		}, 1000);
 		setWatchlist((prev) => [...prev, selectedMovie]);
 	}, [selectedMovie]);
 
@@ -66,12 +95,14 @@ export const MoviesProvider = ({ children }) => {
 			createMovie,
 			addToWatchlist,
 			watchlist,
+			actionMsg,
 			error,
 			isLoading,
 		}),
 		[
 			movies,
 			setMovies,
+			actionMsg,
 			selectedMovie,
 			setSelectedMovie,
 			createMovie,

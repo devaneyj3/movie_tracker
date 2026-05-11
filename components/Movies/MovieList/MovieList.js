@@ -1,11 +1,9 @@
 import React from "react";
 import MovieCard from "../MovieCard/MovieCard";
-import { useMovies } from '@/context/moviesContest';
 import styles from './MovieList.module.scss'
 
-export default function MovieList({ heading }) {
-	const { movies } = useMovies()
-	const { dates, results } = movies
+export default function MovieList({ heading, movies }) {
+	const {  results } = movies
 	console.log(movies)
 	return (
 		<section className={styles.list}>

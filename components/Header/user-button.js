@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { UserIcon, LogOut, List } from "lucide-react";
-
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import styles from "./UserButton.module.scss";

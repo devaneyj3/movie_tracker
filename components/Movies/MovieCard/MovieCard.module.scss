@@ -1,8 +1,18 @@
-
 .imageContainer {
   position: relative;
   img {
     border-radius: 3%;
+    cursor: pointer;
+  }
+  .msgBox {
+    position: absolute;
+    top: -90;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 10%;
+    border-radius: 5%;
+    opacity: .85;
   }
   .posterBtn {
     position: absolute;
@@ -14,7 +24,7 @@
     border-radius: 50%;
     width: 15%;
     background-color: rgb(101, 153, 159);
-    z-index: 1;
+    z-index: 4;
     &:hover {
       background-color: #00b7e9;
       cursor: pointer;
@@ -23,14 +33,15 @@
   .movieDropdownOptions {
     position: absolute;
     width: 75%;
-    z-index: 1;
+    z-index: 3;
     background-color: white;
-    border: 1px solid white;
+    border: 1px solid lightgray;
     right: -20%;
     top: 20%;
     border-radius: 5%;
-    li {
+    .signedInOptions {
       text-align: center;
+      cursor: pointer;
       padding: 7%;
       margin-top: 5%;
       font-size: .75rem;
@@ -39,6 +50,26 @@
       &:hover {
         background-color: #042541;
         color: white;
+      }
+    }
+    .signedOutOptions {
+      margin: 7%;
+      width: 100%;
+      margin-top: 5%;
+      font-size: .75rem;
+      list-style: none;
+      color: #042541;
+      // reset.css sets all `a` to white — invisible on this white panel
+      p {
+        margin-bottom: 5%;
+        font-weight: bold;
+      }
+      a {
+        color: darkgrey;
+        font-weight: bold;
+        &:hover {
+          color: lightgray;
+        }
       }
     }
   }

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
 import Cast from "../Cast/cast";
 import styles from "./Details.module.scss";
 import SimilarFilms from "../SimilarFilms/SimilarFilms";
 import WhereToWatch from "../WhereToWatch/WhereToWatch";
+import { dateFormatter } from "@/utils/dateFormater";
 
 export default function MovieDetails({ movieDetails }) {
 	const {
@@ -35,48 +35,28 @@ export default function MovieDetails({ movieDetails }) {
 						alt={`${title} Poster`}
 						className={styles.image}
 					/>
-					<Button
-						className="mt-2 w-full bg-green-400  text-white text-xl font-thin"
-						variant="secondary"
-						size="lg">
+					<span
+						className={styles.poster_btn}>
 						Add to my list
-					</Button>
+					</span>
 				</div>
 				<div className={styles.details}>
-					<h2 className="font-bold text-4xl text-white">{title}</h2>
-
-					<span className={styles.label}>Release date:</span>
-					<span className={styles.value}>{release_date}</span>
-
-					<span className={styles.label}>Runtime:</span>
-					<span className={styles.value}>{runtime} min</span>
-
-					<span className={styles.label}>Revenue:</span>
-					<span className={styles.value}>${revenue?.toLocaleString()}</span>
-					<span className={styles.label}>Budget:</span>
-					<span className={styles.value}>${budget?.toLocaleString()}</span>
-
-					<span className={styles.label}>Vote average:</span>
-					<span className={styles.value}>{vote_average}/10</span>
-					<div className={styles.fullRow}>
-						<p className={styles.value}>{overview}</p>
-					</div>
-
-					{genres && genres.length > 0 && (
-						<div className={styles.genresSection}>
-							<div className={styles.genresList}>
-								{genres.map((genre) => (
-									<div key={genre.id}>
-										<Button
-											variant="ghost"
-											className="mt-2 w-full bg-green-400  text-white text-xl font-thin">
-											{genre.name}
-										</Button>
-									</div>
+					<div className={styles.detailHeader}>
+						<span>{title}</span>
+						<div className={styles.attrbutes}>
+							<span>{dateFormatter(release_date)}</span>
+							{genres?.length > 0 &&
+								genres.map((genre) => (
+									<span key={genre.id}>{genre.name}</span>
 								))}
-							</div>
+							<span>{runtime} min</span>
 						</div>
-					)}
+					</div>
+					<span className={styles.value}>{vote_average}/10</span>
+					<div className={styles.synopsis}>
+						<h2>{tagline}</h2>
+						<p >{overview}</p>
+					</div>
 				</div>
 			</div>
 			{movieDetails["watch/providers"] &&
@@ -85,6 +65,10 @@ export default function MovieDetails({ movieDetails }) {
 				)}
 			<Cast credits={credits} />
 			{recommendations && <SimilarFilms recommendations={recommendations} />}
+			<span className={styles.label}>Revenue:</span>
+			<span className={styles.value}>${revenue?.toLocaleString()}</span>
+			<span className={styles.label}>Budget:</span>
+			<span className={styles.value}>${budget?.toLocaleString()}</span>
 		</>
 	);
 }

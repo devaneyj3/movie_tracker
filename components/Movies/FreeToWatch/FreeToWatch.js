@@ -1,6 +1,8 @@
 import React from 'react';
 import MovieList from '../MovieList/MovieList';
+import { useMovies } from '@/context/moviesContest';
 
 export default function FreeToWatch() {
-  return <MovieList heading='Free To Watch'/>
+  const { movies } = useMovies()
+  return <MovieList heading='Free To Watch' movies={movies}/>
 }

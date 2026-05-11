@@ -1,12 +1,11 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
 
 model User {
   id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -22,8 +21,31 @@ model User {
   profileComplete Boolean       @default(false)
   account Account[]
   session     Session[]
+  watchList  WatchList[]
+  favoriteMovies FavoriteMovies[]
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
+}
+model WatchList {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieId   String
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, movieId])
+}
+
+model FavoriteMovies {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieId   String
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, movieId])
 }
 
 model Account {
