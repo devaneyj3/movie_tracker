@@ -63,36 +63,33 @@ export const MoviesProvider = ({ children }) => {
 		getUserWatchList();
 	}, [signedInUser?.id]);
 
-	const createMovie = useCallback(async (data) => {
-		const res = await fetch("/api/job", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ ...data, userId: session?.user.id }),
-		});
-		const newMovie = await res.json();
-		setSelectedMovie(newJob);
-		if (!res.ok) throw new Error("Failed to save job to database");
-		return newMovie;
-	}, []);
+	const addToWatchlist = useCallback(
+		async (id) => {
+			const res = await fetch("/api/watchlist", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ movieId: id, userId: signedInUser?.id }),
+			});
+			const newWatchList = await res.json();
+			setActionMsg(`You added ${selectedMovie.title} to your watchlist`);
+			setTimeout(() => {
+				setActionMsg("");
+			}, 1000);
+			setWatchlist((prev) => [...prev, newWatchList]);
+			if (!res.ok) throw new Error("Failed to save watchlist to database");
+			return newWatchList;
+		},
+		[selectedMovie],
+	);
 
-	const addToWatchlist = useCallback(() => {
-		setActionMsg(`You added ${selectedMovie.title} to your watchlist`);
-		setTimeout(() => {
-			setActionMsg("");
-		}, 1000);
-		setWatchlist((prev) => [...prev, selectedMovie]);
-	}, [selectedMovie]);
-
-	console.log(watchlist);
 	const values = useMemo(
 		() => ({
 			movies,
 			setMovies,
 			selectedMovie,
 			setSelectedMovie,
-			createMovie,
 			addToWatchlist,
 			watchlist,
 			actionMsg,
@@ -105,7 +102,6 @@ export const MoviesProvider = ({ children }) => {
 			actionMsg,
 			selectedMovie,
 			setSelectedMovie,
-			createMovie,
 			addToWatchlist,
 			watchlist,
 			error,

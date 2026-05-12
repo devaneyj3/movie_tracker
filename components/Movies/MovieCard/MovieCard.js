@@ -17,7 +17,7 @@ function MovieCard({ movie }) {
 	const movieOptions = [
 		{
 			text: 'Watchlist',
-			action: addToWatchlist
+			action: () => addToWatchlist(id)
 		},
 		{
 			text: 'Favorite',
@@ -53,7 +53,7 @@ function MovieCard({ movie }) {
 										onClick={(e) => {
 											e.stopPropagation();
 											setMovieDropdownClicked(false)
-											option.action();
+											option.action(id);
 										}}>
 										{option.text}
 									</p>

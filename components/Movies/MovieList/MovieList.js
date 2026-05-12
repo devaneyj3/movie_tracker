@@ -4,7 +4,6 @@ import styles from './MovieList.module.scss'
 
 export default function MovieList({ heading, movies }) {
 	const {  results } = movies
-	console.log(movies)
 	return (
 		<section className={styles.list}>
 			<h1>{heading}</h1>

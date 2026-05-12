@@ -22,7 +22,7 @@ export default function MovieDetails({ movieDetails }) {
 		vote_average,
 		credits,
 	} = movieDetails;
-	console.log("movie detail", movieDetails);
+
 
 	return (
 		<>

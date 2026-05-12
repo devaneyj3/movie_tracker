@@ -1,17 +1,17 @@
 import { prisma } from "./prisma";
 
 
-export async function  getWatchList() {
+export async function getWatchList() {
   // Fetch all users with their posts
   const allMovies = await prisma.watchList.findMany();
   return allMovies;
 }
-async function  addWatchList() {
-  // Fetch all users with their posts
-  const allUsers = await print.user.findMany({
-    include: {
-      posts: true,
+export async function addToWatchList(userId, movieId) {
+  const createdWatchList = await prisma.watchList.create({
+    data: {
+      userId: userId,
+      movieId: String(movieId)
     },
   });
-  console.log("All users:", JSON.stringify(allUsers, null, 2));
+  return createdWatchList
 }

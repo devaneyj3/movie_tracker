@@ -1,7 +1,24 @@
 .movieContainer {
-  border: 1px solid black;
-  border-radius: 1cap;
+  margin-top: 2%;
+  border: 1px solid lightgrey;
   display: flex;
   align-items: center;
+  box-shadow: 10px 5px 5px lightgray;
   margin-bottom: 2rem;
+  .movie {
+    display: flex;
+    gap: 2rem;
+    line-height: 1.6;
+    border-radius: 1rem;
+    align-items: center;
+    h2 {
+      font-weight: bold;
+    }
+  }
+}
+.attributes {
+  span {
+    font-weight: lighter;
+
+  }
 }
