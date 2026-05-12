@@ -16,6 +16,7 @@
   }
   .headerInfo {
     display: flex;
+    flex-wrap: wrap;
     height: min-content;
     align-items: baseline;
     gap: 1rem;
