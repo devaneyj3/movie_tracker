@@ -63,6 +63,44 @@ export const MoviesProvider = ({ children }) => {
 		getUserWatchList();
 	}, [signedInUser?.id]);
 
+	
+	const removeFromWatchlist = useCallback(
+		async (movieId, displayTitle) => {
+			const res = await fetch("/api/watchlist", {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					movieId,
+					userId: signedInUser?.id,
+				}),
+			});
+			const body = await res.json();
+			if (!res.ok) {
+				throw new Error(
+					typeof body?.error === "string"
+						? body.error
+						: "Failed to remove from watchlist",
+				);
+			}
+			const mid = String(movieId);
+			setWatchlist((prev) =>
+				prev.filter((item) => String(item.movieId) !== mid),
+			);
+			setActionMsg(
+				displayTitle
+					? `You removed ${displayTitle} from your watchlist`
+					: selectedMovie?.title
+						? `You removed ${selectedMovie.title} from your watchlist`
+						: "You removed a title from your watchlist",
+			);
+			setTimeout(() => setActionMsg(""), 1000);
+			return body;
+		},
+		[signedInUser?.id, selectedMovie?.title],
+	);
+
 	const addToWatchlist = useCallback(
 		async (id) => {
 			const res = await fetch("/api/watchlist", {
@@ -72,16 +110,25 @@ export const MoviesProvider = ({ children }) => {
 				},
 				body: JSON.stringify({ movieId: id, userId: signedInUser?.id }),
 			});
-			const newWatchList = await res.json();
-			setActionMsg(`You added ${selectedMovie.title} to your watchlist`);
-			setTimeout(() => {
-				setActionMsg("");
-			}, 1000);
-			setWatchlist((prev) => [...prev, newWatchList]);
-			if (!res.ok) throw new Error("Failed to save watchlist to database");
-			return newWatchList;
+			const body = await res.json();
+			if (!res.ok) {
+				throw new Error(
+					typeof body?.error === "string"
+						? body.error
+						: "Failed to add to watchlist",
+				);
+			}
+			const row = body.createdWatchList;
+			setWatchlist((prev) => [...prev, row]);
+			setActionMsg(
+				selectedMovie?.title
+					? `You added ${selectedMovie.title} to your watchlist`
+					: "You added a title to your watchlist",
+			);
+			setTimeout(() => setActionMsg(""), 1000);
+			return row;
 		},
-		[selectedMovie],
+		[signedInUser?.id, selectedMovie?.title],
 	);
 
 	const values = useMemo(
@@ -90,6 +137,7 @@ export const MoviesProvider = ({ children }) => {
 			setMovies,
 			selectedMovie,
 			setSelectedMovie,
+			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
 			actionMsg,
@@ -102,6 +150,7 @@ export const MoviesProvider = ({ children }) => {
 			actionMsg,
 			selectedMovie,
 			setSelectedMovie,
+			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
 			error,

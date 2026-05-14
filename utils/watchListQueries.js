@@ -15,3 +15,13 @@ export async function addToWatchList(userId, movieId) {
   });
   return createdWatchList
 }
+export async function deleteFromWatchList(userId, movieId) {
+	return prisma.watchList.delete({
+		where: {
+			userId_movieId: {
+				userId,
+				movieId: String(movieId),
+			},
+		},
+	});
+}
