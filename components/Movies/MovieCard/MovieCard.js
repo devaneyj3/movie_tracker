@@ -11,23 +11,14 @@ import Link from "next/link";
 function MovieCard({ movie }) {
 	const [movieDropdownClicked, setMovieDropdownClicked] = useState(false)
 	const { signedInUser } = useAuth();
+
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, setSelectedMovie, actionMsg } = useMovies()
-	const movieOptions = [
-		{
-			text: 'Watchlist',
-			action: () => addToWatchlist(id)
-		},
-		{
-			text: 'Favorite',
-			action: addToWatchlist
-		},
-		{
-			text: 'Your rating',
-			action: addToWatchlist
-		},
-	]
+	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist } =
+		useMovies();
+	const isOnWatchlist = watchlist.some(
+		(w) => String(w.movieId) === String(id),
+	);
 	const router = useRouter();
 	function goToMovie() {
 		setSelectedMovie(movie)
@@ -46,18 +37,41 @@ function MovieCard({ movie }) {
 					{movieDropdownClicked && (
 						<div className={styles.movieDropdownOptions}>
 							{signedInUser ? (
-								movieOptions.map((option) => (
+								<>
 									<p
 										className={styles.signedInOptions}
-										key={option.text}
+										onClick={async (e) => {
+											e.stopPropagation();
+											setMovieDropdownClicked(false);
+											try {
+												if (isOnWatchlist) {
+													await removeFromWatchlist(String(id), title);
+												} else {
+													await addToWatchlist(id, title);
+												}
+											} catch (err) {
+												console.error(err);
+											}
+										}}>
+										{isOnWatchlist ? "Remove from watchlist" : "Watchlist"}
+									</p>
+									<p
+										className={styles.signedInOptions}
 										onClick={(e) => {
 											e.stopPropagation();
 											setMovieDropdownClicked(false)
-											option.action(id);
 										}}>
-										{option.text}
+										Favorite
 									</p>
-								))
+									<p
+										className={styles.signedInOptions}
+										onClick={(e) => {
+											e.stopPropagation();
+											setMovieDropdownClicked(false)
+										}}>
+										Your rating
+									</p>
+								</>
 							) : (
 								<div className={styles.signedOutOptions}>
 									<p>Want to rate or add this item to a list?</p>
@@ -79,7 +93,6 @@ function MovieCard({ movie }) {
 						onClick={goToMovie}
 						className={styles.image}
 					/>
-					{actionMsg && <div className={styles.msgBox}><p>{actionMsg}</p></div>}
 				</div>
 			) : (
 				<p>No poster available</p>

@@ -63,7 +63,6 @@ export const MoviesProvider = ({ children }) => {
 		getUserWatchList();
 	}, [signedInUser?.id]);
 
-	
 	const removeFromWatchlist = useCallback(
 		async (movieId, displayTitle) => {
 			const res = await fetch("/api/watchlist", {
@@ -98,11 +97,11 @@ export const MoviesProvider = ({ children }) => {
 			setTimeout(() => setActionMsg(""), 1000);
 			return body;
 		},
-		[signedInUser?.id, selectedMovie?.title],
+		[signedInUser?.id],
 	);
 
 	const addToWatchlist = useCallback(
-		async (id) => {
+		async (id, title) => {
 			const res = await fetch("/api/watchlist", {
 				method: "POST",
 				headers: {
@@ -112,23 +111,15 @@ export const MoviesProvider = ({ children }) => {
 			});
 			const body = await res.json();
 			if (!res.ok) {
-				throw new Error(
-					typeof body?.error === "string"
-						? body.error
-						: "Failed to add to watchlist",
-				);
+				throw new Error("Failed to add to watchlist");
 			}
 			const row = body.createdWatchList;
 			setWatchlist((prev) => [...prev, row]);
-			setActionMsg(
-				selectedMovie?.title
-					? `You added ${selectedMovie.title} to your watchlist`
-					: "You added a title to your watchlist",
-			);
-			setTimeout(() => setActionMsg(""), 1000);
+			setActionMsg(`You added ${title} to your watchlist`);
+			setTimeout(() => setActionMsg(""), 5000);
 			return row;
 		},
-		[signedInUser?.id, selectedMovie?.title],
+		[signedInUser?.id],
 	);
 
 	const values = useMemo(
