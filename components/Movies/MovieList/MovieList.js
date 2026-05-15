@@ -6,11 +6,9 @@ import { useMovies } from "@/context/moviesContest";
 export default function MovieList({ heading, movies }) {
 	const { actionMsg } = useMovies()
 	const { results } = movies
-	console.log(actionMsg)
 	
 	return (
 		<section className={styles.list}>
-
 			<h1>{heading}</h1>
 			{actionMsg && <div className={styles.msgBox}><p>{actionMsg}</p></div>}
 			<div className={styles.movieList}>

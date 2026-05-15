@@ -10,11 +10,13 @@ import {
 	useMemo,
 	useCallback,
 } from "react";
+import { getCurrentDateFormatted } from "@/utils/currrentDate";
 
 export const MoviesContext = createContext({});
 
 export const MoviesProvider = ({ children }) => {
 	const { signedInUser } = useAuth();
+	const [moviesWatched, setWatchedMovies] = useState([]);
 	const [movies, setMovies] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
 	const [error, setError] = useState(null);
@@ -122,6 +124,29 @@ export const MoviesProvider = ({ children }) => {
 		[signedInUser?.id],
 	);
 
+	const markMovieAsWatched = useCallback(
+		async (movie) => {
+			// const res = await fetch("/api/watchlist", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify({ movieId: id, userId: signedInUser?.id }),
+			// });
+			// const body = await res.json();
+			// if (!res.ok) {
+			// 	throw new Error("Failed to add to watchlist");
+			// }
+			// const row = body.createdWatchList;
+			const today = getCurrentDateFormatted();
+			movie.lastWatchedDate = today;
+			setWatchedMovies((prev) => [...prev, movie]);
+			setActionMsg(`You marked ${movie.title} as watched`);
+			setTimeout(() => setActionMsg(""), 5000);
+		},
+		[signedInUser?.id],
+	);
+
 	const values = useMemo(
 		() => ({
 			movies,
@@ -134,11 +159,14 @@ export const MoviesProvider = ({ children }) => {
 			actionMsg,
 			error,
 			isLoading,
+			markMovieAsWatched,
+			moviesWatched,
 		}),
 		[
 			movies,
 			setMovies,
 			actionMsg,
+			markMovieAsWatched,
 			selectedMovie,
 			setSelectedMovie,
 			removeFromWatchlist,
@@ -146,6 +174,7 @@ export const MoviesProvider = ({ children }) => {
 			watchlist,
 			error,
 			isLoading,
+			moviesWatched,
 		],
 	);
 	return (

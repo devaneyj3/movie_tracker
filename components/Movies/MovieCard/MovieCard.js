@@ -14,7 +14,7 @@ function MovieCard({ movie }) {
 
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist } =
+	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched } =
 		useMovies();
 	const isOnWatchlist = watchlist.some(
 		(w) => String(w.movieId) === String(id),
@@ -29,6 +29,7 @@ function MovieCard({ movie }) {
 		movieDropdownClicked ? setMovieDropdownClicked(false) : setMovieDropdownClicked(true)
 		setSelectedMovie(movie)
 	}
+	console.log(moviesWatched)
 	return (
 		<div>
 			{poster_path ? (
@@ -62,6 +63,25 @@ function MovieCard({ movie }) {
 											setMovieDropdownClicked(false)
 										}}>
 										Favorite
+									</p>
+									<p
+										className={styles.signedInOptions}
+										onClick={async (e) => {
+											e.stopPropagation();
+											setMovieDropdownClicked(false)
+											try {
+												if (moviesWatched) {
+													// await removeFromWatchlist(String(id), title);
+													await markMovieAsWatched(movie);
+													return
+												} else {
+													await markMovieAsWatched(movie);
+												}
+											} catch (err) {
+												console.error(err);
+											}
+										}}>
+										Mark as watched
 									</p>
 									<p
 										className={styles.signedInOptions}

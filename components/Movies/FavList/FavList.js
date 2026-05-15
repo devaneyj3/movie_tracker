@@ -63,7 +63,7 @@ export default function FavList({ movieDetails }) {
               <div className={styles.column}>
                 <div className={styles.actionBox}>
                   <div className={styles.actionIcon}><List /></div>
-                  <h2>Add to list</h2>
+                  <h2>Mark as watched</h2>
                 </div>
                 <div className={styles.actionBox} onClick={() => removeFromWatchlist(String(movieDetails.movieId), fonudMovie.title)}>
                   <div className={styles.actionIcon}><X /></div>
