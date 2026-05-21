@@ -10,7 +10,7 @@ import FavList from "@/components/Movies/FavList/FavList";
 
 export default function Profile() {
 	const { signedInUser } = useAuth();
-	const { watchlist, movies, actionMsg } = useMovies()
+	const { watchlist, movies, actionMsg, moviesWatched } = useMovies()
 	if (!signedInUser) {
 		return (
 			<div className={styles.profileContent}>
@@ -56,6 +56,19 @@ export default function Profile() {
 						</p>
 					) : null}
 					{movies && watchlist.map((result) => {
+						return (
+							<FavList key={result.id} movieDetails={result} />
+						)
+					})}
+				</section>
+				<section>
+					<h1>Watched Movies</h1>
+					{actionMsg ? (
+						<p className={styles.watchlistActionMsg} role="status">
+							{actionMsg}
+						</p>
+					) : null}
+					{movies && moviesWatched.map((result) => {
 						return (
 							<FavList key={result.id} movieDetails={result} />
 						)

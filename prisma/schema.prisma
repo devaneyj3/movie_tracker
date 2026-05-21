@@ -23,6 +23,7 @@ model User {
   session     Session[]
   watchList  WatchList[]
   favoriteMovies FavoriteMovies[]
+  watchedMovies WatchedMovies[]
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 }
@@ -42,6 +43,17 @@ model FavoriteMovies {
   movieId   String
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, movieId])
+}
+model WatchedMovies {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieId   String
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateWatched  DateTime @default(now()) @db.Timestamp(6)
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 

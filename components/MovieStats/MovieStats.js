@@ -2,23 +2,18 @@ import React from "react";
 import styles from "./MovieStats.module.scss";
 import { useMovies } from "@/context/moviesContest";
 
-const MovieStats = ({ stats = {} }) => {
-	const {
-		moviesWatched = 0,
-		moviesRated = 0,
-		reviewsWritten = 0,
-	} = stats;
-	const { watchlist} = useMovies()
+const MovieStats = () => {
+	const { watchlist, moviesWatched } = useMovies()
 	return (
 		<div className={styles.statsContainer}>
 			<div className={styles.statsGrid}>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Movies Watched</div>
-					<div className={styles.statNumber}>{moviesWatched}</div>
+					<div className={styles.statNumber}>{moviesWatched.length}</div>
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Movies Rated</div>
-					<div className={styles.statNumber}>{moviesRated}</div>
+					<div className={styles.statNumber}>{moviesWatched.length}</div>
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Watchlist Items</div>
@@ -26,7 +21,7 @@ const MovieStats = ({ stats = {} }) => {
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Reviews Written</div>
-					<div className={styles.statNumber}>{reviewsWritten}</div>
+					<div className={styles.statNumber}>{moviesWatched.length}</div>
 				</div>
 			</div>
 		</div>

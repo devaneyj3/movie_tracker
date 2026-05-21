@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useMovies } from "@/context/moviesContest";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
+import { isOnList } from "@/utils/isOnList";
 
 function MovieCard({ movie }) {
 	const [movieDropdownClicked, setMovieDropdownClicked] = useState(false)
@@ -14,11 +15,9 @@ function MovieCard({ movie }) {
 
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched } =
+	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched, removeMovieAsWatched } =
 		useMovies();
-	const isOnWatchlist = watchlist.some(
-		(w) => String(w.movieId) === String(id),
-	);
+
 	const router = useRouter();
 	function goToMovie() {
 		setSelectedMovie(movie)
@@ -29,7 +28,9 @@ function MovieCard({ movie }) {
 		movieDropdownClicked ? setMovieDropdownClicked(false) : setMovieDropdownClicked(true)
 		setSelectedMovie(movie)
 	}
+
 	console.log(moviesWatched)
+
 	return (
 		<div>
 			{poster_path ? (
@@ -45,16 +46,18 @@ function MovieCard({ movie }) {
 											e.stopPropagation();
 											setMovieDropdownClicked(false);
 											try {
-												if (isOnWatchlist) {
+												if (isOnList(watchlist, id)) {
+													console.log('removing')
 													await removeFromWatchlist(String(id), title);
 												} else {
+													console.log('adding')
 													await addToWatchlist(id, title);
 												}
 											} catch (err) {
 												console.error(err);
 											}
 										}}>
-										{isOnWatchlist ? "Remove from watchlist" : "Watchlist"}
+										{isOnList(watchlist, id) ? "Remove from Watchlist" : "Add to Watchlist"}
 									</p>
 									<p
 										className={styles.signedInOptions}
@@ -70,9 +73,8 @@ function MovieCard({ movie }) {
 											e.stopPropagation();
 											setMovieDropdownClicked(false)
 											try {
-												if (moviesWatched) {
-													// await removeFromWatchlist(String(id), title);
-													await markMovieAsWatched(movie);
+												if (isOnList(moviesWatched, id)) {
+													await removeMovieAsWatched(movie);
 													return
 												} else {
 													await markMovieAsWatched(movie);
@@ -81,7 +83,7 @@ function MovieCard({ movie }) {
 												console.error(err);
 											}
 										}}>
-										Mark as watched
+										{isOnList(moviesWatched, id) ? "Remove from Watched" : "Mark as Watched"}
 									</p>
 									<p
 										className={styles.signedInOptions}

@@ -65,6 +65,29 @@ export const MoviesProvider = ({ children }) => {
 		getUserWatchList();
 	}, [signedInUser?.id]);
 
+	useEffect(() => {
+		if (!signedInUser?.id) {
+			setWatchedMovies([]);
+			return;
+		}
+
+		const getUserWatchedMovies = async () => {
+			setError(null);
+			try {
+				const response = await fetch("/api/watched");
+				if (!response.ok) {
+					throw new Error("Failed to fetch movies watched");
+				}
+				const { data } = await response.json();
+				setWatchedMovies(data ?? []);
+			} catch (error) {
+				console.error(error);
+				setError(error.message);
+			}
+		};
+		getUserWatchedMovies();
+	}, [signedInUser?.id]);
+
 	const removeFromWatchlist = useCallback(
 		async (movieId, displayTitle) => {
 			const res = await fetch("/api/watchlist", {
@@ -126,22 +149,44 @@ export const MoviesProvider = ({ children }) => {
 
 	const markMovieAsWatched = useCallback(
 		async (movie) => {
-			// const res = await fetch("/api/watchlist", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify({ movieId: id, userId: signedInUser?.id }),
-			// });
-			// const body = await res.json();
-			// if (!res.ok) {
-			// 	throw new Error("Failed to add to watchlist");
-			// }
-			// const row = body.createdWatchList;
+			const res = await fetch("/api/watched", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ movieId: movie.id, userId: signedInUser?.id }),
+			});
+			const body = await res.json();
+			if (!res.ok) {
+				throw new Error("Failed to add movie as watched");
+			}
+			const row = body.movieWatched;
 			const today = getCurrentDateFormatted();
-			movie.lastWatchedDate = today;
-			setWatchedMovies((prev) => [...prev, movie]);
+			row.lastWatchedDate = today;
+			setWatchedMovies((prev) => [...prev, row]);
 			setActionMsg(`You marked ${movie.title} as watched`);
+			setTimeout(() => setActionMsg(""), 5000);
+		},
+		[signedInUser?.id],
+	);
+	const removeMovieAsWatched = useCallback(
+		async (movie) => {
+			const res = await fetch("/api/watched", {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ movieId: movie.id, userId: signedInUser?.id }),
+			});
+			const body = await res.json();
+			if (!res.ok) {
+				throw new Error("Failed to remove movie as watched");
+			}
+			const deletedId = body.deletedMovieWatched.movieId;
+			setWatchedMovies((prev) =>
+				prev.filter((item) => String(item.movieId) !== deletedId),
+			);
+			setActionMsg(`You removed ${movie.title} as watched`);
 			setTimeout(() => setActionMsg(""), 5000);
 		},
 		[signedInUser?.id],
@@ -161,6 +206,7 @@ export const MoviesProvider = ({ children }) => {
 			isLoading,
 			markMovieAsWatched,
 			moviesWatched,
+			removeMovieAsWatched,
 		}),
 		[
 			movies,
@@ -175,6 +221,7 @@ export const MoviesProvider = ({ children }) => {
 			error,
 			isLoading,
 			moviesWatched,
+			removeMovieAsWatched,
 		],
 	);
 	return (
