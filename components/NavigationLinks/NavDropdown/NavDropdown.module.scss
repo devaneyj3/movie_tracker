@@ -1,0 +1,15 @@
+
+.signedInOptions {
+	color: black;
+	text-align: center;
+	cursor: pointer;
+	padding: 7%;
+	margin-top: 5%;
+	font-size: 0.75rem;
+	list-style: none;
+
+	&:hover {
+		background-color: grey;
+		color: white;
+	}
+}
