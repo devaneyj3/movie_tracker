@@ -23,6 +23,7 @@ export const MoviesProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [actionMsg, setActionMsg] = useState("");
 	const [selectedMovie, setSelectedMovie] = useState({});
+		const [sortBy, setSortBy] = useState(null);
 	useEffect(() => {
 		const getMovies = async () => {
 			setIsLoading(true);
@@ -207,6 +208,8 @@ export const MoviesProvider = ({ children }) => {
 			markMovieAsWatched,
 			moviesWatched,
 			removeMovieAsWatched,
+			sortBy,
+			setSortBy,
 		}),
 		[
 			movies,
@@ -222,6 +225,8 @@ export const MoviesProvider = ({ children }) => {
 			isLoading,
 			moviesWatched,
 			removeMovieAsWatched,
+			sortBy,
+			setSortBy,
 		],
 	);
 	return (

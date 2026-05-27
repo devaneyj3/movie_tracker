@@ -29,7 +29,6 @@ function MovieCard({ movie }) {
 		setSelectedMovie(movie)
 	}
 
-	console.log(moviesWatched)
 
 	return (
 		<div>

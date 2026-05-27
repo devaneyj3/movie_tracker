@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './MovieSearbar.module.scss'
+import SortResults from '@/components/Shared/SortResults/SortResults';
 
 export default function MovieSearchbar() {
   return (
     <div className={styles.searchbar}>
       <div className={styles.box}>
-        <h2>Sort</h2>
         <div className={styles.sortResults}>
+        <h2>Sort</h2>
           <div className={styles.border}></div>
-          <p>Sort Results By</p>
+          <SortResults />
         </div>
       </div>
       <div className={styles.box}>
