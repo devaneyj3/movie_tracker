@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Film } from "lucide-react";
 import Link from "next/link";
 import styles from "./NavigationLinks.module.scss";
@@ -11,19 +11,19 @@ const navItems = [
 		label: "Movies",
 		dropdownItems: [
 			{
-				href: "/Movies",
+				href: "/Movies/popular",
 				label: "Popular",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/now-playing",
 				label: "Now Playing",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/upcoming",
 				label: "Upcoming",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/top-rated",
 				label: "Top Rated",
 			},
 		],
@@ -33,19 +33,19 @@ const navItems = [
 		label: "TV Shows",
 		dropdownItems: [
 			{
-				href: "/Movies",
+				href: "/Movies/popular",
 				label: "Popular",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/airing-today",
 				label: "Airing Today",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/on-the-air",
 				label: "On TV",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/top-rated",
 				label: "Top Rated",
 			},
 		],
@@ -55,7 +55,7 @@ const navItems = [
 		label: "People",
 		dropdownItems: [
 			{
-				href: "/Movies",
+				href: "/Movies/popular",
 				label: "Popular",
 			},
 		],
@@ -65,11 +65,11 @@ const navItems = [
 		label: "Awards",
 		dropdownItems: [
 			{
-				href: "/Movies",
+				href: "/Movies/popular",
 				label: "Popular",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/upcoming",
 				label: "Upcoming",
 			},
 		],
@@ -79,11 +79,11 @@ const navItems = [
 		label: "More",
 		dropdownItems: [
 			{
-				href: "/Movies",
+				href: "/Movies/discussions",
 				label: "Discussions",
 			},
 			{
-				href: "/Movies",
+				href: "/Movies/leaderbord",
 				label: "Leaderboard",
 			},
 		],
@@ -91,6 +91,12 @@ const navItems = [
 ];
 
 const NavigationLinks = ({ className = "" }) => {
+	const [currentLabelPicked, setCurrentLabelPicked] = useState(null)
+
+	const showNavDropdown = (label) => {
+		setCurrentLabelPicked(label)
+	}
+
 	return (
 		<>
 			<div className={styles.logoContainer}>
@@ -100,24 +106,24 @@ const NavigationLinks = ({ className = "" }) => {
 			</div>
 			<ul className={`${styles.navLinks} ${className}`}>
 				{navItems.map((nav, index) => {
-					const { href, label, dropdownItems } = nav;
-					console.log(dropdownItems);
+					const { label, dropdownItems } = nav;
 					return (
 						<div key={index}>
-							<Link key={index} href={`${href}`}>
+							<p key={index} onMouseEnter={() => showNavDropdown(label)}>
 								{label}
-							</Link>
-							<div className={styles.movieDropdownOptions}>
+							</p>
+							{currentLabelPicked === label && <div className={styles.movieDropdownOptions}>
 								{dropdownItems.map((item) => {
 									return (
-										<NavDropdown
-											key={item.label}
-											label={item.label}
-											href={item.href}
-										/>
+										<div className={styles.dropdownList} key={item.label}>
+											<NavDropdown
+												label={item.label}
+												href={item.href}
+											/>
+										</div>
 									);
 								})}
-							</div>
+							</div>}
 						</div>
 					);
 				})}

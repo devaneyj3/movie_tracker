@@ -4,15 +4,15 @@ import Link from "next/link";
 import styles from "./NavDropdown.module.scss";
 
 const NavDropdown = ({ label, href }) => {
-  return (
-    <Link
-      className={styles.signedInOptions}
-      onClick={async (e) => {
-        e.stopPropagation();
-      }}
-      href={`${href}`}>
-      {label}
-    </Link>);
+	return (
+		<div className={styles.options}>
+			<Link
+				className={styles.signedInOptions}
+				href={`${href}`}>
+				{label}
+			</Link>
+		</div>
+	);
 };
 
 export default NavDropdown;
