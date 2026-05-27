@@ -12,9 +12,11 @@ export default function MovieSearchbar() {
         </div>
       </div>
       <div className={styles.box}>
+        <div className={styles.border}></div>
         <h2>Where To Watch</h2>
       </div>
       <div className={styles.box}>
+        <div className={styles.border}></div>
         <h2>Filters</h2>
       </div>
     </div>
