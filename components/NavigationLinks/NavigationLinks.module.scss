@@ -18,13 +18,13 @@
 	background-color: white;
 	border: 1px solid lightgray;
 	border-radius: 5%;
+  z-index: 1;
 }
 
 .dropdownList {
   position: relative;
-  z-index: 10;
-
 }
+
 @media (max-width: 768px) {
   .navLinks {
     flex-direction: column;
