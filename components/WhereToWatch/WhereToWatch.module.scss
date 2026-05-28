@@ -1,12 +1,21 @@
+.providersContainer {
+  h2 {
+    font-size: 2rem;
+    color: black;
+  }
+
+}
 .providers {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
+  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  h2 {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 485px) {
   .providers {
-
     display: block;
   }
 }

@@ -55,7 +55,7 @@ const UserButton = () => {
 	const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "";
 	return (
 		<div className={styles.userContainer}>
-			<Button variant="ghost" className={styles.userAvatar} onClick={userBtnDropdown}>
+			<Button variant="ghost" className={styles.userAvatar} onMouseEnter={userBtnDropdown} onMouseLeave={userBtnDropdown}>
 				{firstInitial}
 			</Button>
 			{userSettingDropdown && (

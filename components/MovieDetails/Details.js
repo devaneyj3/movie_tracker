@@ -5,6 +5,7 @@ import styles from "./Details.module.scss";
 import SimilarFilms from "../SimilarFilms/SimilarFilms";
 import WhereToWatch from "../WhereToWatch/WhereToWatch";
 import { dateFormatter } from "@/utils/dateFormater";
+import getPercentage from "@/utils/getPercentage";
 
 export default function MovieDetails({ movieDetails }) {
 	const {
@@ -15,6 +16,7 @@ export default function MovieDetails({ movieDetails }) {
 		runtime,
 		revenue,
 		poster_path,
+		backdrop_path,
 		budget,
 		recommendations,
 		spoken_languages,
@@ -23,10 +25,19 @@ export default function MovieDetails({ movieDetails }) {
 		credits,
 	} = movieDetails;
 
-
+	console.log(movieDetails)
 	return (
 		<>
-			<div className={styles.movieContainer}>
+			<div
+				className={styles.movieContainer}
+				style={
+					backdrop_path
+						? {
+							"--backdrop-url": `url(https://image.tmdb.org/t/p/w1280${backdrop_path})`,
+						}
+						: undefined
+				}
+			>
 				<div className={styles.imageContainer}>
 					<Image
 						src={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -52,17 +63,17 @@ export default function MovieDetails({ movieDetails }) {
 							<span>{runtime} min</span>
 						</div>
 					</div>
-					<span className={styles.value}>{vote_average}/10</span>
+					<span className={styles.value}>{getPercentage(vote_average)}%</span>
 					<div className={styles.synopsis}>
 						<h2>{tagline}</h2>
 						<p >{overview}</p>
 					</div>
+					{movieDetails["watch/providers"] &&
+						Object.keys(movieDetails["watch/providers"].results).length >= 1 && (
+							<WhereToWatch movieDetails={movieDetails} />
+						)}
 				</div>
 			</div>
-			{movieDetails["watch/providers"] &&
-				Object.keys(movieDetails["watch/providers"].results).length >= 1 && (
-					<WhereToWatch movieDetails={movieDetails} />
-				)}
 			<Cast credits={credits} />
 			{recommendations && <SimilarFilms recommendations={recommendations} />}
 			<span className={styles.label}>Revenue:</span>

@@ -1,23 +1,32 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./Provider.module.scss";
-import { Button } from "@/components/ui/button";
 
 export default function Provider({ label, value, whereToWatch }) {
 	return (
 		<div className={styles.provider}>
-			<h1 className="text-white">{label}</h1>
-			{whereToWatch[value] &&
-				whereToWatch[value].map((provider, index) => {
+			<h2>{label}</h2>
+			<div className={styles.networkContainers}>
+				{whereToWatch[value]?.map((provider) => {
 					return (
-						<div key={index} className={styles.network}>
-							<Button
-								variant="ghost"
-								className="w-full bg-blue-400 text-white text-xl font-thin">
-								{provider.provider_name}
-							</Button>
+						<div key={provider.provider_id} className={styles.network}>
+							{provider.logo_path ? (
+								<Image
+									src={`https://image.tmdb.org/t/p/w92${provider.logo_path}`}
+									alt=""
+									width={72}
+									height={50}
+									className={styles.logo}
+								/>
+							) : (
+								<span className={styles.label}>
+									{provider.provider_name}
+								</span>
+							)}
 						</div>
 					);
 				})}
+			</div>
 		</div>
 	);
 }

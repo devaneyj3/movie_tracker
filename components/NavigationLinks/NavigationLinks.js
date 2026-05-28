@@ -93,9 +93,6 @@ const navItems = [
 const NavigationLinks = ({ className = "" }) => {
 	const [currentLabelPicked, setCurrentLabelPicked] = useState(null)
 
-	const showNavDropdown = (label) => {
-		setCurrentLabelPicked(label)
-	}
 
 	return (
 		<>
@@ -109,7 +106,7 @@ const NavigationLinks = ({ className = "" }) => {
 					const { label, dropdownItems } = nav;
 					return (
 						<div key={index}>
-							<p key={index} onMouseEnter={() => showNavDropdown(label)}>
+							<p key={index} onMouseEnter={() => setCurrentLabelPicked(label)} onMouseLeave={() => setCurrentLabelPicked(null)}>
 								{label}
 							</p>
 							{currentLabelPicked === label && <div className={styles.movieDropdownOptions}>
