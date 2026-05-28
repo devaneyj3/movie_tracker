@@ -105,8 +105,8 @@ const NavigationLinks = ({ className = "" }) => {
 				{navItems.map((nav, index) => {
 					const { label, dropdownItems } = nav;
 					return (
-						<div key={index}>
-							<p key={index} onMouseEnter={() => setCurrentLabelPicked(label)} onMouseLeave={() => setCurrentLabelPicked(null)}>
+						<div key={index} onMouseEnter={() => setCurrentLabelPicked(label)} onMouseLeave={() => setCurrentLabelPicked(null)}>
+							<p>
 								{label}
 							</p>
 							{currentLabelPicked === label && <div className={styles.movieDropdownOptions}>

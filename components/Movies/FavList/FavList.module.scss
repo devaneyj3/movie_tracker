@@ -10,6 +10,7 @@
     .details {
       display: flex;
       flex-direction: column;
+      gap: 1.5em;
       margin-right: 3%;
       justify-content: center;
     }
@@ -31,6 +32,10 @@
         width: 50%;
         min-width: 5%;;
         padding: .5%;
+        cursor: pointer;
+        &:hover {
+          background-color: lightgray;
+        }
         .actionIcon {
           display: flex;
           align-items: center;
@@ -68,9 +73,8 @@
 
 
 .lastWatched {
-  text-align: center;
   font-weight: bold;
-  margin: 3rem 0 3rem 0;
+
 }
 
 .synopsis {

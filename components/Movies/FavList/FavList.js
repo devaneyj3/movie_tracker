@@ -38,6 +38,7 @@ export default function FavList({ movieDetails }) {
                 />
               </div>
               <div className={styles.details}>
+                <p className={styles.lastWatched}>Last Watched: {dateFormatter(movieDetails.dateWatched)}</p>
                 <div className={styles.detailHeader}>
                   <h2>{fonudMovie.title}</h2>
                   <div className={styles.attributes}>
@@ -50,7 +51,6 @@ export default function FavList({ movieDetails }) {
               </div>
             </div>
             <div>
-              <p className={styles.lastWatched}>Last Watched: {dateFormatter(movieDetails.dateWatched)}</p>
             </div>
             <div className={styles.actionBar}>
               <div className={styles.column}>

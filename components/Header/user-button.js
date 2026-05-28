@@ -54,23 +54,21 @@ const UserButton = () => {
 	}
 	const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "";
 	return (
-		<div className={styles.userContainer}>
-			<Button variant="ghost" className={styles.userAvatar} onMouseEnter={userBtnDropdown} onMouseLeave={userBtnDropdown}>
+		<div className={styles.userContainer} onClick={userBtnDropdown}>
+			<Button variant="ghost" className={styles.userAvatar}>
 				{firstInitial}
 			</Button>
 			{userSettingDropdown && (
-				<>
-					<div className={styles.userSettingsDropdownOptions}>
-						<>
-							{navItems.map((option) => {
-								return (
-									<Link key={option.label} href={`${option.href}`}>{option.label}</Link>
-								)
-							})}
-							<a onClick={() => logout()}>Logout</a>
-						</>
-					</div>
-				</>
+				<div className={styles.userSettingsDropdownOptions}>
+					<>
+						{navItems.map((option) => {
+							return (
+								<Link key={option.label} href={`${option.href}`}>{option.label}</Link>
+							)
+						})}
+						<a onClick={() => logout()}>Logout</a>
+					</>
+				</div>
 			)}
 		</div>
 	);
