@@ -6,6 +6,11 @@
   box-shadow: 10px 5px 5px lightgray;
   margin-bottom: 2rem;
   border-radius: 1rem;
+  hr {
+    color: #979797;
+    opacity: 0.30;
+    margin: 0
+  }
   .movie {
     .details {
       display: flex;
@@ -16,6 +21,7 @@
     }
     .actionBar { 
       display: flex;
+      padding: .5rem;
       flex-wrap: wrap;
       .column {
         display: flex;
@@ -26,24 +32,23 @@
       }
       .actionBox {
         display: flex;
-        border-top: 1px solid lightgray;
+        // border: 1px solid black;
         align-items: center;
-        gap: 2rem;
+        gap: 1rem;
         width: 50%;
         min-width: 5%;;
         padding: .5%;
         cursor: pointer;
-        &:hover {
-          background-color: lightgray;
+        &:hover .actionIcon{
+          background-color: #979797;
+          color: white;
         }
         .actionIcon {
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 2%;
-          border: 1px solid black;
-          width: 50px;
-          max-width: 50px;
+          border: 1px solid #979797;
           border-radius: 50%;
         }
       }

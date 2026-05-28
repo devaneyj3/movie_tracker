@@ -31,9 +31,9 @@ function MovieCard({ movie }) {
 
 
 	return (
-		<div>
+		<div className={styles.movieCard} onClick={(e) => movieDropdown(e)} >
 			{poster_path ? (
-				<div className={styles.imageContainer} onClick={(e) => movieDropdown(e)}>
+				<div className={styles.imageContainer}>
 					<div className={styles.posterBtn}>...</div>
 					{movieDropdownClicked && (
 						<div className={styles.movieDropdownOptions}>
@@ -46,10 +46,8 @@ function MovieCard({ movie }) {
 											setMovieDropdownClicked(false);
 											try {
 												if (isOnList(watchlist, id)) {
-													console.log('removing')
 													await removeFromWatchlist(String(id), title);
 												} else {
-													console.log('adding')
 													await addToWatchlist(id, title);
 												}
 											} catch (err) {

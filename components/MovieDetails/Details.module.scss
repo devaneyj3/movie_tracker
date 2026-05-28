@@ -10,8 +10,12 @@
   background-size: cover;
   background-position: center;
   .imageContainer {
+    border-radius: 1rem;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(134,134,134,0.25); 
+    box-shadow: 0px 0px 7px 2px rgba(134,134,134,0.25);
     .image {
       width: auto;
       height: auto;
@@ -33,6 +37,7 @@
     flex-direction: column;
     gap: 2rem;
     line-height: 1.75;
+    flex-wrap: wrap;
     width: 75%;
     .value {
       border-radius: 50%;
@@ -50,7 +55,7 @@
     }
     .attrbutes {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 1rem;
       span {
         font-size: .79rem;
@@ -67,21 +72,23 @@
   }
 }
 /* Responsive: stack to one column on small screens */
-@media (max-width: 999px) {
+@media (max-width: 1127px) {
   .movieContainer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
 
-    display: block;
   }
   .imageContainer {
+    padding: 0;
+    width: 40%;
+
     .image {
-      width: 50%;
-      justify-self: center;
+      height: 20px;;
     }
   }
   .details {
     margin-top: 20px;
-    border: 1px solid black;
-    width: 100%;
     .label {
       text-align: left;
       color: white;

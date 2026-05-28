@@ -1,5 +1,4 @@
 .provider {
-
   h2 {
     font-size: 1rem;
     font-weight: 600;
@@ -9,6 +8,7 @@
   .networkContainers {
     gap: 1rem;
     display: flex;
+    flex-wrap: wrap;
   }
 }
 

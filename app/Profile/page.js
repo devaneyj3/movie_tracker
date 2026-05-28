@@ -48,31 +48,26 @@ export default function Profile() {
 					<h1>Stats</h1>
 					<MovieStats stats={signedInUser?.stats} />
 				</section>
+				{actionMsg ? (
+					<p className={styles.watchlistActionMsg} role="status">
+						{actionMsg}
+					</p>
+				) : null}
 				<section>
 					<h1>Watch List</h1>
-					{actionMsg ? (
-						<p className={styles.watchlistActionMsg} role="status">
-							{actionMsg}
-						</p>
-					) : null}
-					{movies && watchlist.map((result) => {
+					{watchlist.length > 0 ? watchlist.map((result) => {
 						return (
 							<FavList key={result.id} movieDetails={result} />
 						)
-					})}
+					}) : <h2>No movies in watchlist</h2>}
 				</section>
 				<section>
 					<h1>Watched Movies</h1>
-					{actionMsg ? (
-						<p className={styles.watchlistActionMsg} role="status">
-							{actionMsg}
-						</p>
-					) : null}
-					{movies && moviesWatched.map((result) => {
+					{moviesWatched.length > 0 ? moviesWatched.map((result) => {
 						return (
 							<FavList key={result.id} movieDetails={result} />
 						)
-					})}
+					}) : <h2>No watched movies</h2>}
 				</section>
 			</section>
 		</div>
