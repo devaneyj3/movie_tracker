@@ -1,6 +1,4 @@
 "use client";
-
-import { apiClient } from "@/utils/apiClient";
 import { useAuth } from "@/context/authContext";
 import {
 	createContext,
@@ -11,6 +9,8 @@ import {
 	useCallback,
 } from "react";
 import { getCurrentDateFormatted } from "@/utils/currrentDate";
+import tmdb from "@/lib/tmdb";
+import sortByDate from "@/utils/sortByDate";
 
 export const MoviesContext = createContext({});
 
@@ -23,16 +23,16 @@ export const MoviesProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [actionMsg, setActionMsg] = useState("");
 	const [selectedMovie, setSelectedMovie] = useState({});
-		const [sortBy, setSortBy] = useState(null);
+	const [sortBy, setSortBy] = useState(null);
 	useEffect(() => {
 		const getMovies = async () => {
 			setIsLoading(true);
 			setError(null);
 			try {
-				const response = await apiClient.get("movie/now_playing", {
-					params: { language: "en-US", page: 1 },
-				});
-				setMovies(response.data);
+				const response = await tmdb.trending.trending("movie", "day");
+				const { results, page, total_pages, total_results } = response;
+				const sortedMovies = sortByDate(results);
+				setMovies(sortedMovies);
 			} catch (error) {
 				console.error(error);
 				setError(err.message);

@@ -1,0 +1,9 @@
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  h2 {
+    color: black;
+  }
+  p {
+    color: grey;
+  }

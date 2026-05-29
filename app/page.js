@@ -15,7 +15,7 @@ export default function Home() {
 			<Searchbar />
 			<Hero />
 			<div className={styles.page}>
-				<Trending movies={movies?.results} />
+				<Trending movies={movies} />
 				<LatestTrailers />
 				<Popular />
 				<FreeToWatch />

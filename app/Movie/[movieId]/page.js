@@ -1,18 +1,15 @@
 "use client";
-import { apiClient } from "@/utils/apiClient";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import MovieDetails from "@/components/MovieDetails/Details";
-
+import tmdb from "@/lib/tmdb";
 export default function Movie() {
 	const { movieId } = useParams();
 	const [movieDetails, setMovieDetails] = useState([]);
 	useEffect(() => {
 		const fetchMovieDetails = async () => {
-			const res = await apiClient.get(
-				`/movie/${movieId}?append_to_response=credits,recommendations,watch/providers`
-			);
-			setMovieDetails(res.data);
+			const movie = await tmdb.movies.details(movieId, ['credits', 'recommendations', 'videos', 'watch/providers']);
+			setMovieDetails(movie);
 		};
 		fetchMovieDetails();
 	}, [movieId]);
