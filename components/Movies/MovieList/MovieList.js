@@ -5,7 +5,7 @@ import { useMovies } from "@/context/moviesContest";
 
 function MovieList({ heading, movies }) {
 	const { actionMsg } = useMovies();
-console.log(movies)
+
 	return (
 		<section className={styles.list}>
 			<h1>{heading}</h1>

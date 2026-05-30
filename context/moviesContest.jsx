@@ -10,6 +10,7 @@ import {
 } from "react";
 import { getCurrentDateFormatted } from "@/utils/currrentDate";
 import tmdb from "@/lib/tmdb";
+import { useRouter } from "next/navigation";
 import sortByDate from "@/utils/sortByDate";
 
 export const MoviesContext = createContext({});
@@ -24,6 +25,9 @@ export const MoviesProvider = ({ children }) => {
 	const [actionMsg, setActionMsg] = useState("");
 	const [selectedMovie, setSelectedMovie] = useState({});
 	const [sortBy, setSortBy] = useState(null);
+	const [searchText, setSearchText] = useState(null);
+	const [searchResults, setSearchResults] = useState([]);
+	const router = useRouter();
 	useEffect(() => {
 		const getMovies = async () => {
 			setIsLoading(true);
@@ -89,6 +93,11 @@ export const MoviesProvider = ({ children }) => {
 		getUserWatchedMovies();
 	}, [signedInUser?.id]);
 
+	const search = async () => {
+		const results = await tmdb.search.movies({ query: searchText });
+		setSearchResults({ movies: results });
+		router.push("/Search");
+	};
 	const removeFromWatchlist = useCallback(
 		async (movieId, displayTitle) => {
 			const res = await fetch("/api/watchlist", {
@@ -210,6 +219,9 @@ export const MoviesProvider = ({ children }) => {
 			removeMovieAsWatched,
 			sortBy,
 			setSortBy,
+			setSearchText,
+			search,
+			searchResults,
 		}),
 		[
 			movies,
@@ -227,6 +239,9 @@ export const MoviesProvider = ({ children }) => {
 			removeMovieAsWatched,
 			sortBy,
 			setSortBy,
+			setSearchText,
+			search,
+			searchResults,
 		],
 	);
 	return (
