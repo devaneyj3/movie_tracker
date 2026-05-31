@@ -5,11 +5,11 @@
     max-width: 200px;
     min-width: 200px;
     align-items: center;
+    overflow: hidden;
 }
 .imageContainer {
   position: relative;
   img {
-    border-radius: 3%;
     cursor: pointer;
   }
   .posterBtn {
