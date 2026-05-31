@@ -10,7 +10,7 @@ import FavList from "@/components/Movies/FavList/FavList";
 
 export default function Profile() {
 	const { signedInUser } = useAuth();
-	const { watchlist, movies, actionMsg, moviesWatched } = useMovies()
+	const { watchlist, actionMsg, moviesWatched } = useMovies()
 	if (!signedInUser) {
 		return (
 			<div className={styles.profileContent}>

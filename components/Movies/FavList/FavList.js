@@ -7,6 +7,7 @@ import { dateFormatter } from "@/utils/dateFormater";
 import { useMovies } from "@/context/moviesContest";
 import { isOnList } from "@/utils/isOnList";
 import { useRouter } from "next/navigation";
+import tmdb from "@/lib/tmdb";
 
 export default function FavList({ movieDetails }) {
 
@@ -23,10 +24,11 @@ export default function FavList({ movieDetails }) {
   }
 
   useEffect(() => {
-    const filterMovies = () => {
+    const filterMovies = async () => {
+      console.log('filter movieDetails function, FavList.js, ', movieDetails)
       try {
-        const movie = movies.results.filter((movie) => Number(movie.id) === Number(movieDetails.movieId))
-        setFoundMovies(movie)
+        const movie = await tmdb.movies.details(movieDetails.movieId);
+        setFoundMovies([movie])
       } catch (error) {
         console.log(error)
         setFoundMovies([])
@@ -38,7 +40,7 @@ export default function FavList({ movieDetails }) {
     <>
       <div className={styles.movieContainer}>
         {fonudMovies && fonudMovies.map((fonudMovie) => {
-          const { id, title, poster_path, release_date , overview} = fonudMovie
+          const { id, title, poster_path, release_date, overview } = fonudMovie
           return (
             <div key={id} className={styles.movie}>
               <div className={styles.movieInfo}>
