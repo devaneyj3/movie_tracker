@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Search.module.scss'
-import SearchLabels from '@/components/SearchResultsLabels/SearchResultsLabels';
+import { SearchResultsLabels } from "@/components/page-search";
 
 export default function Search() {
   return (
@@ -9,7 +9,7 @@ export default function Search() {
         <h2>Search Results</h2>
       </div>
       <div>
-        <SearchLabels />
+        <SearchResultsLabels />
       </div>
     </div>
   )

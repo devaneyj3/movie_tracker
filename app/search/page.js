@@ -1,23 +1,27 @@
-'use client'
-import Searchbar from '@/components/Header/Searchbar/Searchbar'
-import Search from '@/components/Search/Search'
-import React from 'react';
-import styles from './SearchPage.module.scss'
-import MovieList from '@/components/Movies/MovieList/MovieList';
-import { useMovies } from '@/context/moviesContest';
+"use client";
+
+import { Searchbar } from "@/components/shared/layout";
+import { Search } from "@/components/page-search";
+import { MovieList } from "@/components/shared";
+import React from "react";
+import styles from "./SearchPage.module.scss";
+import { useMovies } from "@/context/moviesContest";
 
 export default function SearchPage() {
-  const { searchResults } = useMovies()
-  console.log(searchResults)
-  return (
-    <div>
-      <Searchbar />
-      <div className={styles.page} >
-        <Search />
-        <div>
-          <MovieList heading='Search Results' movies={searchResults.movies.results} />
-        </div>
-      </div>
-    </div>
-  )
+	const { searchResults } = useMovies();
+
+	return (
+		<div>
+			<Searchbar />
+			<div className={styles.page}>
+				<Search />
+				<div>
+					<MovieList
+						heading="Search Results"
+						movies={searchResults.movies?.results}
+					/>
+				</div>
+			</div>
+		</div>
+	);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieList from '../MovieList/MovieList';
+import { MovieList } from "@/components/shared";
 import { useMovies } from '@/context/moviesContest';
 
 

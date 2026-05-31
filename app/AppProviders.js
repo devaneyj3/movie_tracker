@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Providers from "@/components/Providers";
+import { Providers } from "@/components/shared/layout";
 
 export default async function AppProviders({ children }) {
 	let session = null;

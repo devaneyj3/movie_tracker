@@ -1,17 +1,18 @@
 "use client";
-import MovieSearchbar from "@/components/Movies/MovieSearchbar/MovieSearchbar";
+
+import { MovieSearchbar } from "@/components/browse";
+import { Trending } from "@/components/home";
 import { useParams } from "next/navigation";
-import styles from './cat.module.scss'
+import styles from "./cat.module.scss";
 import React from "react";
-import Trending from "@/components/Movies/Trending/Trending";
 import { useMovies } from "@/context/moviesContest";
 import filterMovies from "@/utils/filterMovies";
 
 export default function Movies() {
 	const { category } = useParams();
-	const { sortBy, movies } = useMovies()
+	const { sortBy, movies } = useMovies();
 	const sortedResults = filterMovies(sortBy, movies?.results ?? []);
-	console.log(sortedResults)
+
 	return (
 		<div className={styles.container}>
 			<h1>{category} Movies</h1>

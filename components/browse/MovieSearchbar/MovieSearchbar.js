@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MovieSearbar.module.scss'
-import SortResults from '@/components/Shared/SortResults/SortResults';
+import { SortResults } from "@/components/shared";
 
 export default function MovieSearchbar() {
   return (

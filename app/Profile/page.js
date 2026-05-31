@@ -2,11 +2,10 @@
 import React from "react";
 import Image from "next/image";
 import { User } from "lucide-react";
-import MovieStats from "@/components/MovieStats/MovieStats";
+import { MovieStats, FavList } from "@/components/profile";
 import styles from "./Profile.module.scss";
 import { useAuth } from "@/context/authContext";
 import { useMovies } from "@/context/moviesContest";
-import FavList from "@/components/Movies/FavList/FavList";
 
 export default function Profile() {
 	const { signedInUser } = useAuth();

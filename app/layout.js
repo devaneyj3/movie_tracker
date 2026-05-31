@@ -1,7 +1,6 @@
-import Header from "@/components/Header";
+import { Header, Footer } from "@/components/shared/layout";
 import "./reset.css";
 import AppProviders from "./AppProviders";
-import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
 	title: "Movie Tracker",
@@ -15,7 +14,7 @@ export default function RootLayout({ children }) {
 				<AppProviders>
 					<Header />
 					<main>{children}</main>
-					<Footer/>
+					<Footer />
 				</AppProviders>
 			</body>
 		</html>

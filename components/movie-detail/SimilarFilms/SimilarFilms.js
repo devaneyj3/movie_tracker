@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SimularFilms.module.scss";
-import MovieCard from "../Movies/MovieCard/MovieCard";
+import { MovieCard } from "@/components/shared";
 
 export default function SimilarFilms({ recommendations }) {
 	const { results } = recommendations;
