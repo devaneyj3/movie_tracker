@@ -90,14 +90,12 @@ const navItems = [
 	},
 ];
 
-const NavigationLinks = ({ className = "" }) => {
+const NavigationLinks = ({ className = "", setMenuOpen = "" }) => {
 	const [currentLabelPicked, setCurrentLabelPicked] = useState(null)
-
-
 	return (
 		<>
 			<div className={styles.logoContainer}>
-				<Link href="/">
+				<Link href="/" onClick={() => setMenuOpen(false)}>
 					<Film className={styles.logoIcon} />
 				</Link>
 			</div>
@@ -116,6 +114,7 @@ const NavigationLinks = ({ className = "" }) => {
 											<NavDropdown
 												label={item.label}
 												href={item.href}
+												closeMobileMenu={setMenuOpen}
 											/>
 										</div>
 									);
@@ -124,14 +123,6 @@ const NavigationLinks = ({ className = "" }) => {
 						</div>
 					);
 				})}
-				{/* {signedInUser && (
-				<Button asChild variant="ghost" className={styles.navButton}>
-				<Link href="/MovieList">Movie List</Link>
-				</Button>
-				)}
-				<Button asChild variant="ghost" className={styles.navButton}>
-				<Link href="/TVShows">TV Shows</Link>
-				</Button> */}
 			</ul>
 		</>
 	);

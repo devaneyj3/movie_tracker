@@ -7,7 +7,7 @@ import styles from "./UserButton.module.scss";
 import { useAuth } from "@/context/authContext";
 import { useSession } from "next-auth/react";
 
-const UserButton = () => {
+const UserButton = ({ setMenuOpen = "" }) => {
 	const logout = async () => {
 		// Set signedInUser to null immediately
 		setSignedInUser(null);
@@ -46,7 +46,7 @@ const UserButton = () => {
 	if (!session) {
 		return (
 			<Button asChild variant="ghost" className={styles.signInButton}>
-				<Link href="/sign-in">
+				<Link href="/sign-in" onClick={() => setMenuOpen((open) => !open)}>
 					Login
 				</Link>
 			</Button>
@@ -63,7 +63,7 @@ const UserButton = () => {
 					<>
 						{navItems.map((option) => {
 							return (
-								<Link key={option.label} href={`${option.href}`}>{option.label}</Link>
+								<Link key={option.label} href={`${option.href}`} onClick={() => setMenuOpen((open) => !open)}>{option.label}</Link>
 							)
 						})}
 						<a onClick={() => logout()}>Logout</a>
