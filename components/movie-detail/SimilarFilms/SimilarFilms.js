@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./SimularFilms.module.scss";
 import { MovieCard } from "@/components/shared";
 
-export default function SimilarFilms({ recommendations }) {
+export default function SimilarFilms({ recommendations, title }) {
 	const { results } = recommendations;
 	return (
 		<div className={styles.contain}>
-			<h2>If you liked The <span>Super Mario Galaxy Movie</span>, you might also like...</h2>
+			<h2>If you liked <span>{title}</span>, you might also like...</h2>
 			<div className={styles.similiarFilmsContainer}>
 				{results &&
 					results.map((result) => {

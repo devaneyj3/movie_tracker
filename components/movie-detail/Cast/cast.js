@@ -20,8 +20,8 @@ export default function Cast({ credits }) {
 									<Image
 										className={styles.image}
 										src={imageUrl}
-										width={70}
-										height={50}
+										width={200}
+										height={300}
 										alt={`${name} Profile`}
 									/>
 								</div>

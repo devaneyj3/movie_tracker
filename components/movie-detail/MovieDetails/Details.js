@@ -75,7 +75,7 @@ export default function MovieDetails({ movieDetails }) {
 				</div>
 			</div>
 			<Cast credits={credits} />
-			{recommendations && <SimilarFilms recommendations={recommendations} />}
+			{recommendations && <SimilarFilms recommendations={recommendations} title={title} />}
 			<span className={styles.label}>Revenue:</span>
 			<span className={styles.value}>${revenue?.toLocaleString()}</span>
 			<span className={styles.label}>Budget:</span>
