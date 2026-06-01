@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "./Header.module.scss";
 import UserButton from "./user-button";
-import { EllipsisVertical, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import NavigationLinks from "../NavigationLinks/NavigationLinks";
 
 const Header = () => {
@@ -22,7 +22,7 @@ const Header = () => {
 						</div>
 					</div>
 				</div>
-				<nav className={styles.mobileNav}>
+				<nav className={styles.mobileNav} aria-label="Mobile menu">
 					<button
 						type="button"
 						className={styles.menuToggle}
@@ -33,10 +33,7 @@ const Header = () => {
 						{menuOpen ? (
 							<X className={styles.menuIcon} aria-hidden />
 						) : (
-							<EllipsisVertical
-								className={styles.menuIcon}
-								aria-hidden
-							/>
+							<Menu className={styles.menuIcon} aria-hidden />
 						)}
 					</button>
 					{menuOpen && (
@@ -48,9 +45,19 @@ const Header = () => {
 								aria-label="Close menu"
 							/>
 							<div className={styles.mobileMenuPanel}>
-								<h2 className={styles.mobileMenuTitle}>Menu</h2>
-								<NavigationLinks className={styles.mobileLinksContainer} setMenuOpen={setMenuOpen} />
-								<UserButton setMenuOpen={setMenuOpen} />
+								<div className={styles.mobileMenuHeader}>
+									<h2 className={styles.mobileMenuTitle}>Menu</h2>
+								</div>
+								<NavigationLinks
+									isMobileMenu
+									setMenuOpen={setMenuOpen}
+								/>
+								<div className={styles.mobileMenuFooter}>
+									<UserButton
+										isMobileMenu
+										setMenuOpen={setMenuOpen}
+									/>
+								</div>
 							</div>
 						</>
 					)}

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -7,67 +8,86 @@ import styles from "./UserButton.module.scss";
 import { useAuth } from "@/context/authContext";
 import { useSession } from "next-auth/react";
 
-const UserButton = ({ setMenuOpen = "" }) => {
+const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
 	const logout = async () => {
-		// Set signedInUser to null immediately
 		setSignedInUser(null);
-		// Then sign out
 		await signOut({ callbackUrl: "/" });
+	};
 
-	}
 	const navItems = [
-		{
-			href: '/Profile',
-			label: 'Profile'
-		},
-		{
-			href: '/TVShows',
-			label: 'TV Shows'
-		},
-		{
-			href: '/People',
-			label: 'People'
-		},
-		{
-			href: '/Awards',
-			label: 'Awards'
-		},
-	]
+		{ href: "/Profile", label: "Profile" },
+		{ href: "/TVShows", label: "TV Shows" },
+		{ href: "/People", label: "People" },
+		{ href: "/Awards", label: "Awards" },
+	];
 
-	const [userSettingDropdown, setUserSettingsDropdown] = useState(false)
+	const [userSettingDropdown, setUserSettingsDropdown] = useState(false);
 	const { data: session } = useSession();
 	const { setSignedInUser } = useAuth();
 
+	const closeMenu = () => {
+		if (typeof setMenuOpen === "function") {
+			setMenuOpen(false);
+		}
+	};
+
 	function userBtnDropdown(e) {
-		e.stopPropagation()
-		userSettingDropdown ? setUserSettingsDropdown(false) : setUserSettingsDropdown(true)
+		e.stopPropagation();
+		setUserSettingsDropdown((open) => !open);
 	}
+
+	const containerClass = isMobileMenu
+		? `${styles.userContainer} ${styles.userContainerMobile}`
+		: styles.userContainer;
 
 	if (!session) {
 		return (
-			<Button asChild variant="ghost" className={styles.signInButton}>
-				<Link href="/sign-in" onClick={() => setMenuOpen((open) => !open)}>
+			<Button
+				asChild
+				variant="ghost"
+				className={
+					isMobileMenu ? styles.signInButtonMobile : styles.signInButton
+				}
+			>
+				<Link href="/sign-in" onClick={closeMenu}>
 					Login
 				</Link>
 			</Button>
 		);
 	}
+
 	const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "";
+
 	return (
-		<div className={styles.userContainer} onClick={userBtnDropdown}>
-			<Button variant="ghost" className={styles.userAvatar}>
+		<div className={containerClass} onClick={userBtnDropdown}>
+			<Button
+				variant="ghost"
+				className={
+					isMobileMenu ? styles.userAvatarMobile : styles.userAvatar
+				}
+			>
 				{firstInitial}
 			</Button>
 			{userSettingDropdown && (
-				<div className={styles.userSettingsDropdownOptions}>
-					<>
-						{navItems.map((option) => {
-							return (
-								<Link key={option.label} href={`${option.href}`} onClick={() => setMenuOpen((open) => !open)}>{option.label}</Link>
-							)
-						})}
-						<a onClick={() => logout()}>Logout</a>
-					</>
+				<div
+					className={
+						isMobileMenu
+							? styles.userSettingsDropdownMobile
+							: styles.userSettingsDropdownOptions
+					}
+				>
+					{navItems.map((option) => (
+						<Link
+							key={option.label}
+							href={option.href}
+							onClick={closeMenu}
+						>
+							{option.label}
+						</Link>
+					))}
+					<button type="button" onClick={() => logout()}>
+						Logout
+					</button>
 				</div>
 			)}
 		</div>

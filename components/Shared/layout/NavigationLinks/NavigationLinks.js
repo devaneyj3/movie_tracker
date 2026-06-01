@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Film } from "lucide-react";
 import Link from "next/link";
@@ -10,117 +11,150 @@ const navItems = [
 		href: "/Movies",
 		label: "Movies",
 		dropdownItems: [
-			{
-				href: "/Movies/popular",
-				label: "Popular",
-			},
-			{
-				href: "/Movies/now-playing",
-				label: "Now Playing",
-			},
-			{
-				href: "/Movies/upcoming",
-				label: "Upcoming",
-			},
-			{
-				href: "/Movies/top-rated",
-				label: "Top Rated",
-			},
+			{ href: "/Movies/popular", label: "Popular" },
+			{ href: "/Movies/now-playing", label: "Now Playing" },
+			{ href: "/Movies/upcoming", label: "Upcoming" },
+			{ href: "/Movies/top-rated", label: "Top Rated" },
 		],
 	},
 	{
 		href: "/TVShows",
 		label: "TV Shows",
 		dropdownItems: [
-			{
-				href: "/Movies/popular",
-				label: "Popular",
-			},
-			{
-				href: "/Movies/airing-today",
-				label: "Airing Today",
-			},
-			{
-				href: "/Movies/on-the-air",
-				label: "On TV",
-			},
-			{
-				href: "/Movies/top-rated",
-				label: "Top Rated",
-			},
+			{ href: "/Movies/popular", label: "Popular" },
+			{ href: "/Movies/airing-today", label: "Airing Today" },
+			{ href: "/Movies/on-the-air", label: "On TV" },
+			{ href: "/Movies/top-rated", label: "Top Rated" },
 		],
 	},
 	{
 		href: "/People",
 		label: "People",
-		dropdownItems: [
-			{
-				href: "/Movies/popular",
-				label: "Popular",
-			},
-		],
+		dropdownItems: [{ href: "/Movies/popular", label: "Popular" }],
 	},
 	{
 		href: "/Awards",
 		label: "Awards",
 		dropdownItems: [
-			{
-				href: "/Movies/popular",
-				label: "Popular",
-			},
-			{
-				href: "/Movies/upcoming",
-				label: "Upcoming",
-			},
+			{ href: "/Movies/popular", label: "Popular" },
+			{ href: "/Movies/upcoming", label: "Upcoming" },
 		],
 	},
 	{
 		href: "/More",
 		label: "More",
 		dropdownItems: [
-			{
-				href: "/Movies/discussions",
-				label: "Discussions",
-			},
-			{
-				href: "/Movies/leaderbord",
-				label: "Leaderboard",
-			},
+			{ href: "/Movies/discussions", label: "Discussions" },
+			{ href: "/Movies/leaderbord", label: "Leaderboard" },
 		],
 	},
 ];
 
-const NavigationLinks = ({ className = "", setMenuOpen = "" }) => {
-	const [currentLabelPicked, setCurrentLabelPicked] = useState(null)
+const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
+	const [desktopOpenLabel, setDesktopOpenLabel] = useState(null);
+	const [mobileOpenLabel, setMobileOpenLabel] = useState(null);
+
+	const closeMenu = () => {
+		if (typeof setMenuOpen === "function") {
+			setMenuOpen(false);
+		}
+	};
+
+	const toggleMobileSection = (label) => {
+		setMobileOpenLabel((current) => (current === label ? null : label));
+	};
+
+	if (isMobileMenu) {
+		return (
+			<nav className={styles.mobileMenuRoot} aria-label="Mobile navigation">
+				<Link
+					href="/"
+					className={styles.mobileLogoLink}
+					onClick={closeMenu}
+				>
+					<Film className={styles.mobileLogoIcon} aria-hidden />
+					<span>MovieTracker</span>
+				</Link>
+
+				<ul className={styles.mobileNavLinks}>
+					{navItems.map((nav) => {
+						const { label, dropdownItems } = nav;
+						const isOpen = mobileOpenLabel === label;
+
+						return (
+							<li key={label} className={styles.mobileNavItem}>
+								<button
+									type="button"
+									className={styles.mobileNavButton}
+									aria-expanded={isOpen}
+									onClick={() => toggleMobileSection(label)}
+								>
+									<span>{label}</span>
+									<span
+										className={`${styles.mobileChevron} ${isOpen ? styles.mobileChevronOpen : ""}`}
+										aria-hidden
+									>
+										›
+									</span>
+								</button>
+								{isOpen && (
+									<ul className={styles.mobileDropdown}>
+										{dropdownItems.map((item) => (
+											<li key={item.label}>
+												<NavDropdown
+													label={item.label}
+													href={item.href}
+													isMobileMenu
+													closeMobileMenu={closeMenu}
+												/>
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						);
+					})}
+				</ul>
+			</nav>
+		);
+	}
+
 	return (
 		<>
 			<div className={styles.logoContainer}>
-				<Link href="/" onClick={() => setMenuOpen(false)}>
+				<Link href="/">
 					<Film className={styles.logoIcon} />
 				</Link>
 			</div>
-			<ul className={`${styles.navLinks} ${className}`}>
-				{navItems.map((nav, index) => {
+			<ul className={styles.navLinks}>
+				{navItems.map((nav) => {
 					const { label, dropdownItems } = nav;
+					const isOpen = desktopOpenLabel === label;
+
 					return (
-						<div key={index} onMouseEnter={() => setCurrentLabelPicked(label)} onMouseLeave={() => setCurrentLabelPicked(null)}>
-							<p>
-								{label}
-							</p>
-							{currentLabelPicked === label && <div className={styles.movieDropdownOptions}>
-								{dropdownItems.map((item) => {
-									return (
-										<div className={styles.dropdownList} key={item.label}>
+						<li
+							key={label}
+							className={styles.navItem}
+							onMouseEnter={() => setDesktopOpenLabel(label)}
+							onMouseLeave={() => setDesktopOpenLabel(null)}
+						>
+							<p className={styles.navLabel}>{label}</p>
+							{isOpen && (
+								<div className={styles.movieDropdownOptions}>
+									{dropdownItems.map((item) => (
+										<div
+											className={styles.dropdownList}
+											key={item.label}
+										>
 											<NavDropdown
 												label={item.label}
 												href={item.href}
-												closeMobileMenu={setMenuOpen}
 											/>
 										</div>
-									);
-								})}
-							</div>}
-						</div>
+									))}
+								</div>
+							)}
+						</li>
 					);
 				})}
 			</ul>

@@ -1,15 +1,41 @@
 .options {
   padding: 7% 0 7% 7%;
+
   &:hover {
     background-color: lightgray;
     cursor: pointer;
-    color: white;
   }
 }
+
 .signedInOptions {
   color: black;
-	text-align: center;
-	font-size: 0.75rem;
-	list-style: none;
+  text-align: center;
+  font-size: 0.75rem;
+  list-style: none;
+}
 
+/* Mobile drawer only */
+.optionsMobile {
+  padding: 0;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.signedInOptionsMobile {
+  display: block;
+  padding: 0.625rem 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: #f87171;
+    background-color: rgba(255, 255, 255, 0.06);
+  }
 }
