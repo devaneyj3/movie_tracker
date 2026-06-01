@@ -1,7 +1,8 @@
 @use "../../../mixins" as *;
 .movieCard {
     @include card;
-    @include card--mobile
+    @include card--mobile;
+    overflow:visible
   }
   .imageContainer {
     position: relative;
