@@ -1,22 +1,30 @@
+@use "../../../mixins" as *;
+
 .providersContainer {
-  h2 {
-    font-size: 2rem;
-    color: black;
+  margin: 0 3.5rem 3rem;
+
+  @include below($bp-tablet) {
+    margin: 0 1rem 2rem;
   }
 
+  h2 {
+    @include fluid-type(1.25rem, 4vw, 2rem);
+    color: black;
+  }
 }
+
 .providers {
   margin-top: 1rem;
-  gap: 1rem;
+  display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
+
   h2 {
     font-size: 1rem;
   }
-}
 
-@media (max-width: 485px) {
-  .providers {
-    display: block;
+  @include below($bp-mobile) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
-

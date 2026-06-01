@@ -1,14 +1,37 @@
+@use "../../../mixins" as *;
+
 .container {
-  margin: 2rem;
-  border: 1px solid black;
+  @include page-container(72rem);
+  margin: 2rem auto;
+  padding: 0 1rem;
+  text-transform: capitalize;
+
+  @include above($bp-tablet) {
+    padding: 0 2rem;
+  }
 }
 
 .infoContainer {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  justify-content: space-between;
+
+  @include below($bp-sidebar) {
+    flex-direction: column;
+  }
 }
 
 .searchContainer {
-  width: 50%;
+  margin: 2rem 0 3rem;
+  width: 100%;
+
+  @include above($bp-sidebar) {
+    margin-bottom: 5rem;
+  }
+}
+
+.movies {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
 }

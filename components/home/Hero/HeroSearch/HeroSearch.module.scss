@@ -1,12 +1,14 @@
+@use "../../../../mixins" as *;
+
 .heroSearchContainer {
   position: relative;
   width: 100%;
-  padding-left: 12%;
+  @include section-inset(12%, 1rem);
+
   .heroSearch {
     padding-left: 3%;
     height: 50px;
-    display: inline-block;
-    align-items: center;
+    display: block;
     font-size: large;
     width: 85%;
     margin-top: 3%;
@@ -14,22 +16,29 @@
     border: 1px solid lightgray;
     border-radius: 40px;
     line-height: 2;
-    &:focus {
-      border: none;
-      outline: none;
-    }
+    box-sizing: border-box;
+
+    &:focus,
     &:active {
       border: none;
       outline: none;
     }
+
     &::placeholder {
       color: lightgray;
       font-size: 1.25rem;
-      
     }
-  } 
+
+    @include below($bp-tablet) {
+      width: 100%;
+      margin-top: 1rem;
+      @include search-input-compact;
+      border-radius: 2rem;
+    }
+  }
+
   .searchBtn {
-    position: absolute;;
+    position: absolute;
     bottom: 1px;
     right: 13.26%;
     height: 48px;
@@ -37,11 +46,19 @@
     border-radius: 40px;
     cursor: pointer;
     color: white;
-    background: linear-gradient(to right,  #0bc3c9 0%,#17ccb9 100%);
+    background: linear-gradient(to right, #0bc3c9 0%, #17ccb9 100%);
     width: 5%;
     min-width: 100px;
+
     &:hover {
       color: black;
+    }
+
+    @include below($bp-tablet) {
+      position: static;
+      width: 100%;
+      margin-top: 0.75rem;
+      min-width: 0;
     }
   }
 }

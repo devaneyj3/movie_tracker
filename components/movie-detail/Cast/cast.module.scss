@@ -1,44 +1,56 @@
 @use "../../../mixins" as *;
+
 .contain {
-  margin: 0 3.5rem 5rem 3.5rem;
+  margin: 0 3.5rem 5rem;
+
+  @include below($bp-tablet) {
+    margin: 0 1rem 3rem;
+  }
+
   h2 {
-    font-size: 2rem;
+    @include fluid-type(1.25rem, 4vw, 2rem);
     color: black;
   }
+
   p {
     color: grey;
   }
 }
+
 .castContainer {
   margin-top: 1rem;
   @include grid;
   @include flex-column-mobile;
+
   h2 {
     font-size: 1rem;
   }
+
   .cast {
     @include card;
     @include card--mobile;
+
     .imgContainer {
-          position: relative;
-   
+      position: relative;
+
       .image {
         @include image-width-height--mobile;
       }
-
     }
   }
-  
+
   .castDetails {
     display: flex;
     gap: 1rem;
     flex-direction: column;
+
     h2 {
       font-weight: bold;
-      margin-left: .5rem;
+      margin-left: 0.5rem;
     }
-    p{
-      margin-left: .5rem;
+
+    p {
+      margin-left: 0.5rem;
     }
   }
 }

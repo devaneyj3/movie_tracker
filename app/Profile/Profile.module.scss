@@ -1,47 +1,96 @@
+@use "../../mixins" as *;
+
+.profile {
+  width: 100%;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  color: #042541;
+  font-weight: 600;
+}
 
 .profileHeader {
   background-color: #032641;
   padding: 3rem 2rem 2rem;
   gap: 2rem;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   border-bottom: 1px solid rgba(55, 65, 81, 0.3);
   border-top: 1px solid rgba(119, 150, 199, 0.3);
-  .imageContainer {
-    .profileImage {
-      width: 8rem;
-      height: 8rem;
-      border-radius: 50%;
-      margin: 0 auto 1.5rem;
-    }
+
+  .imageContainer .profileImage {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
+
   .headerInfo {
     display: flex;
     flex-wrap: wrap;
-    height: min-content;
     align-items: baseline;
     gap: 1rem;
+    min-width: 0;
+
     .profileName {
-      font-size: 2.5rem;
+      @include fluid-type(1.75rem, 5vw, 2.5rem);
       font-weight: 700;
       color: white;
-      margin-bottom: 0.5rem;
+      margin: 0;
     }
+
     .profileEmail {
       color: gray;
-      font-size: 1.125rem;
-      margin-bottom: 1rem;
+      @include fluid-type(0.95rem, 2.5vw, 1.125rem);
+      margin: 0;
+    }
+  }
+
+  @include below($bp-tablet) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+
+    .imageContainer .profileImage {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .headerInfo {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
     }
   }
 }
+
 .profileContent {
-  margin: 0 5% 0 5%;
+  @include page-container(72rem);
+  padding: 0 5% 2rem;
+
+  @include below($bp-tablet) {
+    padding: 0 1rem 2rem;
+  }
+
   section {
-    padding: 2rem;
+    padding: 2rem 0;
+
+    @include below($bp-tablet) {
+      padding: 1.5rem 0;
+    }
+
     h1 {
-      font-size: 1.5rem;
+      @include fluid-type(1.25rem, 3vw, 1.5rem);
       font-weight: 600;
       color: black;
     }
+
     h2 {
       margin-top: 1rem;
     }
@@ -56,39 +105,4 @@
   color: #fff;
   font-weight: 600;
   font-size: 0.95rem;
-}
-
-
-
-// Responsive design
-@media (max-width: 768px) {
-  .profileContainer {
-    padding: 1rem;
-  }
-  
-  .profileHeader {
-    padding: 2rem 1rem 1.5rem;
-  }
-  
-  .profileContent {
-    padding: 1.5rem 1rem;
-  }
-  
-  .profileImage {
-    width: 6rem;
-    height: 6rem;
-  }
-  
-  .profileName {
-    font-size: 2rem;
-  }
-  
-  .infoGrid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }

@@ -32,8 +32,7 @@ const SearchLabels = () => {
 
 
   return (
-    <div>
-
+    <div className={styles.labelsList}>
       {
         labels.map(({ title, count }) => {
           return (

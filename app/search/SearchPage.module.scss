@@ -1,5 +1,25 @@
+@use "mixins" as *;
+
+.pageWrapper {
+  @include page-container;
+  @include page-padding;
+}
+
 .page {
-  display: flex;
-  gap: 4rem;
-  margin-left: 5rem;
+  @include search-page-layout;
+  margin-left: 0;
+
+  @include above($bp-sidebar) {
+    margin-left: 1rem;
+  }
+}
+
+.sidebar {
+  @include sticky-sidebar;
+}
+
+.searchResults {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
 }

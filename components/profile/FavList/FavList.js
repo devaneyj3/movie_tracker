@@ -25,7 +25,6 @@ export default function FavList({ movieDetails }) {
 
   useEffect(() => {
     const filterMovies = async () => {
-      console.log('filter movieDetails function, FavList.js, ', movieDetails)
       try {
         const movie = await tmdb.movies.details(movieDetails.movieId);
         setFoundMovies([movie])

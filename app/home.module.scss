@@ -1,6 +1,18 @@
+@use "../mixins" as *;
+
+.pageContainer {
+  width: 100%;
+}
+
 .page {
-  padding-left: 10%;
+  @include page-container(72rem);
+  @include section-inset(10%, 1rem);
+
   h1 {
-    padding-top: 40px;
+    padding-top: 2.5rem;
+
+    @include below($bp-tablet) {
+      padding-top: 1.5rem;
+    }
   }
 }

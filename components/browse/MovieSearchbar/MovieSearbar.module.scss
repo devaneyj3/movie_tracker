@@ -1,20 +1,32 @@
+@use "../../../mixins" as *;
+
 .searchbar {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  @include grid(14rem, 1rem);
+
+  @include below($bp-sidebar) {
+    grid-template-columns: 1fr;
+  }
+
   .sortResults {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin: 1rem 0 0 1rem;
+    margin: 1rem 0 0;
+
+    @include above($bp-sidebar) {
+      margin-left: 1rem;
+    }
   }
+
   .box {
     border: 1px solid lightgray;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
+
     h2 {
       font-weight: bold;
     }
   }
+
   .border {
     border-bottom: 1px solid lightgray;
     color: lightgrey;

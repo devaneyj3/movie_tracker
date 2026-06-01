@@ -1,24 +1,30 @@
+@use "../../../mixins" as *;
+
 .heroSection {
   background: url("/images/hero.jpg") center / cover no-repeat;
-  padding: 5rem 0 5rem 0;
+  padding: 5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
+  @include below($bp-tablet) {
+    padding: 3rem 0;
+  }
 }
+
 .heroTextContainer {
   width: 100%;
-  padding-left: 15%;
-  
+  @include section-inset(15%, 1rem);
 }
+
 .heroTitle {
-  font-size: 2.75rem;
+  @include fluid-type(1.5rem, 5vw, 2.75rem);
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
 
 .heroSubtitle {
-  font-size: 1.75rem;
+  @include fluid-type(1rem, 3vw, 1.75rem);
   line-height: 1.6;
 }

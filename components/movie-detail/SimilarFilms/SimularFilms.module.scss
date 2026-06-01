@@ -1,21 +1,31 @@
+@use "../../../mixins" as *;
+
 .contain {
-    margin: 0 3.5rem 0 3.5rem;
-    h2 {
-      font-size: 2rem;
-      color: black;
-      span {
-        font-style: italic;
-        color: gray;
-      }
-    }
-    p {
-      color: grey;
-    }
-    .similiarFilmsContainer {
-      display: flex;
-      justify-content: center;
-      margin-top: 2rem;
-      gap: 1rem;
-      flex-wrap: wrap;
+  margin: 0 3.5rem 3rem;
+  @include page-container(72rem);
+
+  @include below($bp-tablet) {
+    margin: 0 1rem 2rem;
+  }
+
+  h2 {
+    @include fluid-type(1.25rem, 4vw, 2rem);
+    color: black;
+
+    span {
+      font-style: italic;
+      color: gray;
     }
   }
+
+  p {
+    color: grey;
+  }
+
+  .similiarFilmsContainer {
+    @include grid(11rem, 1rem);
+    @include flex-column-mobile($bp-mobile);
+    margin-top: 2rem;
+    justify-items: center;
+  }
+}

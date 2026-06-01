@@ -1,38 +1,217 @@
-// mixins.scss
-$responsive-width: 511px;
-@mixin white {
-  color: hsl(0 0% 100%); // pure white
+// ── Breakpoints (use these instead of magic numbers in components) ──
+$bp-mobile-sm: 400px;
+$bp-mobile: 511px;
+$bp-tablet: 768px;
+$bp-nav: 800px;
+$bp-sidebar: 900px;
+$bp-detail: 1127px;
+$bp-favlist: 640px;
+
+// Legacy alias used by existing mixins
+$responsive-width: $bp-mobile;
+
+// ── Media query helpers ──
+@mixin below($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
 }
 
-@mixin grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-  gap: 1rem;
+@mixin above($width) {
+  @media screen and (min-width: #{$width + 1px}) {
+    @content;
+  }
 }
-@mixin card {
-    -webkit-box-shadow: 0px 0px 7px 2px rgba(134,134,134,0.25); 
-    box-shadow: 0px 0px 7px 2px rgba(134,134,134,0.25);
-    border-radius: .5rem;
-    max-width: 200px;
-    min-width: 200px;
+
+@mixin between($min, $max) {
+  @media screen and (min-width: #{$min + 1px}) and (max-width: $max) {
+    @content;
+  }
+}
+
+// ── Layout ──
+@mixin page-container($max-width: 90rem) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin page-padding(
+  $block: 2.5rem,
+  $inline-mobile: 1rem,
+  $inline-desktop: 2rem
+) {
+  padding: 0 $inline-mobile $block;
+
+  @include above($bp-sidebar) {
+    padding: 0 $inline-desktop $block;
+  }
+}
+
+@mixin section-inset($desktop: 10%, $mobile: 1rem) {
+  padding-left: $desktop;
+
+  @include below($bp-tablet) {
+    padding-left: $mobile;
+    padding-right: $mobile;
+  }
+}
+
+@mixin flex-stack-below($width: $bp-tablet) {
+  @include below($width) {
+    flex-direction: column;
     align-items: center;
-    overflow: hidden;
+  }
 }
 
 @mixin flex-column-mobile($max-width: $responsive-width) {
-  @media screen and (max-width: $max-width) {
+  @include below($max-width) {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 }
+
+@mixin flex-wrap--mobile($max-width: $responsive-width) {
+  @include below($max-width) {
+    flex-wrap: wrap;
+  }
+}
+
+@mixin full-width-below($width: $bp-sidebar) {
+  @include below($width) {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@mixin sticky-sidebar($width: 280px, $breakpoint: $bp-sidebar) {
+  @include full-width-below($breakpoint);
+
+  @include above($breakpoint) {
+    width: min($width, 28vw);
+    flex-shrink: 0;
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+@mixin scrollable-panel($max-height: 70vh, $breakpoint: $bp-sidebar) {
+  @include above($breakpoint) {
+    max-height: $max-height;
+    overflow-y: auto;
+  }
+}
+
+// Search page: sidebar + results
+@mixin search-page-layout($breakpoint: $bp-sidebar) {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @include above($breakpoint) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+}
+
+// ── Grid ──
+@mixin grid($min-col: 12rem, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, $min-col), 1fr));
+  gap: $gap;
+}
+
+@mixin grid-cols-below($width, $columns) {
+  @include below($width) {
+    grid-template-columns: repeat($columns, 1fr);
+  }
+}
+
+@mixin grid-1col-below($width: $bp-mobile-sm) {
+  @include below($width) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Cards & images ──
+@mixin white {
+  color: hsl(0 0% 100%);
+}
+
+@mixin card {
+  -webkit-box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  border-radius: 0.5rem;
+  max-width: 200px;
+  min-width: 200px;
+  align-items: center;
+  overflow: hidden;
+}
+
+@mixin card--mobile($max-width: $responsive-width) {
+  @include below($max-width) {
+    min-width: 80vw;
+    max-width: 80vw;
+  }
+}
+
 @mixin image-width-height--mobile($max-width: $responsive-width) {
-  @media screen and (max-width: $max-width) {
+  @include below($max-width) {
     min-width: 80vw;
     min-height: min-content;
   }
 }
-@mixin card--mobile($max-width: $responsive-width) {
-  @media screen and (max-width: $max-width) {
-    min-width: 80vw;
+
+// ── Typography & inputs ──
+@mixin fluid-type($min, $preferred, $max) {
+  font-size: clamp($min, $preferred, $max);
+}
+
+@mixin search-input-compact {
+  @include below($bp-tablet) {
+    height: 56px;
+    padding-left: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    &::placeholder {
+      font-size: 0.95rem;
+    }
+  }
+
+  @include below($bp-mobile-sm) {
+    height: 48px;
+    padding-left: 0.75rem;
+
+    &::placeholder {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// ── Visibility (nav, etc.) ──
+@mixin display-above($width, $display: flex) {
+  display: none;
+
+  @include above($width) {
+    display: $display;
+  }
+}
+
+@mixin display-below($width, $display: flex) {
+  display: none;
+
+  @include below($width) {
+    display: $display;
+  }
+}
+
+@mixin hidden-below($width) {
+  @include below($width) {
+    display: none !important;
   }
 }

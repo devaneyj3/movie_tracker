@@ -1,11 +1,14 @@
 @use "../../../mixins" as *;
 
 .list {
+  width: 100%;
+
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: 1.5rem;
     font-weight: bold;
-    font-size: 1.5rem;
+    @include fluid-type(1.25rem, 3vw, 1.5rem);
   }
+
   .msgBox {
     margin: -0.5rem 0 1rem;
     padding: 0.75rem 1rem;
@@ -14,12 +17,15 @@
     color: #fff;
     font-weight: 600;
     font-size: 0.95rem;
+
     p {
       margin: 0;
     }
   }
 }
+
 .movieList {
   @include grid;
   @include flex-column-mobile;
+  justify-items: center;
 }

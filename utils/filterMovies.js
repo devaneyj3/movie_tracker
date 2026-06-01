@@ -11,6 +11,7 @@ const sortTerms = [
 
 const filterMovies = (term, list) => {
   const movies = [...list]; // avoid mutating original
+  console.log(list)
   switch (term) {
     case "popularity-desc":
       return movies.sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
