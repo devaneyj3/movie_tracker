@@ -1,0 +1,95 @@
+@use "../../../mixins" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.panel {
+  width: min(100%, 22rem);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  color: #042541;
+}
+
+.movieTitle {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #042541;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 2px solid #01b5e4;
+    border-color: #01b5e4;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.cancelBtn,
+.saveBtn {
+  padding: 0.55rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+
+  &:hover:not(:disabled) {
+    background: #f5f5f5;
+  }
+}
+
+.saveBtn {
+  border: none;
+  background: #042541;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: #01b5e4;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

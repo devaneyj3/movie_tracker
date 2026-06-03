@@ -10,9 +10,14 @@ export async function GET() {
 }
 export async function POST(request) {
   const data = await request.json();
-  const { movieId, userId } = data;
+  const { movieId, userId, movieTitle, dateWatched } = data;
   try {
-    const movieWatched = await addMoviesWatched(userId, movieId);
+    const movieWatched = await addMoviesWatched(
+      userId,
+      movieId,
+      movieTitle,
+      dateWatched,
+    );
     console.log(movieWatched)
     return NextResponse.json(
       { success: true, movieWatched },

@@ -6,14 +6,15 @@ export async function getWatchList() {
   const allMovies = await prisma.watchList.findMany();
   return allMovies;
 }
-export async function addToWatchList(userId, movieId) {
+export async function addToWatchList(userId, movieId, movieTitle) {
   const createdWatchList = await prisma.watchList.create({
     data: {
-      userId: userId,
-      movieId: String(movieId)
+      userId,
+      movieId: String(movieId),
+      movieTitle,
     },
   });
-  return createdWatchList
+  return createdWatchList;
 }
 export async function deleteFromWatchList(userId, movieId) {
 	return prisma.watchList.delete({

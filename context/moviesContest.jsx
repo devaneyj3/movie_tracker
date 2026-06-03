@@ -8,7 +8,6 @@ import {
 	useMemo,
 	useCallback,
 } from "react";
-import { getCurrentDateFormatted } from "@/utils/currrentDate";
 import tmdb from "@/lib/tmdb";
 import { useRouter } from "next/navigation";
 import sortByDate from "@/utils/sortByDate";
@@ -142,7 +141,11 @@ export const MoviesProvider = ({ children }) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ movieId: id, userId: signedInUser?.id }),
+				body: JSON.stringify({
+					movieId: id,
+					userId: signedInUser?.id,
+					movieTitle: title,
+				}),
 			});
 			const body = await res.json();
 			if (!res.ok) {
@@ -158,22 +161,38 @@ export const MoviesProvider = ({ children }) => {
 	);
 
 	const markMovieAsWatched = useCallback(
-		async (movie) => {
+		async (movie, dateWatched = new Date()) => {
 			const res = await fetch("/api/watched", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ movieId: movie.id, userId: signedInUser?.id }),
+				body: JSON.stringify({
+					movieId: movie.id,
+					userId: signedInUser?.id,
+					movieTitle: movie.title,
+					dateWatched:
+						dateWatched instanceof Date
+							? dateWatched.toISOString()
+							: dateWatched,
+				}),
 			});
 			const body = await res.json();
 			if (!res.ok) {
 				throw new Error("Failed to add movie as watched");
 			}
 			const row = body.movieWatched;
-			const today = getCurrentDateFormatted();
-			row.lastWatchedDate = today;
-			setWatchedMovies((prev) => [...prev, row]);
+			setWatchedMovies((prev) => {
+				const exists = prev.some(
+					(item) => String(item.movieId) === String(row.movieId),
+				);
+				if (exists) {
+					return prev.map((item) =>
+						String(item.movieId) === String(row.movieId) ? row : item,
+					);
+				}
+				return [...prev, row];
+			});
 			setActionMsg(`You marked ${movie.title} as watched`);
 			setTimeout(() => setActionMsg(""), 5000);
 		},

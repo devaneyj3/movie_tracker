@@ -29,7 +29,8 @@ model User {
 }
 model WatchList {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  movieId   String
+  movieTitle   String
+  movieId     String
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @db.Timestamp(6)
@@ -40,6 +41,7 @@ model WatchList {
 
 model FavoriteMovies {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieTitle   String
   movieId   String
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -50,16 +52,27 @@ model FavoriteMovies {
 }
 model WatchedMovies {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieTitle   String
   movieId   String
   userId    String   @db.Uuid
+  watchDates WatchedDates[]
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateWatched  DateTime @default(now()) @db.Timestamp(6)
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 
   @@unique([userId, movieId])
 }
 
+model WatchedDates {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  movieTitle   String
+  watchedMovieId   String @db.Uuid
+  watchedMovie      WatchedMovies     @relation(fields: [watchedMovieId], references: [id], onDelete: Cascade)
+  dateWatched  DateTime @default(now()) @db.Timestamp(6)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+
+}
 model Account {
   userId            String      @db.Uuid
   type              String

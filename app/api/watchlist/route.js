@@ -9,9 +9,9 @@ export async function GET() {
 }
 export async function POST(request) {
 	const data = await request.json();
-	const { movieId, userId } = data;
+	const { movieId, userId, movieTitle } = data;
 	try {
-		const createdWatchList = await addToWatchList(userId, movieId);
+		const createdWatchList = await addToWatchList(userId, movieId, movieTitle);
 		return NextResponse.json(
 			{ success: true, createdWatchList },
 			{ status: 201 },

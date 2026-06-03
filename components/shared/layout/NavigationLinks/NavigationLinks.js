@@ -5,6 +5,8 @@ import { Film } from "lucide-react";
 import Link from "next/link";
 import styles from "./NavigationLinks.module.scss";
 import NavDropdown from "./NavDropdown/NavDropdown";
+import Image from "next/image";
+import camera from "../../../../public/images/camera.png"
 
 const navItems = [
 	{
@@ -72,7 +74,7 @@ const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
 					className={styles.mobileLogoLink}
 					onClick={closeMenu}
 				>
-					<Film className={styles.mobileLogoIcon} aria-hidden />
+					<Image src={camera} alt="camera" className={styles.mobileLogoIcon} width={300} height={300} aria-hidden />
 					<span>MovieTracker</span>
 				</Link>
 
@@ -123,7 +125,7 @@ const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
 		<>
 			<div className={styles.logoContainer}>
 				<Link href="/">
-					<Film className={styles.logoIcon} />
+					<Image src={camera} alt="camera" className={styles.mobileLogoIcon} width={300} height={300} aria-hidden />
 				</Link>
 			</div>
 			<ul className={styles.navLinks}>

@@ -8,17 +8,23 @@ import { useMovies } from "@/context/moviesContest";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
 import { isOnList } from "@/utils/isOnList";
+import { getWatchStats } from "@/utils/getWatchStats";
+import WatchStats from "../WatchStats/WatchStats";
+import WatchDatePicker from "../WatchDatePicker/WatchDatePicker";
 
 function MovieCard({ movie }) {
 	const [movieDropdownClicked, setMovieDropdownClicked] = useState(false)
+	const [watchPickerOpen, setWatchPickerOpen] = useState(false)
 	const { signedInUser } = useAuth();
 
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched, removeMovieAsWatched } =
+	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, moviesWatched } =
 		useMovies();
 
 	const router = useRouter();
+	const watchStats = getWatchStats(moviesWatched, id);
+
 	function goToMovie() {
 		setSelectedMovie(movie)
 		router.push(`/Movie/${id}`);
@@ -66,21 +72,12 @@ function MovieCard({ movie }) {
 									</p>
 									<p
 										className={styles.signedInOptions}
-										onClick={async (e) => {
+										onClick={(e) => {
 											e.stopPropagation();
-											setMovieDropdownClicked(false)
-											try {
-												if (isOnList(moviesWatched, id)) {
-													await removeMovieAsWatched(movie);
-													return
-												} else {
-													await markMovieAsWatched(movie);
-												}
-											} catch (err) {
-												console.error(err);
-											}
+											setMovieDropdownClicked(false);
+											setWatchPickerOpen(true);
 										}}>
-										{isOnList(moviesWatched, id) ? "Remove from Watched" : "Mark as Watched"}
+										Mark as Watched
 									</p>
 									<p
 										className={styles.signedInOptions}
@@ -120,7 +117,13 @@ function MovieCard({ movie }) {
 			<div className={styles.info}>
 				<p className={styles.title}>{title}</p>
 				<p className={styles.date}>{dateFormatter(release_date)}</p>
+				<WatchStats stats={watchStats} />
 			</div>
+			<WatchDatePicker
+				movie={movie}
+				open={watchPickerOpen}
+				onClose={() => setWatchPickerOpen(false)}
+			/>
 		</div>
 	);
 }

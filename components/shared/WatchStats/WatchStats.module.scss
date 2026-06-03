@@ -1,0 +1,29 @@
+@use "../../../mixins" as *;
+
+.watchStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #042541;
+}
+
+.date {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #042541;
+}
+
+.count {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #666;
+}

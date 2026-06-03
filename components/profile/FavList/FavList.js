@@ -7,15 +7,20 @@ import { dateFormatter } from "@/utils/dateFormater";
 import { useMovies } from "@/context/moviesContest";
 import { isOnList } from "@/utils/isOnList";
 import { useRouter } from "next/navigation";
+import { getWatchStats } from "@/utils/getWatchStats";
+import WatchStats from "@/components/shared/WatchStats/WatchStats";
+import WatchDatePicker from "@/components/shared/WatchDatePicker/WatchDatePicker";
 import tmdb from "@/lib/tmdb";
 
 export default function FavList({ movieDetails }) {
 
   const [fonudMovies, setFoundMovies] = useState([])
-
+  const [watchPickerMovie, setWatchPickerMovie] = useState(null)
 
   const { movies, addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched, removeMovieAsWatched } =
     useMovies();
+
+  const watchStats = getWatchStats(moviesWatched, movieDetails?.movieId);
 
   const router = useRouter();
   function goToMovie() {
@@ -35,6 +40,8 @@ export default function FavList({ movieDetails }) {
     }
     filterMovies()
   }, [movies, movieDetails?.movieId])
+
+  console.log(fonudMovies)
   return (
     <>
       <div className={styles.movieContainer}>
@@ -53,9 +60,10 @@ export default function FavList({ movieDetails }) {
                   />
                 </div>
                 <div className={styles.details}>
-                  <p className={styles.lastWatched}>Last Watched: {dateFormatter(movieDetails.dateWatched)}</p>
+                  <WatchStats stats={watchStats} />
                   <div className={styles.detailHeader}>
                     <h2>{title}</h2>
+                    <h2>{id}</h2>
                     <div className={styles.attributes}>
                       <p>{dateFormatter(release_date)}</p>
                     </div>
@@ -87,9 +95,8 @@ export default function FavList({ movieDetails }) {
                       try {
                         if (isOnList(moviesWatched, id)) {
                           await removeMovieAsWatched(fonudMovie);
-                          return
                         } else {
-                          await markMovieAsWatched(fonudMovie);
+                          setWatchPickerMovie(fonudMovie);
                         }
                       } catch (err) {
                         console.error(err);
@@ -120,6 +127,11 @@ export default function FavList({ movieDetails }) {
         }
         )}
       </div>
+      <WatchDatePicker
+        movie={watchPickerMovie}
+        open={!!watchPickerMovie}
+        onClose={() => setWatchPickerMovie(null)}
+      />
     </>
   );
 }
