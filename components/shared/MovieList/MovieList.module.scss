@@ -2,9 +2,19 @@
 
 .list {
   width: 100%;
+  padding: 0 1rem 2.5rem;
+
+  @include above($bp-tablet) {
+    padding: 0 1.5rem 3rem;
+  }
+
+  @include above($bp-sidebar) {
+    padding: 0 2rem 3rem;
+  }
 
   h1 {
-    margin-bottom: 1.5rem;
+    padding: 2rem 0 1rem;
+    margin: 0;
     font-weight: bold;
     @include fluid-type(1.25rem, 3vw, 1.5rem);
   }
@@ -25,7 +35,5 @@
 }
 
 .movieList {
-  @include grid;
-  @include flex-column-mobile;
-  justify-items: center;
+  @include responsive-card-grid;
 }

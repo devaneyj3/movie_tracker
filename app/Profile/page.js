@@ -43,30 +43,38 @@ export default function Profile() {
 				</div>
 			</div>
 			<section className={styles.profileContent}>
-				<section>
+				<div className={styles.statsSection}>
 					<h1>Stats</h1>
 					<MovieStats stats={signedInUser?.stats} />
-				</section>
+				</div>
 				{actionMsg ? (
 					<p className={styles.watchlistActionMsg} role="status">
 						{actionMsg}
 					</p>
 				) : null}
-				<section>
+				<section className={styles.listSection}>
 					<h1>Watch List</h1>
-					{watchlist.length > 0 ? watchlist.map((result) => {
-						return (
-							<FavList key={result.id} movieDetails={result} />
-						)
-					}) : <h2>No movies in watchlist</h2>}
+					{watchlist.length > 0 ? (
+						<div className={styles.grid}>
+							{watchlist.map((result) => (
+								<FavList key={result.id} movieDetails={result} />
+							))}
+						</div>
+					) : (
+						<h2>No movies in watchlist</h2>
+					)}
 				</section>
-				<section>
+				<section className={styles.listSection}>
 					<h1>Watched Movies</h1>
-					{moviesWatched.length > 0 ? moviesWatched.map((result) => {
-						return (
-							<FavList key={result.id} movieDetails={result} />
-						)
-					}) : <h2>No watched movies</h2>}
+					{moviesWatched.length > 0 ? (
+						<div className={styles.grid}>
+							{moviesWatched.map((result) => (
+								<FavList key={result.id} movieDetails={result} />
+							))}
+						</div>
+					) : (
+						<h2>No watched movies</h2>
+					)}
 				</section>
 			</section>
 		</div>

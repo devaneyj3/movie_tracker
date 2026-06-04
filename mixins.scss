@@ -137,6 +137,34 @@ $responsive-width: $bp-mobile;
   }
 }
 
+@mixin responsive-card-grid($gap: 0.75rem, $min-col: 10rem, $min-col-lg: 11rem) {
+  display: grid;
+  width: 100%;
+  gap: $gap;
+  grid-template-columns: 1fr;
+
+  @include above($bp-mobile) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+  }
+
+  @include above($bp-tablet) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, $min-col), 1fr));
+  }
+
+  @include above($bp-sidebar) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, $min-col-lg), 1fr));
+  }
+}
+
+@mixin grid-card-fill {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 // ── Cards & images ──
 @mixin white {
   color: hsl(0 0% 100%);
@@ -150,6 +178,14 @@ $responsive-width: $bp-mobile;
   min-width: 200px;
   align-items: center;
   overflow: hidden;
+}
+
+@mixin card-surface {
+  -webkit-box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
 }
 
 @mixin card--mobile($max-width: $responsive-width) {

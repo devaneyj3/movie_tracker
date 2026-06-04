@@ -1,18 +1,11 @@
 @use "../../../mixins" as *;
 
-.movieContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  margin: 0.5rem 0 2rem;
-}
-
 .movie {
   width: 100%;
-  max-width: 760px;
   min-width: 0;
-  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: 1rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -29,7 +22,8 @@
 
 .movieInfo {
   display: flex;
-  gap: 1.5rem;
+  flex: 1;
+  gap: 1rem;
   padding: 1rem;
   line-height: 1.6;
 
@@ -45,14 +39,14 @@
 }
 
 .image {
-  width: 150px;
+  width: 120px;
   max-width: 100%;
   height: auto;
   border-radius: 0.5rem;
   object-fit: cover;
 
   @include below($bp-favlist) {
-    width: min(200px, 70vw);
+    width: min(180px, 60vw);
   }
 }
 
@@ -60,14 +54,15 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   min-width: 0;
-  justify-content: center;
+  justify-content: flex-start;
 
   h2 {
     font-weight: bold;
-    @include fluid-type(1.1rem, 3vw, 1.35rem);
+    @include fluid-type(1rem, 2.5vw, 1.2rem);
     margin: 0;
+    line-height: 1.3;
   }
 }
 
@@ -75,12 +70,22 @@
   font-weight: 300;
   margin: 0.25rem 0 0;
   color: #666;
+  font-size: 0.9rem;
 }
 
-.synopsis p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #444;
+.synopsis {
+  flex: 1;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #444;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 .actionBar {
@@ -88,6 +93,7 @@
   flex-wrap: wrap;
   padding: 0.5rem;
   gap: 0.25rem;
+  margin-top: auto;
 
   .column {
     display: flex;
@@ -104,14 +110,15 @@
     align-items: center;
     gap: 0.5rem;
     flex: 1 1 50%;
-    min-width: min(100%, 10rem);
-    padding: 0.625rem 0.5rem;
+    min-width: min(100%, 9rem);
+    padding: 0.5rem 0.35rem;
     cursor: pointer;
 
     h2 {
       margin: 0;
-      @include fluid-type(0.7rem, 2.5vw, 0.85rem);
+      @include fluid-type(0.65rem, 2vw, 0.8rem);
       font-weight: 600;
+      line-height: 1.2;
     }
 
     &:hover .actionIcon {
@@ -125,9 +132,9 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 2rem;
-    height: 2rem;
-    padding: 0.35rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.3rem;
     border: 1px solid #979797;
     border-radius: 50%;
   }

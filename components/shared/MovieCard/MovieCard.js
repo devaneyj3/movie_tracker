@@ -103,8 +103,8 @@ function MovieCard({ movie }) {
 					)}
 					<Image
 						src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-						width={200}
-						height={300}
+						width={150}
+						height={225}
 						alt={`${title} Poster`}
 						onClick={goToMovie}
 						className={styles.image}

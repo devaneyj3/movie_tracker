@@ -1,15 +1,25 @@
 @use "../../../mixins" as *;
+
 .movieCard {
-    @include card;
-    @include card--mobile;
-    overflow:visible
+  @include card-surface;
+  @include grid-card-fill;
+  overflow: visible;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+
+  img,
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    max-width: 100%;
+    cursor: pointer;
   }
-  .imageContainer {
-    position: relative;
-    img {
-      cursor: pointer;
-      @include image-width-height--mobile;
-  }
+
   .posterBtn {
     position: absolute;
     padding: 3%;
@@ -18,15 +28,17 @@
     right: 3%;
     top: 3%;
     border-radius: 50%;
-    width: 15%;
+    width: 18%;
     background-color: #ebebeb;
     z-index: 4;
-    opacity: .50;
+    opacity: 0.5;
+
     &:hover {
       background-color: #00b7e9;
       cursor: pointer;
     }
   }
+
   .movieDropdownOptions {
     position: absolute;
     width: 75%;
@@ -36,34 +48,40 @@
     right: -20%;
     top: 20%;
     border-radius: 5%;
+    font-size: 0.65rem;
+
     .signedInOptions {
       text-align: center;
       cursor: pointer;
-      padding: 7%;
+      padding: 5%;
       margin-top: 5%;
-      font-size: .75rem;
+      font-size: 0.65rem;
       list-style: none;
       border-bottom: 1px solid lightgray;
+
       &:hover {
         background-color: #042541;
         color: white;
       }
     }
+
     .signedOutOptions {
       margin: 7%;
       width: 100%;
       margin-top: 5%;
-      font-size: .75rem;
+      font-size: 0.65rem;
       list-style: none;
       color: #042541;
-      // reset.css sets all `a` to white — invisible on this white panel
+
       p {
         margin-bottom: 5%;
         font-weight: bold;
       }
+
       a {
         color: darkgrey;
         font-weight: bold;
+
         &:hover {
           color: lightgray;
         }
@@ -71,21 +89,22 @@
     }
   }
 }
+
 .info {
   display: flex;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  flex: 1;
+  padding: 0.4rem 0.6rem 0.6rem;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 20px;
-  margin-bottom: 1rem;
+  gap: 0.2rem;
 
   .title {
     font-weight: bold;
-    line-height: 1.5;
-    font-size: 1rem;
+    line-height: 1.3;
+    font-size: 0.8rem;
   }
+
   .date {
     color: gray;
+    font-size: 0.7rem;
   }
 }

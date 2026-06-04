@@ -71,38 +71,65 @@
 }
 
 .profileContent {
-  @include page-container(72rem);
-  padding: 0 5% 2rem;
+  width: 100%;
+}
 
-  @include below($bp-tablet) {
-    padding: 0 1rem 2rem;
+.statsSection {
+  @include page-container(72rem);
+  padding: 0 1rem 1rem;
+
+  @include above($bp-tablet) {
+    padding: 0 2rem 1rem;
   }
 
-  section {
-    padding: 2rem 0;
+  h1 {
+    @include fluid-type(1.25rem, 3vw, 1.5rem);
+    font-weight: 600;
+    color: black;
+    padding: 2rem 0 0.75rem;
+    margin: 0;
+  }
+}
 
-    @include below($bp-tablet) {
-      padding: 1.5rem 0;
-    }
+.listSection {
+  width: 100%;
+  padding: 0 1rem 2.5rem;
 
-    h1 {
-      @include fluid-type(1.25rem, 3vw, 1.5rem);
-      font-weight: 600;
-      color: black;
-    }
+  @include above($bp-tablet) {
+    padding: 0 1.5rem 3rem;
+  }
 
-    h2 {
-      margin-top: 1rem;
-    }
+  @include above($bp-sidebar) {
+    padding: 0 2rem 3rem;
+  }
+
+  h1 {
+    @include fluid-type(1.25rem, 3vw, 1.5rem);
+    font-weight: 600;
+    color: black;
+    padding: 2rem 0 1rem;
+    margin: 0;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
   }
 }
 
 .watchlistActionMsg {
-  margin: 0.75rem 0 1rem;
+  @include page-container(72rem);
+  margin: 0.75rem auto 1rem;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   background-color: #042541;
   color: #fff;
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.grid {
+  @include responsive-card-grid;
 }

@@ -5,14 +5,5 @@
 }
 
 .page {
-  @include page-container(72rem);
-  @include section-inset(10%, 1rem);
-
-  h1 {
-    padding-top: 2.5rem;
-
-    @include below($bp-tablet) {
-      padding-top: 1.5rem;
-    }
-  }
+  width: 100%;
 }

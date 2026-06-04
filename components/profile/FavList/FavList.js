@@ -41,14 +41,12 @@ export default function FavList({ movieDetails }) {
     filterMovies()
   }, [movies, movieDetails?.movieId])
 
-  console.log(fonudMovies)
   return (
     <>
-      <div className={styles.movieContainer}>
-        {fonudMovies && fonudMovies.map((fonudMovie) => {
+      {fonudMovies.map((fonudMovie) => {
           const { id, title, poster_path, release_date, overview } = fonudMovie
           return (
-            <div key={id} className={styles.movie}>
+            <article key={id} className={styles.movie}>
               <div className={styles.movieInfo}>
                 <div className={styles.imageContainer}>
                   <Image
@@ -63,7 +61,6 @@ export default function FavList({ movieDetails }) {
                   <WatchStats stats={watchStats} />
                   <div className={styles.detailHeader}>
                     <h2>{title}</h2>
-                    <h2>{id}</h2>
                     <div className={styles.attributes}>
                       <p>{dateFormatter(release_date)}</p>
                     </div>
@@ -122,11 +119,9 @@ export default function FavList({ movieDetails }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
           )
-        }
-        )}
-      </div>
+        })}
       <WatchDatePicker
         movie={watchPickerMovie}
         open={!!watchPickerMovie}

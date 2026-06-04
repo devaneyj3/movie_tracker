@@ -1,5 +1,9 @@
 @use "../../../../../mixins" as *;
 
+.searchForm {
+  width: 100%;
+}
+
 .searchbar {
   height: 80px;
   font-size: large;
