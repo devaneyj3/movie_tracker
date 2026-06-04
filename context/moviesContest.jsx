@@ -8,7 +8,7 @@ import {
 	useMemo,
 	useCallback,
 } from "react";
-import tmdb from "@/lib/tmdb";
+import tmdbQuery from "@/utils/tmdbQuery";
 import { useRouter } from "next/navigation";
 import sortByDate from "@/utils/sortByDate";
 
@@ -32,7 +32,7 @@ export const MoviesProvider = ({ children }) => {
 			setIsLoading(true);
 			setError(null);
 			try {
-				const response = await tmdb.trending.trending("movie", "day");
+				const response = await tmdbQuery.getTrendingMovies();
 				const { results, page, total_pages, total_results } = response;
 				const sortedMovies = sortByDate(results);
 				setMovies(sortedMovies);
@@ -93,7 +93,7 @@ export const MoviesProvider = ({ children }) => {
 	}, [signedInUser?.id]);
 
 	const search = async () => {
-		const results = await tmdb.search.movies({ query: searchText });
+		const results = await tmdbQuery.searchMovies(searchText);
 		setSearchResults({ movies: results });
 		router.push("/Search");
 	};
