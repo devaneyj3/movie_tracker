@@ -2,18 +2,18 @@
 
 import React from 'react';
 import style from './HeroSearch.module.scss';
-import { useMovies } from '@/context/moviesContest';
+import { useMovies } from '@/context/moviesContext';
 
-export default function HeroSeach() {
-  const { setSearchText, search } = useMovies();
+export default function HeroSearch() {
+  const { setSearchText, submitSearch } = useMovies();
 
-  const goToSearch = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    search();
+    submitSearch();
   };
 
   return (
-    <form className={style.heroSearchContainer} onSubmit={goToSearch}>
+    <form className={style.heroSearchContainer} onSubmit={handleSearchSubmit}>
       <input
         name="search"
         type="text"

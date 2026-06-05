@@ -19,12 +19,12 @@ const options = [
 		value: "rating-asc",
 	},
 	{
-		title: "Realease Date Descending",
-		value: "realease-date-desc",
+		title: "Release Date Descending",
+		value: "release-date-desc",
 	},
 	{
-		title: "Realease Date Ascending",
-		value: "realease-date-asc",
+		title: "Release Date Ascending",
+		value: "release-date-asc",
 	},
 	{
 		title: "Title (A to Z)",

@@ -1,25 +1,25 @@
 import React from 'react';
-import styles from './MovieSearbar.module.scss'
-import { SortResults } from "@/components/shared";
+import styles from './CategorySidebar.module.scss';
+import { SortResults } from "@/components/category";
 
-export default function MovieSearchbar({ onSortChange }) {
+export default function CategorySidebar({ onSortChange }) {
   return (
-    <div className={styles.searchbar}>
+    <aside className={styles.sidebar}>
       <div className={styles.box}>
-        <div className={styles.sortResults}>
-        <h2>Sort</h2>
-          <div className={styles.border}></div>
+        <div className={styles.sortSection}>
+          <h2>Sort</h2>
+          <div className={styles.divider} />
           <SortResults onSortChange={onSortChange} />
         </div>
       </div>
       <div className={styles.box}>
-        <div className={styles.border}></div>
+        <div className={styles.divider} />
         <h2>Where To Watch</h2>
       </div>
       <div className={styles.box}>
-        <div className={styles.border}></div>
+        <div className={styles.divider} />
         <h2>Filters</h2>
       </div>
-    </div>
-  )
+    </aside>
+  );
 }

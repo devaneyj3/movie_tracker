@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
-import Cast from "../Cast/cast";
-import styles from "./Details.module.scss";
+import Cast from "../Cast/Cast";
+import styles from "./MovieDetails.module.scss";
 import SimilarFilms from "../SimilarFilms/SimilarFilms";
 import WhereToWatch from "../WhereToWatch/WhereToWatch";
-import { dateFormatter } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 import getPercentage from "@/utils/getPercentage";
 
 export default function MovieDetails({ movieDetails }) {
@@ -25,7 +25,6 @@ export default function MovieDetails({ movieDetails }) {
 		credits,
 	} = movieDetails;
 
-	console.log(movieDetails)
 	return (
 		<>
 			<div
@@ -46,15 +45,14 @@ export default function MovieDetails({ movieDetails }) {
 						alt={`${title} Poster`}
 						className={styles.image}
 					/>
-					<span
-						className={styles.poster_btn}>
+					<span className={styles.posterButton}>
 						Add to my list
 					</span>
 				</div>
 				<div className={styles.details}>
 					<div className={styles.detailHeader}>
 						<span>{title}</span>
-						<div className={styles.attrbutes}>
+						<div className={styles.attributes}>
 							<span>{dateFormatter(release_date)}</span>
 							{genres?.length > 0 &&
 								genres.map((genre) => (

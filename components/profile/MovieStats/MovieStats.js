@@ -1,19 +1,20 @@
 import React from "react";
 import styles from "./MovieStats.module.scss";
-import { useMovies } from "@/context/moviesContest";
+import { useMovies } from "@/context/moviesContext";
 
-const MovieStats = () => {
-	const { watchlist, moviesWatched } = useMovies()
+export default function MovieStats() {
+	const { watchlist, watchedMovies } = useMovies();
+
 	return (
 		<div className={styles.statsContainer}>
 			<div className={styles.statsGrid}>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Movies Watched</div>
-					<div className={styles.statNumber}>{moviesWatched.length}</div>
+					<div className={styles.statNumber}>{watchedMovies.length}</div>
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Movies Rated</div>
-					<div className={styles.statNumber}>{moviesWatched.length}</div>
+					<div className={styles.statNumber}>{watchedMovies.length}</div>
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Watchlist Items</div>
@@ -21,11 +22,9 @@ const MovieStats = () => {
 				</div>
 				<div className={styles.statCard}>
 					<div className={styles.statLabel}>Reviews Written</div>
-					<div className={styles.statNumber}>{moviesWatched.length}</div>
+					<div className={styles.statNumber}>{watchedMovies.length}</div>
 				</div>
 			</div>
 		</div>
 	);
-};
-
-export default MovieStats;
+}

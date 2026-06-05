@@ -2,14 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import { User } from "lucide-react";
-import { MovieStats, FavList } from "@/components/profile";
+import { MovieStats, ProfileMovieCard } from "@/components/profile";
 import styles from "./Profile.module.scss";
 import { useAuth } from "@/context/authContext";
-import { useMovies } from "@/context/moviesContest";
+import { useMovies } from "@/context/moviesContext";
 
 export default function Profile() {
 	const { signedInUser } = useAuth();
-	const { watchlist, actionMsg, moviesWatched } = useMovies()
+	const { watchlist, actionMessage, watchedMovies } = useMovies();
+
 	if (!signedInUser) {
 		return (
 			<div className={styles.profileContent}>
@@ -45,19 +46,19 @@ export default function Profile() {
 			<section className={styles.profileContent}>
 				<div className={styles.statsSection}>
 					<h1>Stats</h1>
-					<MovieStats stats={signedInUser?.stats} />
+					<MovieStats />
 				</div>
-				{actionMsg ? (
+				{actionMessage ? (
 					<p className={styles.watchlistActionMsg} role="status">
-						{actionMsg}
+						{actionMessage}
 					</p>
 				) : null}
 				<section className={styles.listSection}>
 					<h1>Watch List</h1>
 					{watchlist.length > 0 ? (
 						<div className={styles.grid}>
-							{watchlist.map((result) => (
-								<FavList key={result.id} movieDetails={result} />
+							{watchlist.map((entry) => (
+								<ProfileMovieCard key={entry.id} savedMovieEntry={entry} />
 							))}
 						</div>
 					) : (
@@ -66,10 +67,10 @@ export default function Profile() {
 				</section>
 				<section className={styles.listSection}>
 					<h1>Watched Movies</h1>
-					{moviesWatched.length > 0 ? (
+					{watchedMovies.length > 0 ? (
 						<div className={styles.grid}>
-							{moviesWatched.map((result) => (
-								<FavList key={result.id} movieDetails={result} />
+							{watchedMovies.map((entry) => (
+								<ProfileMovieCard key={entry.id} savedMovieEntry={entry} />
 							))}
 						</div>
 					) : (

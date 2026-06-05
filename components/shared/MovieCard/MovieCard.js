@@ -1,29 +1,30 @@
 "use client";
-import { dateFormatter } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 import React, { useState } from "react";
 import styles from "./MovieCard.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMovies } from "@/context/moviesContest";
+import { useMovies } from "@/context/moviesContext";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
-import { isOnList } from "@/utils/isOnList";
+import { isMovieInList } from "@/utils/isMovieInList";
 import { getWatchStats } from "@/utils/getWatchStats";
 import WatchStats from "../WatchStats/WatchStats";
 import WatchDatePicker from "../WatchDatePicker/WatchDatePicker";
+import { cn } from "@/lib/utils";
 
-function MovieCard({ movie }) {
+function MovieCard({ keenClass, movie }) {
 	const [movieDropdownClicked, setMovieDropdownClicked] = useState(false)
 	const [watchPickerOpen, setWatchPickerOpen] = useState(false)
 	const { signedInUser } = useAuth();
 
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, removeFromWatchlist, watchlist, moviesWatched } =
+	const { addToWatchlist, removeFromWatchlist, watchlist, watchedMovies } =
 		useMovies();
 
 	const router = useRouter();
-	const watchStats = getWatchStats(moviesWatched, id);
+	const watchStats = getWatchStats(watchedMovies, id);
 
 	function goToMovie() {
 		router.push(`/Movie/${id}`);
@@ -35,7 +36,7 @@ function MovieCard({ movie }) {
 
 
 	return (
-		<div className={styles.movieCard} onClick={(e) => movieDropdown(e)} >
+		<div className={cn(keenClass, styles.movieCard)} onClick={(e) => movieDropdown(e)} >
 			{poster_path ? (
 				<div className={styles.imageContainer}>
 					<div className={styles.posterBtn}>...</div>
@@ -49,7 +50,7 @@ function MovieCard({ movie }) {
 											e.stopPropagation();
 											setMovieDropdownClicked(false);
 											try {
-												if (isOnList(watchlist, id)) {
+												if (isMovieInList(watchlist, id)) {
 													await removeFromWatchlist(String(id), title);
 												} else {
 													await addToWatchlist(id, title);
@@ -58,7 +59,7 @@ function MovieCard({ movie }) {
 												console.error(err);
 											}
 										}}>
-										{isOnList(watchlist, id) ? "Remove from Watchlist" : "Add to Watchlist"}
+										{isMovieInList(watchlist, id) ? "Remove from Watchlist" : "Add to Watchlist"}
 									</p>
 									<p
 										className={styles.signedInOptions}

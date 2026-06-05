@@ -15,9 +15,9 @@ export const MoviesContext = createContext({});
 
 export const MoviesProvider = ({ children }) => {
 	const { signedInUser } = useAuth();
-	const [moviesWatched, setWatchedMovies] = useState([]);
+	const [watchedMovies, setWatchedMovies] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
-	const [actionMsg, setActionMsg] = useState("");
+	const [actionMessage, setActionMessage] = useState("");
 	const [searchText, setSearchText] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);
 	const router = useRouter();
@@ -28,7 +28,7 @@ export const MoviesProvider = ({ children }) => {
 			return;
 		}
 
-		const getUserWatchList = async () => {
+		const fetchWatchlist = async () => {
 			try {
 				const response = await fetch("/api/watchlist");
 				if (!response.ok) {
@@ -40,7 +40,7 @@ export const MoviesProvider = ({ children }) => {
 				console.error(error);
 			}
 		};
-		getUserWatchList();
+		fetchWatchlist();
 	}, [signedInUser?.id]);
 
 	useEffect(() => {
@@ -49,11 +49,11 @@ export const MoviesProvider = ({ children }) => {
 			return;
 		}
 
-		const getUserWatchedMovies = async () => {
+		const fetchWatchedMovies = async () => {
 			try {
 				const response = await fetch("/api/watched");
 				if (!response.ok) {
-					throw new Error("Failed to fetch movies watched");
+					throw new Error("Failed to fetch watched movies");
 				}
 				const { data } = await response.json();
 				setWatchedMovies(data ?? []);
@@ -61,10 +61,10 @@ export const MoviesProvider = ({ children }) => {
 				console.error(error);
 			}
 		};
-		getUserWatchedMovies();
+		fetchWatchedMovies();
 	}, [signedInUser?.id]);
 
-	const search = useCallback(async () => {
+	const submitSearch = useCallback(async () => {
 		const results = await tmdbQuery.searchMovies(searchText);
 		setSearchResults({ movies: results });
 		router.push("/Search");
@@ -94,12 +94,12 @@ export const MoviesProvider = ({ children }) => {
 			setWatchlist((prev) =>
 				prev.filter((item) => String(item.movieId) !== mid),
 			);
-			setActionMsg(
+			setActionMessage(
 				displayTitle
 					? `You removed ${displayTitle} from your watchlist`
 					: "You removed a title from your watchlist",
 			);
-			setTimeout(() => setActionMsg(""), 1000);
+			setTimeout(() => setActionMessage(""), 1000);
 			return body;
 		},
 		[signedInUser?.id],
@@ -124,14 +124,14 @@ export const MoviesProvider = ({ children }) => {
 			}
 			const row = body.createdWatchList;
 			setWatchlist((prev) => [...prev, row]);
-			setActionMsg(`You added ${title} to your watchlist`);
-			setTimeout(() => setActionMsg(""), 5000);
+			setActionMessage(`You added ${title} to your watchlist`);
+			setTimeout(() => setActionMessage(""), 5000);
 			return row;
 		},
 		[signedInUser?.id],
 	);
 
-	const markMovieAsWatched = useCallback(
+	const markAsWatched = useCallback(
 		async (movie, dateWatched = new Date()) => {
 			const res = await fetch("/api/watched", {
 				method: "POST",
@@ -150,7 +150,7 @@ export const MoviesProvider = ({ children }) => {
 			});
 			const body = await res.json();
 			if (!res.ok) {
-				throw new Error("Failed to add movie as watched");
+				throw new Error("Failed to mark movie as watched");
 			}
 			const row = body.movieWatched;
 			setWatchedMovies((prev) => {
@@ -164,13 +164,13 @@ export const MoviesProvider = ({ children }) => {
 				}
 				return [...prev, row];
 			});
-			setActionMsg(`You marked ${movie.title} as watched`);
-			setTimeout(() => setActionMsg(""), 5000);
+			setActionMessage(`You marked ${movie.title} as watched`);
+			setTimeout(() => setActionMessage(""), 5000);
 		},
 		[signedInUser?.id],
 	);
 
-	const removeMovieAsWatched = useCallback(
+	const removeFromWatched = useCallback(
 		async (movie) => {
 			const res = await fetch("/api/watched", {
 				method: "DELETE",
@@ -181,14 +181,14 @@ export const MoviesProvider = ({ children }) => {
 			});
 			const body = await res.json();
 			if (!res.ok) {
-				throw new Error("Failed to remove movie as watched");
+				throw new Error("Failed to remove movie from watched list");
 			}
 			const deletedId = body.deletedMovieWatched.movieId;
 			setWatchedMovies((prev) =>
 				prev.filter((item) => String(item.movieId) !== deletedId),
 			);
-			setActionMsg(`You removed ${movie.title} as watched`);
-			setTimeout(() => setActionMsg(""), 5000);
+			setActionMessage(`You removed ${movie.title} from watched`);
+			setTimeout(() => setActionMessage(""), 5000);
 		},
 		[signedInUser?.id],
 	);
@@ -198,24 +198,24 @@ export const MoviesProvider = ({ children }) => {
 			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
-			actionMsg,
-			markMovieAsWatched,
-			moviesWatched,
-			removeMovieAsWatched,
+			actionMessage,
+			markAsWatched,
+			watchedMovies,
+			removeFromWatched,
 			setSearchText,
-			search,
+			submitSearch,
 			searchResults,
 		}),
 		[
-			actionMsg,
-			markMovieAsWatched,
+			actionMessage,
+			markAsWatched,
 			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
-			moviesWatched,
-			removeMovieAsWatched,
+			watchedMovies,
+			removeFromWatched,
 			setSearchText,
-			search,
+			submitSearch,
 			searchResults,
 		],
 	);

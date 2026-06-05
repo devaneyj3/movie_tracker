@@ -1,5 +1,3 @@
-export const isOnList = (list, id) => {
-  return list.some(
-    (w) => String(w.movieId) === String(id),
-  );
-}
+export const isMovieInList = (list, movieId) => {
+	return list.some((entry) => String(entry.movieId) === String(movieId));
+};

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styles from "./Header.module.scss";
-import UserButton from "./user-button";
+import UserButton from "./UserButton";
 import { Menu, X } from "lucide-react";
 import NavigationLinks from "../NavigationLinks/NavigationLinks";
 

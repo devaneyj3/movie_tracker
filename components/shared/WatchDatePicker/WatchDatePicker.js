@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./WatchDatePicker.module.scss";
-import { useMovies } from "@/context/moviesContest";
+import { useMovies } from "@/context/moviesContext";
 import {
 	getTodayDateInputValue,
 	parseDateInputValue,
 } from "@/utils/dateInput";
 
 export default function WatchDatePicker({ movie, open, onClose }) {
-	const { markMovieAsWatched } = useMovies();
+	const { markAsWatched } = useMovies();
 	const [date, setDate] = useState(getTodayDateInputValue());
 	const [saving, setSaving] = useState(false);
 
@@ -27,7 +27,7 @@ export default function WatchDatePicker({ movie, open, onClose }) {
 		e.preventDefault();
 		setSaving(true);
 		try {
-			await markMovieAsWatched(movie, parseDateInputValue(date));
+			await markAsWatched(movie, parseDateInputValue(date));
 			onClose();
 		} catch (err) {
 			console.error(err);

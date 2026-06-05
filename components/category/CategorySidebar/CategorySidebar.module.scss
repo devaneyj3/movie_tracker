@@ -1,12 +1,12 @@
 @use "../../../mixins" as *;
 
-.searchbar {
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
 
-  .sortResults {
+  .sortSection {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -25,7 +25,7 @@
     }
   }
 
-  .border {
+  .divider {
     border-bottom: 1px solid lightgray;
     color: lightgrey;
     margin-bottom: 1rem;

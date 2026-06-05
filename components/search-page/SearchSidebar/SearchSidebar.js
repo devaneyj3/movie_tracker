@@ -1,16 +1,14 @@
 import React from 'react';
-import styles from './Search.module.scss'
-import { SearchResultsLabels } from "@/components/page-search";
+import styles from './SearchSidebar.module.scss';
+import { SearchResultsLabels } from "@/components/search-page";
 
-export default function Search() {
+export default function SearchSidebar() {
   return (
-    <div className={styles.searchResultsBox}>
-      <div className={styles.searchHeaderBox}>
+    <aside className={styles.sidebar}>
+      <div className={styles.header}>
         <h2>Search Results</h2>
       </div>
-      <div>
-        <SearchResultsLabels />
-      </div>
-    </div>
-  )
+      <SearchResultsLabels />
+    </aside>
+  );
 }

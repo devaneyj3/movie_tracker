@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import styles from "./cast.module.scss";
+import styles from "./Cast.module.scss";
 
 export default function Cast({ credits }) {
 	return (

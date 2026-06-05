@@ -1,5 +1,5 @@
-export function getWatchStats(moviesWatched, movieId) {
-	const record = moviesWatched.find(
+export function getWatchStats(watchedMovies, movieId) {
+	const record = watchedMovies.find(
 		(item) => String(item.movieId) === String(movieId),
 	);
 

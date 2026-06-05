@@ -33,5 +33,5 @@ export default function Popular() {
     );
   }
 
-  return <MovieList heading="What's Popular" movies={movies} />;
+  return <MovieList heading="What's Popular" movies={movies} layout={'carousel'} />;
 }

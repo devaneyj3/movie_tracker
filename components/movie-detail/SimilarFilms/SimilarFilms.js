@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./SimularFilms.module.scss";
+import styles from "./SimilarFilms.module.scss";
 import { MovieCard } from "@/components/shared";
 
 export default function SimilarFilms({ recommendations, title }) {

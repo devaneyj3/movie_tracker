@@ -1,4 +1,4 @@
-import { dateFormatter } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 import styles from "./WatchStats.module.scss";
 
 export default function WatchStats({ stats }) {

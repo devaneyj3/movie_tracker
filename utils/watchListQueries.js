@@ -1,22 +1,20 @@
 import { prisma } from "./prisma";
 
+export async function getWatchlist() {
+	return prisma.watchList.findMany();
+}
 
-export async function getWatchList() {
-  // Fetch all users with their posts
-  const allMovies = await prisma.watchList.findMany();
-  return allMovies;
+export async function addToWatchlistEntry(userId, movieId, movieTitle) {
+	return prisma.watchList.create({
+		data: {
+			userId,
+			movieId: String(movieId),
+			movieTitle,
+		},
+	});
 }
-export async function addToWatchList(userId, movieId, movieTitle) {
-  const createdWatchList = await prisma.watchList.create({
-    data: {
-      userId,
-      movieId: String(movieId),
-      movieTitle,
-    },
-  });
-  return createdWatchList;
-}
-export async function deleteFromWatchList(userId, movieId) {
+
+export async function deleteFromWatchlistEntry(userId, movieId) {
 	return prisma.watchList.delete({
 		where: {
 			userId_movieId: {

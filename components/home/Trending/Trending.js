@@ -34,5 +34,5 @@ export default function Trending() {
     );
   }
 
-  return <MovieList heading="Trending" movies={movies} />;
+  return <MovieList heading="Trending" movies={movies} layout={'carousel'} />;
 }

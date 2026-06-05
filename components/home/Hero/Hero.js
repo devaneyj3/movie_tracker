@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Hero.module.scss'
-import HeroSeach from './HeroSearch/HeroSearch'
+import HeroSearch from './HeroSearch/HeroSearch'
 
 export default function Hero() {
   return (
@@ -12,7 +12,7 @@ export default function Hero() {
           with ease. Your personal cinema journey starts here.
         </p>
       </div>
-      <HeroSeach/>
+      <HeroSearch />
     </div>
   )
 }

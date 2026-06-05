@@ -33,5 +33,5 @@ export default function LatestTrailers() {
     );
   }
 
-  return <MovieList heading="Latest Trailers" movies={movies} />;
+  return <MovieList heading="Latest Trailers" movies={movies} layout={'carousel'} />;
 }

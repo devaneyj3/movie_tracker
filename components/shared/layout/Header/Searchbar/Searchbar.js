@@ -2,18 +2,18 @@
 
 import React from 'react';
 import style from './Searchbar.module.scss';
-import { useMovies } from '@/context/moviesContest';
+import { useMovies } from '@/context/moviesContext';
 
 export default function Searchbar() {
-  const { setSearchText, search } = useMovies();
+  const { setSearchText, submitSearch } = useMovies();
 
-  const goToSearch = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    search();
+    submitSearch();
   };
 
   return (
-    <form className={style.searchForm} onSubmit={goToSearch}>
+    <form className={style.searchForm} onSubmit={handleSearchSubmit}>
       <input
         name="search"
         type="text"

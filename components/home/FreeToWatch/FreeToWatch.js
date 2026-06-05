@@ -33,5 +33,5 @@ export default function FreeToWatch() {
     );
   }
 
-  return <MovieList heading="Free To Watch" movies={movies} />;
+  return <MovieList heading="Free To Watch" movies={movies} layout={'carousel'} />;
 }

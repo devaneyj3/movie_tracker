@@ -1,10 +1,10 @@
 "use client";
 
-import { MovieSearchbar } from "@/components/browse";
+import { CategorySidebar } from "@/components/category";
 import { useParams } from "next/navigation";
-import styles from "./cat.module.scss";
+import styles from "./category.module.scss";
 import React, { useEffect, useState } from "react";
-import filterMovies from "@/utils/filterMovies";
+import sortMovies from "@/utils/sortMovies";
 import { MovieList } from "@/components/shared";
 import tmdbQuery from "@/utils/tmdbQuery";
 
@@ -15,7 +15,7 @@ function formatCategoryLabel(category) {
 		.join(" ");
 }
 
-export default function Movies() {
+export default function CategoryMoviesPage() {
 	const { category } = useParams();
 	const [sortBy, setSortBy] = useState(null);
 	const [categoryMovies, setCategoryMovies] = useState([]);
@@ -48,15 +48,15 @@ export default function Movies() {
 		loadCategoryMovies();
 	}, [category]);
 
-	const sortedResults = filterMovies(sortBy, categoryMovies);
+	const sortedResults = sortMovies(sortBy, categoryMovies);
 	const heading = `${formatCategoryLabel(String(category))} Movies`;
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.infoContainer}>
-				<div className={styles.searchContainer}>
-					<MovieSearchbar onSortChange={setSortBy} />
-				</div>
+			<div className={styles.layout}>
+				<aside className={styles.sidebar}>
+					<CategorySidebar onSortChange={setSortBy} />
+				</aside>
 				<div className={styles.movies}>
 					{isLoading ? (
 						<p className={styles.status}>Loading movies…</p>
