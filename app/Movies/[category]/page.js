@@ -4,7 +4,6 @@ import { MovieSearchbar } from "@/components/browse";
 import { useParams } from "next/navigation";
 import styles from "./cat.module.scss";
 import React, { useEffect, useState } from "react";
-import { useMovies } from "@/context/moviesContest";
 import filterMovies from "@/utils/filterMovies";
 import { MovieList } from "@/components/shared";
 import tmdbQuery from "@/utils/tmdbQuery";
@@ -18,7 +17,7 @@ function formatCategoryLabel(category) {
 
 export default function Movies() {
 	const { category } = useParams();
-	const { sortBy } = useMovies();
+	const [sortBy, setSortBy] = useState(null);
 	const [categoryMovies, setCategoryMovies] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [fetchError, setFetchError] = useState(null);
@@ -33,7 +32,6 @@ export default function Movies() {
 			try {
 				const response = await tmdbQuery.getMoviesByCategory(category);
 				setCategoryMovies(response?.results ?? []);
-				console.log(response)
 			} catch (error) {
 				console.error(error);
 				setCategoryMovies([]);
@@ -57,7 +55,7 @@ export default function Movies() {
 		<div className={styles.container}>
 			<div className={styles.infoContainer}>
 				<div className={styles.searchContainer}>
-					<MovieSearchbar />
+					<MovieSearchbar onSortChange={setSortBy} />
 				</div>
 				<div className={styles.movies}>
 					{isLoading ? (

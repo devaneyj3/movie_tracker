@@ -19,20 +19,18 @@ function MovieCard({ movie }) {
 
 	const { id, title, release_date, poster_path } = movie;
 
-	const { addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, moviesWatched } =
+	const { addToWatchlist, removeFromWatchlist, watchlist, moviesWatched } =
 		useMovies();
 
 	const router = useRouter();
 	const watchStats = getWatchStats(moviesWatched, id);
 
 	function goToMovie() {
-		setSelectedMovie(movie)
 		router.push(`/Movie/${id}`);
 	}
 
 	function movieDropdown(e) {
 		movieDropdownClicked ? setMovieDropdownClicked(false) : setMovieDropdownClicked(true)
-		setSelectedMovie(movie)
 	}
 
 

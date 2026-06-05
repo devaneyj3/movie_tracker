@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./SortResults.module.scss";
-import { useMovies } from "@/context/moviesContest";
 
 const options = [
 	{
@@ -36,12 +35,12 @@ const options = [
 		value: "title-asc",
 	},
 ];
-export default function SortResults() {
-	const { setSortBy } = useMovies();
+
+export default function SortResults({ onSortChange }) {
 	return (
 		<div className={styles.sort}>
 			<label htmlFor="sort">Sort Results By</label>
-			<select id="sort" onChange={(e) => setSortBy(e.target.value)}>
+			<select id="sort" onChange={(e) => onSortChange(e.target.value)}>
 				{options.map((option) => {
 					return (
 						<option key={option.value} value={option.value}>

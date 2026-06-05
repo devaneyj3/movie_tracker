@@ -6,7 +6,6 @@ import { Heart, List, Star, X } from 'lucide-react';
 import { dateFormatter } from "@/utils/dateFormater";
 import { useMovies } from "@/context/moviesContest";
 import { isOnList } from "@/utils/isOnList";
-import { useRouter } from "next/navigation";
 import { getWatchStats } from "@/utils/getWatchStats";
 import WatchStats from "@/components/shared/WatchStats/WatchStats";
 import WatchDatePicker from "@/components/shared/WatchDatePicker/WatchDatePicker";
@@ -17,29 +16,25 @@ export default function FavList({ movieDetails }) {
   const [fonudMovies, setFoundMovies] = useState([])
   const [watchPickerMovie, setWatchPickerMovie] = useState(null)
 
-  const { movies, addToWatchlist, removeFromWatchlist, setSelectedMovie, watchlist, markMovieAsWatched, moviesWatched, removeMovieAsWatched } =
+  const { addToWatchlist, removeFromWatchlist, watchlist, moviesWatched, removeMovieAsWatched } =
     useMovies();
 
   const watchStats = getWatchStats(moviesWatched, movieDetails?.movieId);
 
-  const router = useRouter();
-  function goToMovie() {
-    setSelectedMovie(movie)
-    router.push(`/Movie/${id}`);
-  }
-
   useEffect(() => {
-    const filterMovies = async () => {
+    const loadMovieDetails = async () => {
+      if (!movieDetails?.movieId) return;
+
       try {
         const movie = await tmdb.movies.details(movieDetails.movieId);
         setFoundMovies([movie])
       } catch (error) {
-        console.log(error)
+        console.error(error)
         setFoundMovies([])
       }
     }
-    filterMovies()
-  }, [movies, movieDetails?.movieId])
+    loadMovieDetails()
+  }, [movieDetails?.movieId])
 
   return (
     <>

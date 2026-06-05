@@ -10,42 +10,18 @@ import {
 } from "react";
 import tmdbQuery from "@/utils/tmdbQuery";
 import { useRouter } from "next/navigation";
-import sortByDate from "@/utils/sortByDate";
 
 export const MoviesContext = createContext({});
 
 export const MoviesProvider = ({ children }) => {
 	const { signedInUser } = useAuth();
 	const [moviesWatched, setWatchedMovies] = useState([]);
-	const [movies, setMovies] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
-	const [error, setError] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
 	const [actionMsg, setActionMsg] = useState("");
-	const [selectedMovie, setSelectedMovie] = useState({});
-	const [sortBy, setSortBy] = useState(null);
 	const [searchText, setSearchText] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);
 	const router = useRouter();
-	useEffect(() => {
-		const getMovies = async () => {
-			setIsLoading(true);
-			setError(null);
-			try {
-				const response = await tmdbQuery.getTrendingMovies();
-				const { results, page, total_pages, total_results } = response;
-				const sortedMovies = sortByDate(results);
-				setMovies(sortedMovies);
-			} catch (error) {
-				console.error(error);
-				setError(err.message);
-				if (data.length > 0) setSelectedMovie(data[0]);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		getMovies();
-	}, []);
+
 	useEffect(() => {
 		if (!signedInUser?.id) {
 			setWatchlist([]);
@@ -53,7 +29,6 @@ export const MoviesProvider = ({ children }) => {
 		}
 
 		const getUserWatchList = async () => {
-			setError(null);
 			try {
 				const response = await fetch("/api/watchlist");
 				if (!response.ok) {
@@ -63,7 +38,6 @@ export const MoviesProvider = ({ children }) => {
 				setWatchlist(data ?? []);
 			} catch (error) {
 				console.error(error);
-				setError(error.message);
 			}
 		};
 		getUserWatchList();
@@ -76,7 +50,6 @@ export const MoviesProvider = ({ children }) => {
 		}
 
 		const getUserWatchedMovies = async () => {
-			setError(null);
 			try {
 				const response = await fetch("/api/watched");
 				if (!response.ok) {
@@ -86,17 +59,17 @@ export const MoviesProvider = ({ children }) => {
 				setWatchedMovies(data ?? []);
 			} catch (error) {
 				console.error(error);
-				setError(error.message);
 			}
 		};
 		getUserWatchedMovies();
 	}, [signedInUser?.id]);
 
-	const search = async () => {
+	const search = useCallback(async () => {
 		const results = await tmdbQuery.searchMovies(searchText);
 		setSearchResults({ movies: results });
 		router.push("/Search");
-	};
+	}, [router, searchText]);
+
 	const removeFromWatchlist = useCallback(
 		async (movieId, displayTitle) => {
 			const res = await fetch("/api/watchlist", {
@@ -124,9 +97,7 @@ export const MoviesProvider = ({ children }) => {
 			setActionMsg(
 				displayTitle
 					? `You removed ${displayTitle} from your watchlist`
-					: selectedMovie?.title
-						? `You removed ${selectedMovie.title} from your watchlist`
-						: "You removed a title from your watchlist",
+					: "You removed a title from your watchlist",
 			);
 			setTimeout(() => setActionMsg(""), 1000);
 			return body;
@@ -198,6 +169,7 @@ export const MoviesProvider = ({ children }) => {
 		},
 		[signedInUser?.id],
 	);
+
 	const removeMovieAsWatched = useCallback(
 		async (movie) => {
 			const res = await fetch("/api/watched", {
@@ -223,46 +195,31 @@ export const MoviesProvider = ({ children }) => {
 
 	const values = useMemo(
 		() => ({
-			movies,
-			setMovies,
-			selectedMovie,
-			setSelectedMovie,
 			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
 			actionMsg,
-			error,
-			isLoading,
 			markMovieAsWatched,
 			moviesWatched,
 			removeMovieAsWatched,
-			sortBy,
-			setSortBy,
 			setSearchText,
 			search,
 			searchResults,
 		}),
 		[
-			movies,
-			setMovies,
 			actionMsg,
 			markMovieAsWatched,
-			selectedMovie,
-			setSelectedMovie,
 			removeFromWatchlist,
 			addToWatchlist,
 			watchlist,
-			error,
-			isLoading,
 			moviesWatched,
 			removeMovieAsWatched,
-			sortBy,
-			setSortBy,
 			setSearchText,
 			search,
 			searchResults,
 		],
 	);
+
 	return (
 		<MoviesContext.Provider value={values}>{children}</MoviesContext.Provider>
 	);
