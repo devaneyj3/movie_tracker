@@ -1,13 +1,15 @@
+@use "../../../../constants" as *;
+
 .logoContainer {
   width: 4%;
 }
 
 .logoIcon {
-  color: white;
+  color: $color-text;
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: #f87171;
+    color: $color-primary;
   }
 }
 
@@ -28,11 +30,11 @@
 
 .navLabel {
   margin: 0;
-  color: white;
+  color: $color-text;
   cursor: default;
 
   &:hover {
-    color: gray;
+    color: $color-accent;
   }
 }
 
@@ -43,9 +45,9 @@
   display: flex;
   flex-direction: column;
   min-width: 10rem;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-radius: 5%;
+  background-color: $color-surface-raised;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
   z-index: 1;
 }
 
@@ -53,7 +55,6 @@
   position: relative;
 }
 
-/* ── Mobile drawer menu only ── */
 .mobileMenuRoot {
   display: flex;
   flex-direction: column;
@@ -66,14 +67,14 @@
   align-items: center;
   gap: 0.625rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  color: white;
+  border-bottom: 1px solid $color-border;
+  color: $color-text;
   font-weight: 700;
   font-size: 1.1rem;
   text-decoration: none;
 
   &:hover {
-    color: #f87171;
+    color: $color-primary;
   }
 }
 
@@ -94,7 +95,7 @@
 }
 
 .mobileNavItem {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid $color-border;
 }
 
 .mobileNavButton {
@@ -105,7 +106,7 @@
   padding: 0.875rem 0.25rem;
   border: none;
   background: transparent;
-  color: white;
+  color: $color-text;
   font-size: 1rem;
   font-weight: 600;
   font-family: inherit;
@@ -114,7 +115,7 @@
   cursor: pointer;
 
   &:hover {
-    color: #f87171;
+    color: $color-primary;
   }
 }
 
@@ -123,12 +124,12 @@
   font-size: 1.25rem;
   line-height: 1;
   transition: transform 0.2s ease;
-  color: rgba(255, 255, 255, 0.6);
+  color: $color-text-muted;
 }
 
 .mobileChevronOpen {
   transform: rotate(90deg);
-  color: #f87171;
+  color: $color-accent;
 }
 
 .mobileDropdown {
@@ -138,5 +139,5 @@
   margin: 0 0 0.5rem;
   padding: 0.25rem 0 0.5rem 0.75rem;
   list-style: none;
-  border-left: 2px solid rgba(248, 113, 113, 0.5);
+  border-left: 2px solid rgba(229, 9, 20, 0.5);
 }

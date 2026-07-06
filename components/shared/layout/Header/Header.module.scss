@@ -1,7 +1,9 @@
 @use "../../../../mixins" as *;
+@use "../../../../constants" as *;
 
 .header {
-  background-color: #042541;
+  background-color: $color-surface;
+  border-bottom: 1px solid $color-border;
   font-size: 1.25rem;
   padding: 1rem 1.25rem;
   letter-spacing: 0.05em;
@@ -57,17 +59,17 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid $color-border-strong;
   border-radius: 8px;
-  color: white;
+  color: $color-text;
   cursor: pointer;
   padding: 0.45rem;
   z-index: 102;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: $color-primary;
   }
 }
 
@@ -80,7 +82,7 @@
   position: fixed;
   inset: 0;
   border: none;
-  background: rgba(0, 0, 0, 0.55);
+  background: $dark-overlay;
   cursor: pointer;
   z-index: 100;
   animation: fadeIn 0.2s ease;
@@ -97,8 +99,9 @@
   height: 100%;
   padding: 1.25rem 1rem 1.5rem;
   overflow-y: auto;
-  background-color: #042541;
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.35);
+  background-color: $color-surface;
+  border-left: 1px solid $color-border;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.25s ease;
 }
 
@@ -112,13 +115,13 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: $color-text-muted;
 }
 
 .mobileMenuFooter {
   margin-top: auto;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid $color-border;
 }
 
 @keyframes slideIn {

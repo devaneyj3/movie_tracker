@@ -1,27 +1,5 @@
+@use "../../../../constants" as *;
+
 .provider {
-  h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: black;
-  }
-  .networkContainers {
-    gap: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.network {
-  margin: 0.35rem 0;
-}
-
-.logo {
-  object-fit:contain;
-  border-radius: 20%;
-}
-
-.label {
-  line-height: 1.2;
-  text-align: center;
+  color: $color-text-muted;
 }

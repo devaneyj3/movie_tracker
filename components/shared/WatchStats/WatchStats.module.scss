@@ -1,4 +1,4 @@
-@use "../../../mixins" as *;
+@use "../../../constants" as *;
 
 .watchStats {
   display: flex;
@@ -12,18 +12,18 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #042541;
+  color: $color-accent;
 }
 
 .date {
   margin: 0;
   font-weight: 600;
   font-size: 0.85rem;
-  color: #042541;
+  color: $color-text;
 }
 
 .count {
   margin: 0;
   font-size: 0.75rem;
-  color: #666;
+  color: $color-text-muted;
 }

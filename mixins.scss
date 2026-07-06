@@ -171,21 +171,24 @@ $responsive-width: $bp-mobile;
 }
 
 @mixin card {
-  -webkit-box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
-  box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   border-radius: 0.5rem;
   max-width: 200px;
   min-width: 200px;
   align-items: center;
   overflow: hidden;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
 }
 
 @mixin card-surface {
-  -webkit-box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
-  box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   border-radius: 0.5rem;
   overflow: hidden;
-  background: #fff;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
 }
 
 @mixin card--mobile($max-width: $responsive-width) {

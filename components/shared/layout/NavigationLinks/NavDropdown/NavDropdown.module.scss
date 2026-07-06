@@ -1,20 +1,21 @@
+@use "../../../../../constants" as *;
+
 .options {
   padding: 7% 0 7% 7%;
 
   &:hover {
-    background-color: lightgray;
+    background-color: $color-surface-raised;
     cursor: pointer;
   }
 }
 
 .signedInOptions {
-  color: black;
+  color: $color-text;
   text-align: center;
   font-size: 0.75rem;
   list-style: none;
 }
 
-/* Mobile drawer only */
 .optionsMobile {
   padding: 0;
 
@@ -35,7 +36,7 @@
   transition: color 0.15s ease, background-color 0.15s ease;
 
   &:hover {
-    color: #f87171;
+    color: $color-primary;
     background-color: rgba(255, 255, 255, 0.06);
   }
 }

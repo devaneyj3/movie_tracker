@@ -1,8 +1,10 @@
 @use "../../../mixins" as *;
+@use "../../../constants" as *;
 
 .labelsList {
   max-height: none;
   @include scrollable-panel;
+  background: $color-surface;
 }
 
 .labelContainer {
@@ -12,7 +14,8 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid $color-border;
+  color: $color-text;
 
   p {
     margin: 0;
@@ -20,16 +23,18 @@
   }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(255, 255, 255, 0.05);
 
     span {
-      background-color: #fff;
+      background-color: $color-primary;
+      color: $color-text;
     }
   }
 
   span {
     flex-shrink: 0;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: $color-surface-raised;
+    color: $color-text-muted;
     padding: 0.35rem 0.5rem;
     border-radius: 0.5rem;
     font-size: 0.85rem;

@@ -1,3 +1,5 @@
+@use "../../../../constants" as *;
+
 .userContainer {
   display: flex;
   gap: 0.5rem;
@@ -6,7 +8,7 @@
 }
 
 .signInButton {
-  color: white;
+  color: $color-text;
 }
 
 .userAvatar {
@@ -18,14 +20,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90deg, #f87171 0%, #c084fc 50%, #60a5fa 100%);
-  color: white;
+  background: linear-gradient(135deg, $color-primary 0%, #c9a010 100%);
+  color: $color-text;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 }
 
@@ -33,32 +35,32 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border: 1px solid lightgray;
+  background-color: $color-surface-raised;
+  border: 1px solid $color-border;
   right: 70%;
   top: 100%;
   width: 150px;
   margin-top: 35%;
-  border-radius: 5%;
+  border-radius: 0.5rem;
   z-index: 1;
 
   a,
   button {
     text-align: center;
     padding: 15%;
-    color: black;
+    color: $color-text;
     font-size: 0.75rem;
     list-style: none;
     cursor: pointer;
     border: none;
     background: none;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid $color-border;
     font-family: inherit;
     width: 100%;
 
     &:hover {
-      background-color: #042541;
-      color: white;
+      background-color: $color-primary;
+      color: $color-text;
     }
 
     &:last-child {
@@ -67,7 +69,6 @@
   }
 }
 
-/* ── Mobile drawer only ── */
 .userContainerMobile {
   flex-direction: column;
   align-items: stretch;
@@ -78,14 +79,15 @@
   width: 100%;
   justify-content: center;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid $color-border-strong;
   border-radius: 8px;
-  color: white;
+  color: $color-text;
   font-size: 1rem;
   font-weight: 600;
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
+    border-color: $color-primary;
   }
 }
 
@@ -103,8 +105,8 @@
   flex-direction: column;
   width: 100%;
   margin-top: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid $color-border;
   border-radius: 8px;
   overflow: hidden;
 
@@ -114,9 +116,9 @@
     width: 100%;
     padding: 0.875rem 1rem;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid $color-border;
     background: none;
-    color: white;
+    color: $color-text;
     font-size: 0.9rem;
     font-family: inherit;
     text-align: left;
@@ -124,8 +126,8 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.08);
-      color: #f87171;
+      background-color: rgba(255, 255, 255, 0.06);
+      color: $color-primary;
     }
 
     &:last-child {

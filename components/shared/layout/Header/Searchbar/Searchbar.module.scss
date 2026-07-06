@@ -1,4 +1,5 @@
 @use "../../../../../mixins" as *;
+@use "../../../../../constants" as *;
 
 .searchForm {
   width: 100%;
@@ -9,10 +10,12 @@
   font-size: large;
   padding-left: 15%;
   width: 100%;
-  caret-color: lightgray;
+  caret-color: $color-accent;
   border: none;
   line-height: 2;
   box-sizing: border-box;
+  background: $color-surface;
+  color: $color-text;
 
   &:focus,
   &:active {
@@ -21,7 +24,7 @@
   }
 
   &::placeholder {
-    color: lightgray;
+    color: $color-text-muted;
     font-size: 1.25rem;
   }
 

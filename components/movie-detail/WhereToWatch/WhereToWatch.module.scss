@@ -1,4 +1,5 @@
 @use "../../../mixins" as *;
+@use "../../../constants" as *;
 
 .providersContainer {
   margin: 0 3.5rem 3rem;
@@ -9,7 +10,7 @@
 
   h2 {
     @include fluid-type(1.25rem, 4vw, 2rem);
-    color: black;
+    color: $color-text;
   }
 }
 
@@ -21,6 +22,7 @@
 
   h2 {
     font-size: 1rem;
+    color: $color-text;
   }
 
   @include below($bp-mobile) {

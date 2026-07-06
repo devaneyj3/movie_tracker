@@ -1,4 +1,5 @@
 @use "../../../../mixins" as *;
+@use "../../../../constants" as *;
 
 .heroSearchContainer {
   position: relative;
@@ -12,20 +13,22 @@
     font-size: large;
     width: 85%;
     margin-top: 3%;
-    caret-color: lightgray;
-    border: 1px solid lightgray;
+    caret-color: $color-accent;
+    border: 1px solid $color-border-strong;
     border-radius: 40px;
     line-height: 2;
     box-sizing: border-box;
+    background: rgba(26, 26, 26, 0.85);
+    color: $color-text;
 
     &:focus,
     &:active {
-      border: none;
+      border-color: $color-primary;
       outline: none;
     }
 
     &::placeholder {
-      color: lightgray;
+      color: $color-text-muted;
       font-size: 1.25rem;
     }
 
@@ -45,13 +48,15 @@
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    color: white;
-    background: linear-gradient(to right, #0bc3c9 0%, #17ccb9 100%);
+    color: $color-text;
+    background: $color-primary;
     width: 5%;
     min-width: 100px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      color: black;
+      background: $color-primary-hover;
     }
 
     @include below($bp-tablet) {

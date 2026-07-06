@@ -1,4 +1,4 @@
-@use "../../../mixins" as *;
+@use "../../../constants" as *;
 
 .sidebar {
   display: flex;
@@ -14,20 +14,22 @@
   }
 
   .box {
-    border: 1px solid lightgray;
+    border: 1px solid $color-border;
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
+    background: $color-surface;
+    color: $color-text;
 
     h2 {
       font-weight: bold;
       margin: 0 0 0.5rem;
       font-size: 1rem;
+      color: $color-text;
     }
   }
 
   .divider {
-    border-bottom: 1px solid lightgray;
-    color: lightgrey;
+    border-bottom: 1px solid $color-border;
     margin-bottom: 1rem;
   }
 }

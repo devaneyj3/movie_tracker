@@ -1,12 +1,20 @@
+@use "../../../constants" as *;
+
 .sort {
-  select {
-    margin: 1rem 0 1rem 0;
-    width: 70%;
-    padding: .5rem 0 .5rem 0;
-    border: 1px solid lightgray;
-    border-radius: .3rem;
+  color: $color-text;
+
+  label {
+    color: $color-text-muted;
+    font-size: 0.9rem;
   }
-  option {
-    width: 50%;
+
+  select {
+    margin: 1rem 0;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid $color-border-strong;
+    border-radius: 0.3rem;
+    background: $color-surface-raised;
+    color: $color-text;
   }
 }

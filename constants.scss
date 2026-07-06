@@ -1,16 +1,27 @@
-// 🎬 Cinematic Dark Theme
-$dark-background: #0D0D0D;
-$dark-surface: #1A1A1A;
-$dark-primary: #E50914; // Netflix Red
-$dark-secondary: #F5C518; // IMDb Yellow
-$dark-text-primary: #FFFFFF;
-$dark-text-secondary: #B3B3B3;
+// 🎬 Cinematic Dark Theme — app-wide palette
+$dark-background: #0d0d0d;
+$dark-surface: #1a1a1a;
+$dark-surface-raised: #242424;
+$dark-primary: #e50914;
+$dark-primary-hover: #f6121d;
+$dark-secondary: #f5c518;
+$dark-text-primary: #ffffff;
+$dark-text-secondary: #b3b3b3;
+$dark-text-muted: #808080;
+$dark-border: rgba(255, 255, 255, 0.12);
+$dark-border-strong: rgba(255, 255, 255, 0.22);
+$dark-overlay: rgba(0, 0, 0, 0.55);
 
-// 🍿 Modern Neon Theme
-$neon-background: #0F172A;
-$neon-surface: #1E293B;
-$neon-primary: #06B6D4; // Cyan
-$neon-secondary: #F472B6; // Pink
-$neon-highlight: #FACC15; // Popcorn Yellow
-$neon-text-primary: #F8FAFC;
-$neon-text-secondary: #94A3B8;
+// Semantic aliases
+$color-bg: $dark-background;
+$color-surface: $dark-surface;
+$color-surface-raised: $dark-surface-raised;
+$color-primary: $dark-primary;
+$color-primary-hover: $dark-primary-hover;
+$color-accent: $dark-secondary;
+$color-text: $dark-text-primary;
+$color-text-muted: $dark-text-secondary;
+$color-text-secondary: $dark-text-secondary;
+$color-text-subtle: $dark-text-muted;
+$color-border: $dark-border;
+$color-border-strong: $dark-border-strong;

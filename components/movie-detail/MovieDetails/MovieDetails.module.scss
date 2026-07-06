@@ -1,4 +1,5 @@
 @use "../../../mixins" as *;
+@use "../../../constants" as *;
 
 .movieContainer {
   display: flex;
@@ -9,13 +10,14 @@
   padding: 5% 0;
   background-image: linear-gradient(
       to bottom right,
-      rgb(189, 184, 184),
-      rgba(163, 149, 149, 0.84)
+      rgba(13, 13, 13, 0.92),
+      rgba(26, 26, 26, 0.88)
     ),
     var(--backdrop-url);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  color: $color-text;
 
   @include flex-stack-below($bp-detail);
 
@@ -24,8 +26,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    -webkit-box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
-    box-shadow: 0px 0px 7px 2px rgba(134, 134, 134, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border: 1px solid $color-border;
 
     @include below($bp-detail) {
       width: min(100%, 20rem);
@@ -40,13 +42,14 @@
     .posterButton {
       padding: 5%;
       text-align: center;
-      background-color: #042541;
-      color: white;
+      background-color: $color-primary;
+      color: $color-text;
       cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
 
       &:hover {
-        color: lightgray;
-        background-color: blue;
+        background-color: $color-primary-hover;
       }
     }
   }
@@ -67,16 +70,19 @@
 
     .value {
       border-radius: 50%;
-      background-color: #081c22;
-      color: white;
+      background-color: $color-surface-raised;
+      border: 2px solid $color-accent;
+      color: $color-accent;
       padding: 0.5rem;
       width: fit-content;
+      font-weight: 700;
     }
 
     .detailHeader span {
       @include fluid-type(1.25rem, 4vw, 1.95rem);
       margin: 0;
       font-weight: bold;
+      color: $color-text;
     }
 
     .attributes {
@@ -86,13 +92,25 @@
 
       span {
         font-size: 0.79rem;
-        font-weight: 100;
+        font-weight: 400;
+        color: $color-text-muted;
       }
     }
 
-    .synopsis h2 {
-      font-style: italic;
-      margin-bottom: 2%;
+    .synopsis {
+      h2 {
+        font-style: italic;
+        margin-bottom: 2%;
+        color: $color-accent;
+      }
+
+      p {
+        color: $color-text-secondary;
+      }
     }
   }
+}
+
+.label {
+  color: $color-text-muted;
 }
