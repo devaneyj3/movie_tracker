@@ -1,52 +1,90 @@
 import Link from "next/link";
+import { Film } from "lucide-react";
 import styles from "./Footer.module.scss";
 
-const navItems = [
-  {
-    href: '/Movies',
-    label: 'Movies'
-  },
-  {
-    href: '/TVShows',
-    label: 'TV Shows'
-  },
-  {
-    href: '/People',
-    label: 'People'
-  },
-  {
-    href: '/Awards',
-    label: 'Awards'
-  },
-  {
-    href: '/More',
-    label: 'More'
-  },
-]
+const browseLinks = [
+	{ href: "/Movies/popular", label: "Popular" },
+	{ href: "/Movies/trending", label: "Trending" },
+	{ href: "/Movies/upcoming", label: "Upcoming" },
+	{ href: "/Movies/top-rated", label: "Top Rated" },
+	{ href: "/Movies/now-playing", label: "Now Playing" },
+];
 
-const Footer = () => {
-  return (
-    <header className={styles.footer}>
-      <div className={styles.footerContainer}>
-        <ul className={`${styles.navLinks}`}>
-          {navItems.map((nav, index) => {
-            const { href, label } = nav
-            return (
-              <Link key={index} href={`${href}`}>{label}</Link>
-            )
-          })}
-          {/* {signedInUser && (
-				<Button asChild variant="ghost" className={styles.navButton}>
-				<Link href="/MovieList">Movie List</Link>
-				</Button>
-				)}
-				<Button asChild variant="ghost" className={styles.navButton}>
-				<Link href="/TVShows">TV Shows</Link>
-				</Button> */}
-        </ul>
-      </div>
-    </header>
-  );
-};
+const exploreLinks = [
+	{ href: "/Search", label: "Search" },
+	{ href: "/TVShows", label: "TV Shows" },
+];
 
-export default Footer;
+const accountLinks = [
+	{ href: "/Profile", label: "Profile" },
+	{ href: "/sign-in", label: "Sign In" },
+];
+
+export default function Footer() {
+	const year = new Date().getFullYear();
+
+	return (
+		<footer className={styles.footer}>
+			<div className={styles.inner}>
+				<div className={styles.grid}>
+					<div className={styles.brand}>
+						<Link href="/" className={styles.brandLink}>
+							<Film className={styles.brandIcon} aria-hidden />
+							<span className={styles.brandName}>MovieTracker</span>
+						</Link>
+						<p className={styles.tagline}>
+							Track what you watch, build your watchlist, and discover your
+							next favorite film.
+						</p>
+					</div>
+
+					<nav className={styles.column} aria-label="Browse movies">
+						<h2 className={styles.columnTitle}>Browse</h2>
+						<ul className={styles.linkList}>
+							{browseLinks.map(({ href, label }) => (
+								<li key={href}>
+									<Link href={href} className={styles.link}>
+										{label}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</nav>
+
+					<nav className={styles.column} aria-label="Explore">
+						<h2 className={styles.columnTitle}>Explore</h2>
+						<ul className={styles.linkList}>
+							{exploreLinks.map(({ href, label }) => (
+								<li key={href}>
+									<Link href={href} className={styles.link}>
+										{label}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</nav>
+
+					<nav className={styles.column} aria-label="Account">
+						<h2 className={styles.columnTitle}>Account</h2>
+						<ul className={styles.linkList}>
+							{accountLinks.map(({ href, label }) => (
+								<li key={href}>
+									<Link href={href} className={styles.link}>
+										{label}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</nav>
+				</div>
+
+				<div className={styles.bottom}>
+					<p className={styles.copyright}>
+						&copy; {year} MovieTracker. Built for movie lovers.
+					</p>
+					<p className={styles.credit}>Movie data provided by TMDB.</p>
+				</div>
+			</div>
+		</footer>
+	);
+}
