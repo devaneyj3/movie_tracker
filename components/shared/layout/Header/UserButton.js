@@ -1,26 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import styles from "./UserButton.module.scss";
 import { useAuth } from "@/context/authContext";
-import { useSession } from "next-auth/react";
 
 const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
-	const logout = async () => {
-		setSignedInUser(null);
-		await signOut({ callbackUrl: "/" });
-	};
-
-	const navItems = [
-		{ href: "/Profile", label: "Profile" },
-		{ href: "/TVShows", label: "TV Shows" },
-		{ href: "/People", label: "People" },
-		{ href: "/Awards", label: "Awards" },
-	];
-
 	const [userSettingDropdown, setUserSettingsDropdown] = useState(false);
 	const { data: session } = useSession();
 	const { setSignedInUser } = useAuth();
@@ -29,6 +15,11 @@ const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
 		if (typeof setMenuOpen === "function") {
 			setMenuOpen(false);
 		}
+	};
+
+	const logout = async () => {
+		setSignedInUser(null);
+		await signOut({ callbackUrl: "/" });
 	};
 
 	function userBtnDropdown(e) {
@@ -42,17 +33,15 @@ const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
 
 	if (!session) {
 		return (
-			<Button
-				asChild
-				variant="ghost"
+			<Link
+				href="/sign-in"
 				className={
 					isMobileMenu ? styles.signInButtonMobile : styles.signInButton
 				}
+				onClick={closeMenu}
 			>
-				<Link href="/sign-in" onClick={closeMenu}>
-					Login
-				</Link>
-			</Button>
+				Sign In
+			</Link>
 		);
 	}
 
@@ -60,14 +49,16 @@ const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
 
 	return (
 		<div className={containerClass} onClick={userBtnDropdown}>
-			<Button
-				variant="ghost"
+			<button
+				type="button"
 				className={
 					isMobileMenu ? styles.userAvatarMobile : styles.userAvatar
 				}
+				aria-expanded={userSettingDropdown}
+				aria-label="Account menu"
 			>
 				{firstInitial}
-			</Button>
+			</button>
 			{userSettingDropdown && (
 				<div
 					className={
@@ -75,17 +66,12 @@ const UserButton = ({ isMobileMenu = false, setMenuOpen }) => {
 							? styles.userSettingsDropdownMobile
 							: styles.userSettingsDropdownOptions
 					}
+					role="menu"
 				>
-					{navItems.map((option) => (
-						<Link
-							key={option.label}
-							href={option.href}
-							onClick={closeMenu}
-						>
-							{option.label}
-						</Link>
-					))}
-					<button type="button" onClick={() => logout()}>
+					<Link href="/Profile" onClick={closeMenu} role="menuitem">
+						Profile
+					</Link>
+					<button type="button" onClick={() => logout()} role="menuitem">
 						Logout
 					</button>
 				</div>

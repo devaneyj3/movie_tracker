@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { Film, Menu, Search, X } from "lucide-react";
 import styles from "./Header.module.scss";
 import UserButton from "./UserButton";
-import { Menu, X } from "lucide-react";
 import NavigationLinks from "../NavigationLinks/NavigationLinks";
 
 const Header = () => {
@@ -13,16 +14,35 @@ const Header = () => {
 
 	return (
 		<header className={styles.header}>
-			<div className={styles.headerContainer}>
-				<div className={styles.menu}>
-					<div className={styles.menuContainer}>
-						<NavigationLinks />
-						<div className={styles.signIn}>
-							<UserButton />
-						</div>
-					</div>
+			<div className={styles.inner}>
+				<Link href="/" className={styles.brand}>
+					<Film className={styles.brandIcon} aria-hidden />
+					<span className={styles.brandName}>MovieTracker</span>
+				</Link>
+
+				<div className={styles.desktopNav}>
+					<NavigationLinks />
 				</div>
+
+				<div className={styles.actions}>
+					<Link
+						href="/Search"
+						className={styles.searchLink}
+						aria-label="Search"
+					>
+						<Search className={styles.searchIcon} aria-hidden />
+					</Link>
+					<UserButton />
+				</div>
+
 				<nav className={styles.mobileNav} aria-label="Mobile menu">
+					<Link
+						href="/Search"
+						className={styles.mobileSearchLink}
+						aria-label="Search"
+					>
+						<Search className={styles.searchIcon} aria-hidden />
+					</Link>
 					<button
 						type="button"
 						className={styles.menuToggle}

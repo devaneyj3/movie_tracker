@@ -1,56 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { Film } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
 import styles from "./NavigationLinks.module.scss";
 import NavDropdown from "./NavDropdown/NavDropdown";
-import Image from "next/image";
-import camera from "../../../../public/images/camera.png"
-
-const navItems = [
-	{
-		href: "/Movies",
-		label: "Movies",
-		dropdownItems: [
-			{ href: "/Movies/popular", label: "Popular" },
-			{ href: "/Movies/now-playing", label: "Now Playing" },
-			{ href: "/Movies/upcoming", label: "Upcoming" },
-			{ href: "/Movies/top-rated", label: "Top Rated" },
-		],
-	},
-	{
-		href: "/TVShows",
-		label: "TV Shows",
-		dropdownItems: [
-			{ href: "/Movies/popular", label: "Popular" },
-			{ href: "/Movies/airing-today", label: "Airing Today" },
-			{ href: "/Movies/on-the-air", label: "On TV" },
-			{ href: "/Movies/top-rated", label: "Top Rated" },
-		],
-	},
-	{
-		href: "/People",
-		label: "People",
-		dropdownItems: [{ href: "/Movies/popular", label: "Popular" }],
-	},
-	{
-		href: "/Awards",
-		label: "Awards",
-		dropdownItems: [
-			{ href: "/Movies/popular", label: "Popular" },
-			{ href: "/Movies/upcoming", label: "Upcoming" },
-		],
-	},
-	{
-		href: "/More",
-		label: "More",
-		dropdownItems: [
-			{ href: "/Movies/discussions", label: "Discussions" },
-			{ href: "/Movies/leaderbord", label: "Leaderboard" },
-		],
-	},
-];
+import {
+	navSections,
+} from "../navLinks";
 
 const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
 	const [desktopOpenLabel, setDesktopOpenLabel] = useState(null);
@@ -69,68 +25,52 @@ const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
 	if (isMobileMenu) {
 		return (
 			<nav className={styles.mobileMenuRoot} aria-label="Mobile navigation">
-				<Link
-					href="/"
-					className={styles.mobileLogoLink}
-					onClick={closeMenu}
-				>
-					<Image src={camera} alt="camera" className={styles.mobileLogoIcon} width={300} height={300} aria-hidden />
-					<span>MovieTracker</span>
-				</Link>
+				{navSections.map((section) => {
+					const { label, items } = section;
+					const isOpen = mobileOpenLabel === label;
 
-				<ul className={styles.mobileNavLinks}>
-					{navItems.map((nav) => {
-						const { label, dropdownItems } = nav;
-						const isOpen = mobileOpenLabel === label;
-
-						return (
-							<li key={label} className={styles.mobileNavItem}>
-								<button
-									type="button"
-									className={styles.mobileNavButton}
-									aria-expanded={isOpen}
-									onClick={() => toggleMobileSection(label)}
+					return (
+						<div key={label} className={styles.mobileSection}>
+							<button
+								type="button"
+								className={styles.mobileSectionButton}
+								aria-expanded={isOpen}
+								onClick={() => toggleMobileSection(label)}
+							>
+								<span className={styles.mobileSectionLabel}>{label}</span>
+								<span
+									className={`${styles.mobileChevron} ${isOpen ? styles.mobileChevronOpen : ""}`}
+									aria-hidden
 								>
-									<span>{label}</span>
-									<span
-										className={`${styles.mobileChevron} ${isOpen ? styles.mobileChevronOpen : ""}`}
-										aria-hidden
-									>
-										›
-									</span>
-								</button>
-								{isOpen && (
-									<ul className={styles.mobileDropdown}>
-										{dropdownItems.map((item) => (
-											<li key={item.label}>
-												<NavDropdown
-													label={item.label}
-													href={item.href}
-													isMobileMenu
-													closeMobileMenu={closeMenu}
-												/>
-											</li>
-										))}
-									</ul>
-								)}
-							</li>
-						);
-					})}
-				</ul>
+									›
+								</span>
+							</button>
+							{isOpen && (
+								<ul className={styles.mobileDropdown}>
+									{items.map((item) => (
+										<li key={item.href}>
+											<NavDropdown
+												label={item.label}
+												href={item.href}
+												isMobileMenu
+												closeMobileMenu={closeMenu}
+											/>
+										</li>
+									))}
+								</ul>
+							)}
+						</div>
+					);
+				})}
 			</nav>
 		);
 	}
 
 	return (
-		<>
-			<div className={styles.logoContainer}>
-				<Link href="/">
-					<Image src={camera} alt="camera" className={styles.mobileLogoIcon} width={300} height={300} aria-hidden />
-				</Link>
-			</div>
+		<nav className={styles.navRoot} aria-label="Main navigation">
 			<ul className={styles.navLinks}>
-				{navItems.map((nav) => {
-					const { label, dropdownItems } = nav;
+				{navSections.map((section) => {
+					const { label, items } = section;
 					const isOpen = desktopOpenLabel === label;
 
 					return (
@@ -140,27 +80,35 @@ const NavigationLinks = ({ isMobileMenu = false, setMenuOpen }) => {
 							onMouseEnter={() => setDesktopOpenLabel(label)}
 							onMouseLeave={() => setDesktopOpenLabel(null)}
 						>
-							<p className={styles.navLabel}>{label}</p>
+							<button
+								type="button"
+								className={styles.navTrigger}
+								aria-expanded={isOpen}
+								aria-haspopup="true"
+							>
+								{label}
+							</button>
 							{isOpen && (
-								<div className={styles.movieDropdownOptions}>
-									{dropdownItems.map((item) => (
-										<div
-											className={styles.dropdownList}
-											key={item.label}
-										>
-											<NavDropdown
-												label={item.label}
-												href={item.href}
-											/>
-										</div>
+								<div className={styles.dropdownPanel} role="menu">
+									{items.map((item) => (
+										<NavDropdown
+											key={item.href}
+											label={item.label}
+											href={item.href}
+										/>
 									))}
 								</div>
 							)}
 						</li>
 					);
 				})}
+				<li className={styles.navItem}>
+					<Link href="/Profile" className={styles.navLink}>
+						Profile
+					</Link>
+				</li>
 			</ul>
-		</>
+		</nav>
 	);
 };
 

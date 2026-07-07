@@ -1,24 +1,11 @@
 import Link from "next/link";
 import { Film } from "lucide-react";
 import styles from "./Footer.module.scss";
-
-const browseLinks = [
-	{ href: "/Movies/popular", label: "Popular" },
-	{ href: "/Movies/trending", label: "Trending" },
-	{ href: "/Movies/upcoming", label: "Upcoming" },
-	{ href: "/Movies/top-rated", label: "Top Rated" },
-	{ href: "/Movies/now-playing", label: "Now Playing" },
-];
-
-const exploreLinks = [
-	{ href: "/Search", label: "Search" },
-	{ href: "/TVShows", label: "TV Shows" },
-];
-
-const accountLinks = [
-	{ href: "/Profile", label: "Profile" },
-	{ href: "/sign-in", label: "Sign In" },
-];
+import {
+	accountLinks,
+	browseLinks,
+	exploreLinks,
+} from "../navLinks";
 
 export default function Footer() {
 	const year = new Date().getFullYear();
