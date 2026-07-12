@@ -66,8 +66,7 @@ export default function MovieDetails({ movieDetails }) {
 						<h2>{tagline}</h2>
 						<p >{overview}</p>
 					</div>
-					{movieDetails["watch/providers"] &&
-						Object.keys(movieDetails["watch/providers"].results).length >= 1 && (
+					{movieDetails?.["watch/providers"]?.results?.US && (
 							<WhereToWatch movieDetails={movieDetails} />
 						)}
 				</div>

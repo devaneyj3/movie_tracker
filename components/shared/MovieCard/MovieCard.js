@@ -36,7 +36,14 @@ function MovieCard({ keenClass, movie }) {
 
 
 	return (
-		<div className={cn(keenClass, styles.movieCard)} onClick={(e) => movieDropdown(e)} >
+		<div
+			className={cn(
+				keenClass,
+				styles.movieCard,
+				movieDropdownClicked && styles.menuOpen,
+			)}
+			onClick={(e) => movieDropdown(e)}
+		>
 			{poster_path ? (
 				<div className={styles.imageContainer}>
 					<div className={styles.posterBtn}>...</div>

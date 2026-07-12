@@ -3,7 +3,18 @@ import Provider from "./Provider/Provider";
 import styles from "./WhereToWatch.module.scss";
 
 export default function WhereToWatch({ movieDetails }) {
-	const whereToWatch = movieDetails["watch/providers"].results.US;
+	const whereToWatch = movieDetails?.["watch/providers"]?.results?.US;
+
+	if (!whereToWatch) {
+		return null;
+	}
+
+	const hasProviders =
+		whereToWatch.flatrate || whereToWatch.buy || whereToWatch.rent;
+
+	if (!hasProviders) {
+		return null;
+	}
 
 	return (
 		<div className={styles.providersContainer}>

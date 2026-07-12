@@ -5,11 +5,17 @@
   @include card-surface;
   @include grid-card-fill;
   overflow: visible;
+  position: relative;
+}
+
+.menuOpen {
+  z-index: 30;
 }
 
 .imageContainer {
   position: relative;
   width: 100%;
+  overflow: visible;
 
   img,
   .image {
@@ -31,7 +37,7 @@
     border-radius: 50%;
     width: 18%;
     background-color: $color-surface-raised;
-    z-index: 4;
+    z-index: 5;
     opacity: 0.85;
 
     &:hover {
@@ -42,13 +48,15 @@
 
   .movieDropdownOptions {
     position: absolute;
-    width: 75%;
-    z-index: 3;
+    top: 2.5rem;
+    right: 0.35rem;
+    left: auto;
+    width: min(11rem, calc(100% - 0.7rem));
+    z-index: 6;
     background-color: $color-surface-raised;
     border: 1px solid $color-border;
-    right: -20%;
-    top: 20%;
     border-radius: 0.5rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
     font-size: 0.65rem;
 
     .signedInOptions {
